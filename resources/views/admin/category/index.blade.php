@@ -5,8 +5,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-white">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item"><a href="{{ route('admin#brand') }}">Brand</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Edit</li>
+              <li class="breadcrumb-item active" aria-current="page">Category</li>
             </ol>
           </nav>
     </div>
@@ -15,14 +14,14 @@
         <div class="col-4">
             <div class="card shadow-none">
                 <div class="card-header">
-                    <h4 class="mb-0">Edit Brand</h4>
+                    <h4 class="mb-0">Add Category</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin#updateBrand',$brand->brand_id) }}" method="POST"  enctype="multipart/form-data">
+                    <form action="{{ route('admin#createCategory') }}" method="POST"  enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="">Name</label>
-                            <input name="name" type="text" class="form-control" placeholder="enter brand name" value="{{ old('name',$brand->name) }}">
+                            <input name="name" type="text" class="form-control" placeholder="enter brand name" value="{{ old('name') }}">
                             @error('name')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -30,18 +29,17 @@
                         <div class="form-group">
                             <label for="">Image</label>
                             <input name="image" type="file" class="form-control" value="{{ old('image') }}">
-                            <img src="{{ asset('uploads/brands/'.$brand->image) }}" class="mt-3 rounded" alt="" srcset="" style="width: 100px">
                             @error('image')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <button class="mt-3 btn btn-primary">Update</button>
+                        <button class="mt-3 btn btn-primary">Add Category</button>
                     </form>
                 </div>
             </div>
         </div>
         <div class="col-8">
-            @include('admin.brand.list')
+            @include('admin.category.list')
         </div>
     </div>
 @endsection

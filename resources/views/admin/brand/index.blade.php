@@ -3,7 +3,7 @@
 <div class="row pt-4">
     <div class="col-12">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
+            <ol class="breadcrumb bg-white">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">Brand</li>
             </ol>
@@ -14,7 +14,7 @@
         <div class="col-4">
             <div class="card shadow-none">
                 <div class="card-header">
-                    <h4 class="mb-0">Create Brand</h4>
+                    <h4 class="mb-0">Add Brand</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('admin#createBrand') }}" method="POST"  enctype="multipart/form-data">
@@ -33,7 +33,7 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <button class="mt-3 btn btn-primary">Create</button>
+                        <button class="mt-3 btn btn-primary">Add Brand</button>
                     </form>
                 </div>
             </div>

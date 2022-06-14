@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,10 +30,20 @@ Route::middleware([
 });
 
 Route::group(['namespace' => 'admin','prefix' => 'admin'],function(){
-    Route::get('/brand',[BrandController::class,'index'])->name('admin#brand');
+    // brand
+    Route::get('brand',[BrandController::class,'index'])->name('admin#brand');
     Route::post('brand/create',[BrandController::class,'createBrand'])->name('admin#createBrand');
     Route::get('brand/edit/{id}',[BrandController::class,'editBrand'])->name('admin#editBrand');
     Route::post('brand/edit/{id}',[BrandController::class,'updateBrand'])->name('admin#updateBrand');
     Route::get('brand/delete/{id}',[BrandController::class,'deleteBrand'])->name('admin#deleteBrand');
+
+    //categroy
+    Route::get('category',[CategoryController::class,'index'])->name('admin#category');
+    Route::post('category/create',[CategoryController::class,'createCategory'])->name('admin#createCategory');
+    Route::get('category/edit/{id}',[CategoryController::class,'editCategory'])->name('admin#editCategory');
+    Route::post('category/edit/{id}',[CategoryController::class,'updateCategory'])->name('admin#updateCategory');
+    Route::get('category/delete/{id}',[CategoryController::class,'deleteCategory'])->name('admin#deleteCategory');
+
+
 
 });
