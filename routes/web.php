@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,4 +28,11 @@ Route::middleware([
     })->name('dashboard');
 });
 
-// Route::group(['']);
+Route::group(['namespace' => 'admin','prefix' => 'admin'],function(){
+    Route::get('/brand',[BrandController::class,'index'])->name('admin#brand');
+    Route::post('brand/create',[BrandController::class,'createBrand'])->name('admin#createBrand');
+    Route::get('brand/edit/{id}',[BrandController::class,'editBrand'])->name('admin#editBrand');
+    Route::post('brand/edit/{id}',[BrandController::class,'updateBrand'])->name('admin#updateBrand');
+    Route::get('brand/delete/{id}',[BrandController::class,'deleteBrand'])->name('admin#deleteBrand');
+
+});

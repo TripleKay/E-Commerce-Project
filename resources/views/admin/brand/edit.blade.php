@@ -5,7 +5,8 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Brand</li>
+              <li class="breadcrumb-item"><a href="{{ route('admin#brand') }}">Brand</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Edit</li>
             </ol>
           </nav>
     </div>
@@ -14,14 +15,14 @@
         <div class="col-4">
             <div class="card shadow-none">
                 <div class="card-header">
-                    <h4 class="mb-0">Create Brand</h4>
+                    <h4 class="mb-0">Edit Brand</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin#createBrand') }}" method="POST"  enctype="multipart/form-data">
+                    <form action="{{ route('admin#updateBrand',$brand->brand_id) }}" method="POST"  enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="">Name</label>
-                            <input name="name" type="text" class="form-control" placeholder="enter brand name" value="{{ old('name') }}">
+                            <input name="name" type="text" class="form-control" placeholder="enter brand name" value="{{ old('name',$brand->name) }}">
                             @error('name')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -29,11 +30,12 @@
                         <div class="form-group">
                             <label for="">Image</label>
                             <input name="image" type="file" class="form-control" value="{{ old('image') }}">
+                            <img src="{{ asset('uploads/brands/'.$brand->image) }}" class="mt-3 rounded" alt="" srcset="" style="width: 100px">
                             @error('image')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <button class="mt-3 btn btn-primary">Create</button>
+                        <button class="mt-3 btn btn-primary">Update</button>
                     </form>
                 </div>
             </div>

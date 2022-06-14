@@ -13,6 +13,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('dashboard/plugins/fontawesome-free/css/all.min.css') }}">
+  {{-- toaster  --}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dashboard/dist/css/adminlte.css') }}">
   <style>
@@ -127,6 +129,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
+            <a href="{{ route('admin#brand') }}" class="nav-link">
+                <i class="nav-icon fas fa-cube"></i>
+              <p>
+                Brand
+                {{-- <span class="right badge badge-danger">New</span> --}}
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
@@ -176,7 +187,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('dashboard/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+{{-- toaster  --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dashboard/dist/js/adminlte.min.js') }}"></script>
+
+<script>
+    @if (Session::has('success'))
+        toastr.options = {
+            "positionClass": "toast-top-full-width",
+            "showMethod": "slideDown",
+            "hideMethod": "slideUp"
+        };
+        toastr.success("{{ Session::get('success') }}");
+    @endif
+</script>
+
 </body>
 </html>
