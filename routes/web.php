@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SubCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +45,11 @@ Route::group(['namespace' => 'admin','prefix' => 'admin'],function(){
     Route::post('category/edit/{id}',[CategoryController::class,'updateCategory'])->name('admin#updateCategory');
     Route::get('category/delete/{id}',[CategoryController::class,'deleteCategory'])->name('admin#deleteCategory');
 
-
+    //subCategory
+    Route::get('subcategory',[SubCategoryController::class,'index'])->name('admin#subCategory');
+    Route::post('subcategory/create',[SubCategoryController::class,'createSubCategory'])->name('admin#createSubCategory');
+    Route::get('subcategory/edit/{id}',[SubCategoryController::class,'editSubCategory'])->name('admin#editSubCategory');
+    Route::post('subcategory/edit/{id}',[SubCategoryController::class,'updateSubCategory'])->name('admin#updateSubCategory');
+    Route::get('subcategory/delete/{id}',[SubCategoryController::class,'deleteCategory'])->name('admin#deleteSubCategory');
 
 });
