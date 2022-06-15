@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\SubSubCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,7 +39,7 @@ Route::group(['namespace' => 'admin','prefix' => 'admin'],function(){
     Route::post('brand/edit/{id}',[BrandController::class,'updateBrand'])->name('admin#updateBrand');
     Route::get('brand/delete/{id}',[BrandController::class,'deleteBrand'])->name('admin#deleteBrand');
 
-    //categroy
+    //category
     Route::get('category',[CategoryController::class,'index'])->name('admin#category');
     Route::post('category/create',[CategoryController::class,'createCategory'])->name('admin#createCategory');
     Route::get('category/edit/{id}',[CategoryController::class,'editCategory'])->name('admin#editCategory');
@@ -51,5 +52,13 @@ Route::group(['namespace' => 'admin','prefix' => 'admin'],function(){
     Route::get('subcategory/edit/{id}',[SubCategoryController::class,'editSubCategory'])->name('admin#editSubCategory');
     Route::post('subcategory/edit/{id}',[SubCategoryController::class,'updateSubCategory'])->name('admin#updateSubCategory');
     Route::get('subcategory/delete/{id}',[SubCategoryController::class,'deleteCategory'])->name('admin#deleteSubCategory');
+
+    //subsubCategory
+    Route::get('subsubCategory',[SubSubCategoryController::class,'index'])->name('admin#subSubCat');
+    Route::post('subsubCategory/subCategory',[SubSubCategoryController::class,'getSubCategory'])->name('admin#getSubCategory');
+    Route::post('subsubCategory/create',[SubSubCategoryController::class,'createSubSubCat'])->name('admin#createSubSubCat');
+    Route::get('subsubCategory/edit/{id}',[SubSubCategoryController::class,'editSubSubCat'])->name('admin#editSubSubCat');
+    Route::post('subsubCategory/edit/{id}',[SubSubCategoryController::class,'updateSubSubCat'])->name('admin#updateSubSubCat');
+    Route::get('subsubCategory/delete/{id}',[SubSubCategoryController::class,'deleteSubSubCat'])->name('admin#deleteSubSubCat');
 
 });

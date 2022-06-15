@@ -150,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin#category') }}" class="nav-link">
+            <a href="{{ route('admin#subSubCat') }}" class="nav-link {{ Request::url() == route('admin#subSubCat') ? 'active' : '' }}">
                 <i class="fas fa-layer-group nav-icon"></i>
               <p>
                 SubSubCategory
@@ -224,7 +224,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('dashboard/plugins/data_table/dataTables.bootstrap4.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dashboard/dist/js/adminlte.min.js') }}"></script>
-
+@yield('script')
 <script>
     $(document).ready(function () {
          $('#dataTable').DataTable();
