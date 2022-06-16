@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Starter</title>
+  <title>E-Commerce</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -132,6 +132,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('admin#color') }}" class="nav-link {{ Request::url() == route('admin#color') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-cube"></i>
+              <p>
+                Color
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin#size') }}" class="nav-link {{ Request::url() == route('admin#size') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-cube"></i>
+              <p>
+                Size
+              </p>
+            </a>
+          </li>
           <li class="nav-header text-white text-uppercase">Manage Category</li>
           <li class="nav-item">
             <a href="{{ route('admin#category') }}" class="nav-link {{ Request::url() == route('admin#category') ? 'active' : '' }}">
@@ -159,13 +175,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-header text-white text-uppercase">Manage Products</li>
           <li class="nav-item">
-            <a href="{{ route('admin#category') }}" class="nav-link">
+            <a href="{{ route('admin#createProduct') }}" class="nav-link {{ Request::url() == route('admin#createProduct') ? 'active' : '' }}">
                 <i class="fas fa-shapes nav-icon"></i>
               <p>
                 Products
               </p>
             </a>
           </li>
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
