@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductVariantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,4 +88,10 @@ Route::group(['namespace' => 'admin','prefix' => 'admin'],function(){
     Route::get('product/edit/{id}',[ProductController::class,'editProduct'])->name('admin#editProduct');
     Route::post('product/update/{id}',[ProductController::class,'updateProduct'])->name('admin#updateProduct');
     Route::get('product/delete/{id}',[ProductController::class,'deleteProduct'])->name('admin#deleteProduct');
+
+    //products variant
+    Route::get('product/variant/create/{id}',[ProductVariantController::class,'createVariant'])->name('admin#createVariant');
+    Route::post('product/variant/store/{id}',[ProductVariantController::class,'storeVariant'])->name('admin#storeVariant');
+    Route::get('product/variant',[ProductVariantController::class,'index'])->name('admin#productVariant');
+
 });

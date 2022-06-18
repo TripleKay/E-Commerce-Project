@@ -5,7 +5,8 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-white">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Products</li>
+              <li class="breadcrumb-item"><a href="{{route('admin#product')}}">Products</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Create</li>
             </ol>
           </nav>
     </div>
@@ -173,68 +174,6 @@
                     </div>
                     <hr>
                     <button class="btn btn-primary btn-lg">Add Product</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    {{-- variant page  --}}
-    <div class="col-12 ">
-        <div class="card shadow-none rouned">
-            <div class="card-header">
-                <div class="d-flex justify-content-between">
-                    <h4 class="mb-0">Product Variant Details</h4>
-                    <button class="btn btn-dark">New</button>
-                </div>
-            </div>
-            <div class="card-body">
-                <form action="">
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="">Product Name</label>
-                                <select name="" id="" class="form-control">
-                                    <option value="">-----select product-----</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="">Color</label>
-                                <select name="" id="" class="form-control">
-                                    <option value="">-----select color-----</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="">Size</label>
-                                <select name="" id="" class="form-control">
-                                    <option value="">-----select color-----</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="">Total Stock</label>
-                                <input type="number" class="form-control" placeholder="total stock">
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="">Availiable Stock</label>
-                                <input type="number" class="form-control" placeholder="total avi stock">
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for=""></label>
-                                <input type="button" class="btn btn-danger form-control" value="Delete">
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <button class="btn btn-primary">Add items</button>
                 </form>
             </div>
         </div>

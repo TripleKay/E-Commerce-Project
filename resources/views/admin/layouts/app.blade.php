@@ -182,14 +182,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="{{ route('admin#createProduct') }}" class="nav-link ">
+          {{-- <li class="nav-item">
+            <a href="{{ route('admin#createVariant') }}" class="nav-link {{ Request::url() == route('admin#createVariant') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-th"></i>
               <p>
                 Product Variants
               </p>
             </a>
-          </li>
+          </li> --}}
 
           <li class="nav-item">
             <a href="#" class="nav-link">
