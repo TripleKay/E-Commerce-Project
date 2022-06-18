@@ -2,13 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\SubCategoryController;
-use App\Http\Controllers\Admin\ProductColorController;
-use App\Http\Controllers\Admin\ProductVariantController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
+use App\Http\Controllers\Admin\ProductColorController;
+use App\Http\Controllers\Admin\ProductSizeController;
+use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,9 +64,6 @@ Route::group(['namespace' => 'admin','prefix' => 'admin'],function(){
     Route::post('subsubCategory/edit/{id}',[SubSubCategoryController::class,'updateSubSubCat'])->name('admin#updateSubSubCat');
     Route::get('subsubCategory/delete/{id}',[SubSubCategoryController::class,'deleteSubSubCat'])->name('admin#deleteSubSubCat');
 
-    //products
-    Route::get('product',[ProductController::class,'createProduct'])->name('admin#createProduct');
-
     //color
     Route::get('product/color',[ProductColorController::class,'index'])->name('admin#color');
     Route::post('product/color/create',[ProductColorController::class,'createColor'])->name('admin#createColor');
@@ -75,11 +71,20 @@ Route::group(['namespace' => 'admin','prefix' => 'admin'],function(){
     Route::post('product/color/update/{id}',[ProductColorController::class,'updateColor'])->name('admin#updateColor');
     Route::get('product/color/delete/{id}',[ProductColorController::class,'deleteColor'])->name('admin#deleteColor');
 
-    //color
+    //size
     Route::get('product/size',[ProductSizeController::class,'index'])->name('admin#size');
     Route::post('product/size/create',[ProductSizeController::class,'createSize'])->name('admin#createSize');
     Route::get('product/size/edit/{id}',[ProductSizeController::class,'editSize'])->name('admin#editSize');
     Route::post('product/size/update/{id}',[ProductSizeController::class,'updateSize'])->name('admin#updateSize');
     Route::get('product/size/delete/{id}',[ProductSizeController::class,'deleteSize'])->name('admin#deleteSize');
 
+    //products
+    Route::get('product',[ProductController::class,'index'])->name('admin#product');
+    Route::post('product/subCategory',[ProductController::class,'getSubCategory'])->name('admin#productSubCategory');
+    Route::post('product/subsubCategory',[ProductController::class,'getSubSubCategory'])->name('admin#productSubSubCategory');
+    Route::get('product/create',[ProductController::class,'createProduct'])->name('admin#createProduct');
+    Route::post('product/store',[ProductController::class,'storeProduct'])->name('admin#storeProduct');
+    Route::get('product/edit/{id}',[ProductController::class,'editProduct'])->name('admin#editProduct');
+    Route::post('product/update/{id}',[ProductController::class,'updateProduct'])->name('admin#updateProduct');
+    Route::get('product/delete/{id}',[ProductController::class,'deleteProduct'])->name('admin#deleteProduct');
 });

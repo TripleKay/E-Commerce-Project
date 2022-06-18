@@ -134,7 +134,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item">
             <a href="{{ route('admin#color') }}" class="nav-link {{ Request::url() == route('admin#color') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-cube"></i>
+                <i class="nav-icon fas fa-palette"></i>
               <p>
                 Color
               </p>
@@ -142,7 +142,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item">
             <a href="{{ route('admin#size') }}" class="nav-link {{ Request::url() == route('admin#size') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-cube"></i>
+                <i class="fas fa-shapes nav-icon"></i>
               <p>
                 Size
               </p>
@@ -175,10 +175,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-header text-white text-uppercase">Manage Products</li>
           <li class="nav-item">
-            <a href="{{ route('admin#createProduct') }}" class="nav-link {{ Request::url() == route('admin#createProduct') ? 'active' : '' }}">
-                <i class="fas fa-shapes nav-icon"></i>
+            <a href="{{ route('admin#product') }}" class="nav-link {{ Request::url() == route('admin#product') ? 'active' : '' }}">
+                <i class="nav-icon fab fa-product-hunt"></i>
               <p>
                 Products
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin#createProduct') }}" class="nav-link ">
+                <i class="nav-icon fas fa-th"></i>
+              <p>
+                Product Variants
               </p>
             </a>
           </li>

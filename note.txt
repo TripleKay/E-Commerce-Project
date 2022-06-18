@@ -1,0 +1,35 @@
+---------------------------------------------------------------------------------------
+$multiTesting = [];
+foreach($multiImageFiles as $img){
+    $multiImageName = uniqid().'_'.$img->getClientOriginalName();
+    $multiTesting[] = $multiImageName;
+}
+dd($multiTesting);
+
+result = [
+  0 => "62adaaf6bfced_banner1.png"
+  1 => "62adaaf6bfcee_sample-1.jpeg"
+  2 => "62adaaf6bfcef_sample-2.jpeg"
+  3 => "62adaaf6bfcf0_sample-3.jpeg"
+]
+---------------------------------------------------------------------------------------
+$multiTesting = [];
+foreach($multiImageFiles as $img){
+    $multiImageName = uniqid().'_'.$img->getClientOriginalName();
+    $multiTesting = $multiImageName;
+}
+dd($multiTesting);
+
+result = "62adab2108d62_sample-3.jpeg"
+---------------------------------------------------------------------------------------
+$multiTesting = [];
+foreach($multiImageFiles as $img){
+    $multiImageName = uniqid().'_'.$img->getClientOriginalName();
+    $multiTesting = [$multiImageName];
+}
+dd($multiTesting);
+
+result = [
+    0 => "62adab5930842_sample-3.jpeg"
+]
+---------------------------------------------------------------------------------------
