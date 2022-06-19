@@ -10,16 +10,20 @@ use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
 use App\Models\SubSubCategory;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\Unique;
 
 class ProductController extends Controller
 {
     //redirect to index page
     public function index(){
-        $data = Product::get();
+        $data = Product::select('products.*',DB::raw('count(product_variants.product_id) as totalVariants'))
+                        ->leftJoin('product_variants','product_variants.product_id','products.product_id')
+                        ->groupBy('product_variants.product_id')
+                        ->get();
+                        // dd($data->toArray());
         return view('admin.product.index')->with(['data'=> $data]);
     }
     //redirect create page
@@ -101,7 +105,7 @@ class ProductController extends Controller
         ]);
     }
 
-    //delete multiImage
+    //delete multiImage ajax
     public function deleteImg(Request $request){
         $multiImage = MultiImage::where('multi_image_id',$request->id)->first();
         $fileName = $multiImage->image;
@@ -177,6 +181,35 @@ class ProductController extends Controller
         return redirect()->route('admin#product')->with(['success'=>'Product updated successfully']);
     }
 
+    //show product detail page
+    public function showProduct($id){
+        $product = Product::where('product_id',$id)->first();
+        $variants = ProductVariant::select('product_variants.*','product_colors.name as colorName','product_sizes.name as sizeName')
+                        ->join('product_colors','product_colors.color_id','product_variants.color_id')
+                        ->join('product_sizes','product_sizes.size_id','product_variants.size_id')
+                        ->where('product_id',$id)
+                        ->get();
+        $multiImages = MultiImage::where('productid_',$id)->get();
+        return view('admin.product.detail')->with([
+            'product'=>$product,
+            'variants' => $variants,
+            'multiImages' => $multiImages,
+            //for eager loading
+            'brand',
+            'category',
+            'subcategory',
+            'subsubcategory',
+            ]);
+    }
+
+    //delete product
+    public function deleteProduct($id){
+        //delete product
+        //delete variants
+        //delete preview img db & folder
+        //delete multi img db & folder
+    }
+
     //get request data
     private function requestProductData($request){
         $data = [
@@ -219,6 +252,8 @@ class ProductController extends Controller
             'featured' => 'required',
         ]);
     }
+
+
 
 
 

@@ -88,6 +88,7 @@ Route::group(['namespace' => 'admin','prefix' => 'admin'],function(){
     Route::get('product/edit/{id}',[ProductController::class,'editProduct'])->name('admin#editProduct');
     Route::post('product/multiImg/delete',[ProductController::class,'deleteImg'])->name('admin#deleteMultiImg');
     Route::post('product/update/{id}',[ProductController::class,'updateProduct'])->name('admin#updateProduct');
+    Route::get('product/detail/{id}',[ProductController::class,'showProduct'])->name('admin#showProduct');
     Route::get('product/delete/{id}',[ProductController::class,'deleteProduct'])->name('admin#deleteProduct');
 
     //products variant

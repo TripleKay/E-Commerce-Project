@@ -211,7 +211,7 @@
                     },
                     success:function(response){
                         $('.multiImgBox'+id).remove();
-                        console.log(response.success);
+                        toastr.success(response.success);
                     }
                 })
             }

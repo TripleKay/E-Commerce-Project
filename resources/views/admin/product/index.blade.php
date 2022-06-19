@@ -31,6 +31,7 @@
                             <th>Category</th>
                             <th>SubCategory</th>
                             <th>Sub-SubCategory</th>
+                            <th>Variants</th>
                             <th>Selling Price</th>
                             <th>Discount Price</th>
                             <th>Publish Status</th>
@@ -49,11 +50,18 @@
                                     <td>{{ $item->category->name}}</td>
                                     <td>{{ $item->subcategory->name }}</td>
                                     <td>{{ $item->subsubcategory->name }}</td>
+                                    <td>
+                                        @if (!$item->totalVariants == 0)
+                                            <a href="{{ route('admin#createVariant',$item->product_id) }}" class="text-danger " style="text-decoration: underline">{{ $item->totalVariants }}</a>
+                                        @else
+                                            {{ $item->totalVariants }}
+                                        @endif
+                                    </td>
                                     <td>{{ $item->selling_price }}</td>
                                     <td>{{ $item->discount_price }}</td>
                                     <td>{{ $item->publish_status }}</td>
                                     <td class="text-wrap">
-                                        <a href="" class="btn btn-info btn-sm mb-2"><i class="fas fa-eye "></i></a>
+                                        <a href="{{ route('admin#showProduct',$item->product_id) }}" class="btn btn-info btn-sm mb-2"><i class="fas fa-eye "></i></a>
                                         <a href="{{ route('admin#editProduct',$item->product_id) }}" class="btn btn-success btn-sm mb-2"><i class="fas fa-edit "></i></a>
                                         <a href="" class="btn btn-danger btn-sm mb-2" onclick="return confirm('Are you sure to delete?')"><i class="fas fa-trash "></i></a>
                                         <a href="{{ route('admin#createVariant',$item->product_id) }}" class="btn btn-dark btn-sm mb-2"><i class="fas fa-plus-circle mr-2"></i>Add Variants</a>
