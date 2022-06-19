@@ -137,8 +137,8 @@
                                     <div class="form-group">
                                         <label class=" mb-0">Publish Status</label>
                                         <select name="publishStatus" id="" class="form-control">
-                                            <option value="0" {{ old('publishStatus') == 0 ? 'selected' : '' }}>Publish</option>
-                                            <option value="1" {{ old('publishStatus') == 1 ? 'selected' : '' }}>Unpublish</option>
+                                            <option value="1" {{ old('publishStatus') == 1 ? 'selected' : '' }}>Publish</option>
+                                            <option value="0" {{ old('publishStatus') == 0 ? 'selected' : '' }}>Unpublish</option>
                                         </select>
                                         @error('publishStatus')
                                             <small class="text-danger">{{ $message }}</small>
@@ -148,8 +148,8 @@
                                         <label class=" mb-0">Special Offer</label>
                                         <select name="specialOffer" id="" class="form-control">
                                             <option value="">-----select-----</option>
-                                            <option value="0" {{ old('specialOffer') == 0 ? 'selected' : '' }}>Active</option>
-                                            <option value="1" {{ old('specialOffer') == 1 ? 'selected' : '' }}>Inactive</option>
+                                            <option value="1" {{ old('specialOffer') == 1 ? 'selected' : '' }}>Active</option>
+                                            <option value="0" {{ old('specialOffer') == 0 ? 'selected' : '' }}>Inactive</option>
                                         </select>
                                         @error('specialOffer')
                                             <small class="text-danger">{{ $message }}</small>
@@ -159,8 +159,8 @@
                                         <label class=" mb-0">Featured</label>
                                         <select name="featured" id="" class="form-control">
                                             <option value="">-----select-----</option>
-                                            <option value="0" {{ old('featured') == 0 ? 'selected' : '' }}>Active</option>
-                                            <option value="1" {{ old('featured') == 1 ? 'selected' : '' }}>Inactive</option>
+                                            <option value="1" {{ old('featured') == 1 ? 'selected' : '' }}>Active</option>
+                                            <option value="0" {{ old('featured') == 0 ? 'selected' : '' }}>Inactive</option>
                                         </select>
                                         @error('featured')
                                             <small class="text-danger">{{ $message }}</small>
