@@ -24,8 +24,8 @@
                             <td>{{ $sizes->where('size_id',$item->size_id)->value('name') }}</td>
                             <td>{{ $item->available_stock }}</td>
                             <td>
-                                <a href="" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
-                                <a href="" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete?')"><i class="fas fa-trash"></i></a>
+                                <a href="{{ route('admin#editVariant',$item->product_variants) }}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                <a href="{{ route('admin#deleteVariant',$item->product_variants) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete?')"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                     @endforeach

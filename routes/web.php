@@ -92,8 +92,11 @@ Route::group(['namespace' => 'admin','prefix' => 'admin'],function(){
     Route::get('product/delete/{id}',[ProductController::class,'deleteProduct'])->name('admin#deleteProduct');
 
     //products variant
-    Route::get('product/variant/create/{id}',[ProductVariantController::class,'createVariant'])->name('admin#createVariant');
-    Route::post('product/variant/store/{id}',[ProductVariantController::class,'storeVariant'])->name('admin#storeVariant');
     Route::get('product/variant',[ProductVariantController::class,'index'])->name('admin#productVariant');
+    Route::get('product/variant/create/{id}',[ProductVariantController::class,'createVariant'])->name('admin#createVariant');
+    Route::post('product/variant/store/',[ProductVariantController::class,'storeVariant'])->name('admin#storeVariant');
+    Route::get('product/variant/delete/{id}',[ProductVariantController::class,'deleteVariant'])->name('admin#deleteVariant');
+    Route::get('product/variant/edit/{id}',[ProductVariantController::class,'editVariant'])->name('admin#editVariant');
+    Route::post('product/variant/update/{id}',[ProductVariantController::class,'updateVariant'])->name('admin#updateVariant');
 
 });
