@@ -12,6 +12,7 @@ use App\Models\ProductVariant;
 use App\Models\SubSubCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,7 +24,6 @@ class ProductController extends Controller
                         ->leftJoin('product_variants','product_variants.product_id','products.product_id')
                         ->groupBy('product_variants.product_id')
                         ->get();
-                        // dd($data->toArray());
         return view('admin.product.index')->with(['data'=> $data]);
     }
     //redirect create page
@@ -204,10 +204,30 @@ class ProductController extends Controller
 
     //delete product
     public function deleteProduct($id){
-        //delete product
-        //delete variants
-        //delete preview img db & folder
-        //delete multi img db & folder
+        // delete preview img folder
+        $product = Product::where('product_id',$id)->first();
+        $previewImgName = $product->preview_image;
+        if(File::exists(public_path().'/uploads/products/'.$previewImgName)){
+            File::delete(public_path().'/uploads/products/'.$previewImgName);
+        }
+        // delete multi img
+        $multiImage = MultiImage::where('productid_',$id)->get();
+        if(!$multiImage->count() == 0){
+            //delete multi img folder
+            foreach($multiImage as $img){
+                $multiImageName = $img->image;
+                if(File::exists(public_path().'/uploads/products/'.$multiImageName)){
+                    File::delete(public_path().'/uploads/products/'.$multiImageName);
+                }
+            }
+            //delete multi img db
+            MultiImage::where('productid_',$id)->delete();
+        }
+        // delete product
+        Product::where('product_id',$id)->delete();
+        // delete variants
+        ProductVariant::where('product_id',$id)->delete();
+        return back()->with(['success'=>'Products deleted successfully']);
     }
 
     //get request data
@@ -252,6 +272,7 @@ class ProductController extends Controller
             'featured' => 'required',
         ]);
     }
+
 
 
 

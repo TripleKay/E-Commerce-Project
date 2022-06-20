@@ -63,7 +63,7 @@
                                     <td class="text-wrap">
                                         <a href="{{ route('admin#showProduct',$item->product_id) }}" class="btn btn-info btn-sm mb-2"><i class="fas fa-eye "></i></a>
                                         <a href="{{ route('admin#editProduct',$item->product_id) }}" class="btn btn-success btn-sm mb-2"><i class="fas fa-edit "></i></a>
-                                        <a href="" class="btn btn-danger btn-sm mb-2" onclick="return confirm('Are you sure to delete?')"><i class="fas fa-trash "></i></a>
+                                        <a href="{{ route('admin#deleteProduct',$item->product_id) }}" class="btn btn-danger btn-sm mb-2" onclick="return confirm('Are you sure to delete?')"><i class="fas fa-trash "></i></a>
                                         <a href="{{ route('admin#createVariant',$item->product_id) }}" class="btn btn-dark btn-sm mb-2"><i class="fas fa-plus-circle mr-2"></i>Add Variants</a>
                                     </td>
                                 </tr>
