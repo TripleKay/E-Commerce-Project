@@ -21,7 +21,7 @@ class ProductController extends Controller
     public function index(){
         $data = Product::select('products.*',DB::raw('count(product_variants.product_id) as totalVariants'))
                         ->leftJoin('product_variants','product_variants.product_id','products.product_id')
-                        ->groupBy('product_variants.product_id')
+                        ->groupBy('products.product_id')
                         ->get();
         return view('admin.product.index')->with(['data'=> $data]);
     }
