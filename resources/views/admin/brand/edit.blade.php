@@ -30,7 +30,7 @@
                         <div class="form-group">
                             <label for="">Image</label>
                             <input name="image" type="file" class="form-control" value="{{ old('image') }}">
-                            <img src="{{ asset('uploads/brands/'.$brand->image) }}" class="mt-3 rounded" alt="" srcset="" style="width: 100px">
+                            <img src="{{ asset('uploads/brands/'.$brand->image) }}" class="mt-3 rounded" alt="" srcset="" style="width: 60px; height: 60px">
                             @error('image')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

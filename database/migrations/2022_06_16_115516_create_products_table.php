@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('discount_price')->nullable();
             $table->integer('special_offer')->nullable();
             $table->integer('featured')->nullable();
-            $table->integer('publish_status')->default(0);
+            $table->integer('publish_status')->default(1);
             $table->timestamps();
         });
     }

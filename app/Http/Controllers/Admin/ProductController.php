@@ -12,7 +12,6 @@ use App\Models\ProductVariant;
 use App\Models\SubSubCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
@@ -77,7 +76,7 @@ class ProductController extends Controller
                 //store image
                 $img->move(public_path().'/uploads/products/',$multiImageName);
                 MultiImage::create([
-                    'productid_' => $productId,
+                    'product_id' => $productId,
                     'image' => $multiImageName,
                 ]);
             }
@@ -94,7 +93,7 @@ class ProductController extends Controller
         $categories = Category::get();
         $subCategories = SubCategory::where('category_id',$product->category_id)->get();
         $subsubCategories = SubSubCategory::where('subcategory_id',$product->subcategory_id)->get();
-        $multiImages = MultiImage::where('productid_',$id)->get();
+        $multiImages = MultiImage::where('product_id',$id)->get();
         return view('admin.product.edit')->with([
             'product'=>$product,
             'brands'=>$brands,
@@ -132,10 +131,7 @@ class ProductController extends Controller
             'longDescription' => 'required',
             'originalPrice' => 'required',
             'sellingPrice' => 'required',
-            'discountPrice' => 'required',
             'publishStatus' => 'required',
-            'specialOffer' => 'required',
-            'featured' => 'required',
         ]);
         if($validation->fails()){
             return back()->withErrors($validation)->withInput();
@@ -171,7 +167,7 @@ class ProductController extends Controller
                 $img->move(public_path().'/uploads/products/',$multiImageName);
 
                 MultiImage::create([
-                    'productid_' => $id,
+                    'product_id' => $id,
                     'image' => $multiImageName
                 ]);
             }
@@ -189,7 +185,7 @@ class ProductController extends Controller
                         ->join('product_sizes','product_sizes.size_id','product_variants.size_id')
                         ->where('product_id',$id)
                         ->get();
-        $multiImages = MultiImage::where('productid_',$id)->get();
+        $multiImages = MultiImage::where('product_id',$id)->get();
         return view('admin.product.detail')->with([
             'product'=>$product,
             'variants' => $variants,
@@ -211,7 +207,7 @@ class ProductController extends Controller
             File::delete(public_path().'/uploads/products/'.$previewImgName);
         }
         // delete multi img
-        $multiImage = MultiImage::where('productid_',$id)->get();
+        $multiImage = MultiImage::where('product_id',$id)->get();
         if(!$multiImage->count() == 0){
             //delete multi img folder
             foreach($multiImage as $img){
@@ -221,7 +217,7 @@ class ProductController extends Controller
                 }
             }
             //delete multi img db
-            MultiImage::where('productid_',$id)->delete();
+            MultiImage::where('product_id',$id)->delete();
         }
         // delete product
         Product::where('product_id',$id)->delete();
@@ -266,17 +262,8 @@ class ProductController extends Controller
             'previewImage' => 'required',
             'originalPrice' => 'required',
             'sellingPrice' => 'required',
-            'discountPrice' => 'required',
             'publishStatus' => 'required',
-            'specialOffer' => 'required',
-            'featured' => 'required',
         ]);
     }
-
-
-
-
-
-
 
 }

@@ -20,7 +20,7 @@
                             <th>{{ $item->brand_id }}</th>
                             <td>{{ $item->name }}</td>
                             <td>
-                                <img src="{{ asset('uploads/brands/'.$item->image) }}" class="rounded" alt="" srcset="" style="width: 100px; height: 60px;">
+                                <img src="{{ asset('uploads/brands/'.$item->image) }}" class="rounded" alt="" srcset="" style="width: 60px; height: 60px;">
                             </td>
                             <td>{{ $item->created_at }}</td>
                             <td>

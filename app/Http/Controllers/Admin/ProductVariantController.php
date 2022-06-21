@@ -42,24 +42,9 @@ class ProductVariantController extends Controller
         return back()->with(['success'=>'variant create successfully...']);
     }
 
-    //request variant data
-    private function requestVariantData($request){
-        $data = [
-            'product_id' => $request->productId,
-            'available_stock' => $request->avaiStock,
-        ];
-        if($request->colorId){
-            $data['color_id'] = $request->colorId;
-        }
-        if($request->sizeId){
-            $data['size_id'] = $request->sizeId;
-        }
-        return $data;
-    }
-
     //redirect edit page
     public function editVariant($id){
-        $variant = ProductVariant::where('product_variants',$id)->first();
+        $variant = ProductVariant::where('product_variant_id',$id)->first();
 
         $product = Product::select('product_id','name')->where('product_id',$variant->product_id)->first();
         $colors = ProductColor::get();
@@ -86,14 +71,29 @@ class ProductVariantController extends Controller
 
         $data = $this->requestVariantData($request);
 
-        ProductVariant::where('product_variants',$id)->update($data);
+        ProductVariant::where('product_variant_id',$id)->update($data);
 
         return back()->with(['success'=>'variant create successfully...']);
     }
 
     //delete variant
     public function deleteVariant($id){
-        ProductVariant::where('product_variants',$id)->delete();
+        ProductVariant::where('product_variant_id',$id)->delete();
         return back()->with(['success'=>'product variant deleted successfully']);
+    }
+
+    //request variant data
+    private function requestVariantData($request){
+        $data = [
+            'product_id' => $request->productId,
+            'available_stock' => $request->avaiStock,
+        ];
+        if($request->colorId){
+            $data['color_id'] = $request->colorId;
+        }
+        if($request->sizeId){
+            $data['size_id'] = $request->sizeId;
+        }
+        return $data;
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductVariantController;
+use App\Http\Controllers\FrontEnd\FrontEndController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,21 +22,23 @@ use App\Http\Controllers\Admin\ProductVariantController;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.dashboard');
-});
+// Route::get('/', function () {
+//     return view('admin.dashboard');
+// });
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
+    Route::get('/', function () {
+        if(auth()->check()){
+            return view('admin.dashboard');
+        }
     })->name('dashboard');
 });
 
-Route::group(['namespace' => 'admin','prefix' => 'admin'],function(){
+Route::group(['namespace' => 'Admin','prefix' => 'admin'],function(){
     // brand
     Route::get('brand',[BrandController::class,'index'])->name('admin#brand');
     Route::post('brand/create',[BrandController::class,'createBrand'])->name('admin#createBrand');
@@ -99,4 +102,8 @@ Route::group(['namespace' => 'admin','prefix' => 'admin'],function(){
     Route::get('product/variant/edit/{id}',[ProductVariantController::class,'editVariant'])->name('admin#editVariant');
     Route::post('product/variant/update/{id}',[ProductVariantController::class,'updateVariant'])->name('admin#updateVariant');
 
+});
+
+Route::group(['namespace' => 'FrontEnd','prefix' => 'user'],function(){
+    Route::get('/',[FrontEndController::class,'index'])->name('frontend#index');
 });

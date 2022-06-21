@@ -125,6 +125,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-home"></i>
+                <p>
+                    Dashboard
+                </p>
+            </a>
+          </li>
+          <li class="nav-header text-white text-uppercase">Tools</li>
+          <li class="nav-item">
             <a href="{{ route('admin#brand') }}" class="nav-link {{ Request::url() == route('admin#brand') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-cube"></i>
               <p>
@@ -199,6 +208,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
+          </li>
+
+          <li class="nav-header text-white text-uppercase">Manage Profile</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-circle"></i>
+              <p>
+                Edit Profile
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-lock"></i>
+              <p>
+                Change Password
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button onclick="return confirm('Are you sure do you want to logout?')" class="btn nav-link d-flex align-items-center justify-content-start">
+                    <i class="fas fa-sign-out-alt nav-icon"></i>
+                    <p class="">Logout</p>
+                </button>
+            </form>
           </li>
         </ul>
       </nav>
