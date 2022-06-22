@@ -18,14 +18,26 @@
                 <tbody>
                     @foreach ($data as $item)
                         <tr>
-                            <th>{{ $item->product_variants }}</th>
+                            <th>{{ $item->product_variant_id }}</th>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $colors->where('color_id',$item->color_id)->value('name') }}</td>
-                            <td>{{ $sizes->where('size_id',$item->size_id)->value('name') }}</td>
+                            <td>
+                                @if (!empty($colors->where('color_id',$item->color_id)->value('name')))
+                                    {{ $colors->where('color_id',$item->color_id)->value('name') }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td>
+                                @if (!empty($sizes->where('size_id',$item->size_id)->value('name')))
+                                    {{ $sizes->where('size_id',$item->size_id)->value('name') }}
+                                @else
+                                    -
+                                @endif
+                            </td>
                             <td>{{ $item->available_stock }}</td>
                             <td>
-                                <a href="{{ route('admin#editVariant',$item->product_variants) }}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
-                                <a href="{{ route('admin#deleteVariant',$item->product_variants) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete?')"><i class="fas fa-trash"></i></a>
+                                <a href="{{ route('admin#editVariant',$item->product_variant_id) }}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                <a href="{{ route('admin#deleteVariant',$item->product_variant_id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete?')"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                     @endforeach

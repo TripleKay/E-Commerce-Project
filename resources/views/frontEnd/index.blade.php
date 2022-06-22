@@ -103,13 +103,21 @@
         </div>
         <div class="row product-container mx-auto owl-carousel owl-theme">
             <!-- -----------------------product item ------------------------------- -->
+            @foreach ($newProduct as $item)
+
             <div class="item me-3 my-5">
                 <div class="card bg-white product-card p-3">
                         <div class="product-img-container">
-                            <img src="resources/image/product4.jpg" alt="" srcset="">
-                            <div class="product-discount bg-danger">
-                                <p class="mb-0 text-white">30%</p>
-                            </div>
+                            <img src="{{ asset('uploads/products/'.$item->preview_image) }}" alt="" srcset="">
+                            @if (!empty($item->discount_price))
+                                <div class="product-discount bg-danger">
+                                    <p class="mb-0 text-white">30%</p>
+                                </div>
+                            @else
+                                <div class="product-discount bg-dark">
+                                    <p class="mb-0 text-white">New</p>
+                                </div>
+                            @endif
                             <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
                                 <a href="detail.html" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
                                 <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></a>
@@ -117,112 +125,28 @@
                             </div>
                         </div>
                     <div class="card-body px-0 pb-0">
-                        <h5>Apple Iphone 11 Pro</h5>
+                        <h5>{{ $item->name }}</h5>
                         <div class="d-flex align-items-baseline">
-                            <h6 class="mb-0 text-danger">500000 MMK</h6>
-                            <p class="h6 mb-0 ms-2 text-black-50 text-decoration-line-through">550000 MMK</p>
+                            @if (!empty($item->discount_price))
+                                <h6 class="mb-0 text-danger">{{ $item->selling_price - $item->discount_price }} Ks</h6>
+                            @else
+                                <h6 class="mb-0 text-danger">{{ $item->selling_price }} Ks</h6>
+                            @endif
+                            @if (!empty($item->discount_price))
+                                <p class="h6 mb-0 ms-2 text-black-50 text-decoration-line-through">{{ $item->selling_price }} Ks</p>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
             <!-- -----------------------product item ------------------------------- -->
-            <div class="item me-3 my-5">
-            <div class="card bg-white product-card p-3">
-                    <div class="product-img-container">
-                        <img src="resources/image/product3.jpg" alt="" srcset="">
-                        <div class="product-discount bg-danger">
-                            <p class="mb-0 text-white">30%</p>
-                        </div>
-                        <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
-                            <a href="" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
-                            <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></a>
-                            <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to cart" style="width: 40px; height: 40px;"><i class="mx-auto fa fa-shopping-cart text-primary" style="font-size: 25px;"></i></a>
-                        </div>
-                    </div>
-                <div class="card-body px-0 pb-0">
-                    <h5>Apple Iphone 11 Pro</h5>
-                    <div class="d-flex align-items-baseline">
-                        <h6 class="mb-0 text-danger">500000 MMK</h6>
-                        <p class="h6 mb-0 ms-2 text-black-50 text-decoration-line-through">550000 MMK</p>
-                    </div>
-                </div>
-            </div>
-            </div>
-            <!-- -----------------------product item ------------------------------- -->
-            <div class="item me-3 my-5">
-                <div class="card bg-white product-card p-3">
-                        <div class="product-img-container">
-                            <img src="resources/image/product2.jpg" alt="" srcset="">
-                            <div class="product-discount bg-danger">
-                                <p class="mb-0 text-white">30%</p>
-                            </div>
-                            <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
-                                <a href="" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
-                                <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></a>
-                                <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to cart" style="width: 40px; height: 40px;"><i class="mx-auto fa fa-shopping-cart text-primary" style="font-size: 25px;"></i></a>
-                            </div>
-                        </div>
-                    <div class="card-body px-0 pb-0">
-                        <h5>Apple Iphone 11 Pro</h5>
-                        <div class="d-flex align-items-baseline">
-                            <h6 class="mb-0 text-danger">500000 MMK</h6>
-                            <p class="h6 mb-0 ms-2 text-black-50 text-decoration-line-through">550000 MMK</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- -----------------------product item ------------------------------- -->
-            <div class="item me-3 my-5">
-                <div class="card bg-white product-card p-3">
-                        <div class="product-img-container">
-                            <img src="resources/image/product1.jpg" alt="" srcset="">
-                            <div class="product-discount bg-danger">
-                                <p class="mb-0 text-white">30%</p>
-                            </div>
-                            <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
-                                <a href="" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
-                                <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></a>
-                                <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to cart" style="width: 40px; height: 40px;"><i class="mx-auto fa fa-shopping-cart text-primary" style="font-size: 25px;"></i></a>
-                            </div>
-                        </div>
-                    <div class="card-body px-0 pb-0">
-                        <h5>Apple Iphone 11 Pro</h5>
-                        <div class="d-flex align-items-baseline">
-                            <h6 class="mb-0 text-danger">500000 MMK</h6>
-                            <p class="h6 mb-0 ms-2 text-black-50 text-decoration-line-through">550000 MMK</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- -----------------------product item ------------------------------- -->
-            <div class="item me-3 my-5">
-                <div class="card bg-white product-card p-3">
-                        <div class="product-img-container">
-                            <img src="resources/image//product5.jpeg" alt="" srcset="">
-                            <div class="product-discount bg-danger">
-                                <p class="mb-0 text-white">30%</p>
-                            </div>
-                            <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
-                                <a href="" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
-                                <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></a>
-                                <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to cart" style="width: 40px; height: 40px;"><i class="mx-auto fa fa-shopping-cart text-primary" style="font-size: 25px;"></i></a>
-                            </div>
-                        </div>
-                    <div class="card-body px-0 pb-0">
-                        <h5>Apple Iphone 11 Pro</h5>
-                        <div class="d-flex align-items-baseline">
-                            <h6 class="mb-0 text-danger">500000 MMK</h6>
-                            <p class="h6 mb-0 ms-2 text-black-50 text-decoration-line-through">550000 MMK</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </div>
 </section>
 <!-- -------------------------------products carusal 2-------------------------------------  -->
-<section class="py-4">
+{{-- <section class="py-4">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -351,30 +275,17 @@
 
         </div>
     </div>
-</section>
+</section> --}}
 <!-- -------------------------------brand slider-------------------------------------  -->
 <section class="">
     <div class="container">
         <div class="row">
             <div class="row brand-container my-5 mx-auto owl-carousel owl-theme">
-                <div class="item">
-                    <img src="resources/image/Brand Image/Apple-Logo-PNG-Image-715x715.png" class="brand-img" alt="" srcset="">
-                </div>
-                <div class="item">
-                    <img src="resources/image/Brand Image/Huawei-Logo.wine.png" class="brand-img" alt="" srcset="">
-                </div>
-                <div class="item">
-                    <img src="resources/image/Brand Image/Oppo-Logo.wine.png" class="brand-img" alt="" srcset="">
-                </div>
-                <div class="item">
-                    <img src="resources/image/Brand Image/Samsung_logo.png" class="brand-img" alt="" srcset="">
-                </div>
-                <div class="item">
-                    <img src="resources/image/Brand Image/unnamed.png" class="brand-img" alt="" srcset="">
-                </div>
-                <div class="item">
-                    <img src="resources/image/Brand Image/vivo-Phone-logo.png" class="brand-img" alt="" srcset="">
-                </div>
+                @foreach ($brands as $item)
+                    <div class="item">
+                        <img src="{{ asset('uploads/brands/'.$item->image) }}" class="brand-img" alt="" srcset="">
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

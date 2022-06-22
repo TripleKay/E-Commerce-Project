@@ -164,13 +164,25 @@
                         <tbody>
                             @foreach ($variants as $item)
                                 <tr>
-                                    <th>{{ $item->product_variants }}</th>
-                                    <td>{{ $item->colorName }}</td>
-                                    <td>{{ $item->sizeName }}</td>
+                                    <th>{{ $item->product_variant_id }}</th>
+                                    <td>
+                                        @if (!empty($item->colorName))
+                                            {{ $item->colorName }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if (!empty($item->sizeName))
+                                            {{ $item->sizeName }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
                                     <td>{{ $item->available_stock }}</td>
                                     <td>
-                                        <a href="" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
-                                        <a href="" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete?')"><i class="fas fa-trash"></i></a>
+                                        <a href="{{ route('admin#editVariant',$item->product_variant_id) }}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                        <a href="{{ route('admin#deleteVariant',$item->product_variant_id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete?')"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

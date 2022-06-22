@@ -19,7 +19,7 @@
                 <h4 class="">Edit <span class="text-primary">{{ $product->name }}</span> Variants</h4>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin#updateVariant',$variant->product_variants) }}" method="POST">
+                <form action="{{ route('admin#updateVariant',$variant->product_variant_id) }}" method="POST">
                     @csrf
                     <input type="hidden" name="productId" value="{{ $product->product_id }}">
                     <div class="form-group">

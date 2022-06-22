@@ -85,7 +85,7 @@ button,
 a{
     cursor: pointer !important;
 }
-/* color 
+/* color
 9381FF bg-primary
 B8B8FF  bg-soft-primary
 F8F7FF bg-soft
@@ -281,7 +281,7 @@ F8F7FF bg-soft
     width: 100%;
     height: 100%;
     background-color: #00000030;
-    left: 0; right: 0; 
+    left: 0; right: 0;
     bottom: 150%;
     border-radius: 10px;
 
@@ -346,9 +346,9 @@ F8F7FF bg-soft
 
 
 .brand-img{
-    min-width: 60px;
-    max-width: 150px;
-    height: 60px;
+    min-width: 80px;
+    max-width: 80px;
+    height: 80px;
 }
 
 .big-img{
@@ -386,14 +386,14 @@ F8F7FF bg-soft
 /* <!-- -------------------------------responsive-------------------------------------  --> */
 
 /* // `sm` applies to x-small devices (portrait phones, less than 576px) */
-@media (max-width: 575.98px) { 
+@media (max-width: 575.98px) {
     body{
         overflow-x: hidden;
     }
  }
 
 /* // `md` applies to small devices (landscape phones, less than 768px) */
-@media (max-width: 767.98px) { 
+@media (max-width: 767.98px) {
     body{
         overflow-x: hidden;
     }
@@ -409,7 +409,7 @@ F8F7FF bg-soft
     }
     .header-3{
         display: block !important;
-        background-color: #fff !important; 
+        background-color: #fff !important;
         box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
         width: 300px !important;
         height: 100vh;
@@ -450,7 +450,7 @@ F8F7FF bg-soft
         display: block !important;
         width: 100%;
         border-bottom: 1px solid #B8B8FF;
-        
+
     }
     .nav-bar .nav-item a{
         color: #000 !important;
@@ -491,7 +491,7 @@ F8F7FF bg-soft
     }
 }
 /* // `lg` applies to medium devices (tablets, less than 992px) */
-@media (max-width: 991.98px) { 
+@media (max-width: 991.98px) {
     html,body{
         overflow-x: hidden !important;
     }
@@ -502,14 +502,14 @@ F8F7FF bg-soft
  }
 
 /* // `xl` applies to large devices (desktops, less than 1200px) */
-@media (max-width: 1199.98px) { 
+@media (max-width: 1199.98px) {
     html,body{
         overflow-x: hidden !important;
     }
  }
 
 /* // `xxl` applies to x-large devices (large desktops, less than 1400px) */
-@media (max-width: 1399.98px) { 
+@media (max-width: 1399.98px) {
     html,body{
         overflow-x: hidden !important;
     }

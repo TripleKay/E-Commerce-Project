@@ -57,9 +57,21 @@
                                             {{ $item->totalVariants }}
                                         @endif
                                     </td>
-                                    <td>{{ $item->selling_price }}</td>
-                                    <td>{{ $item->discount_price }}</td>
-                                    <td>{{ $item->publish_status }}</td>
+                                    <td>{{ $item->selling_price }} Ks</td>
+                                    <td>
+                                        @if (!empty($item->discount_price))
+                                            {{ $item->discount_price }} Ks
+                                        @else
+                                            0 Ks
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->publish_status == 1)
+                                            <div class="badge badge-success">Publish</div>
+                                        @else
+                                        <div class="badge badge-danger">Unpublish</div>
+                                        @endif
+                                    </td>
                                     <td class="text-wrap">
                                         <a href="{{ route('admin#showProduct',$item->product_id) }}" class="btn btn-info btn-sm mb-2"><i class="fas fa-eye "></i></a>
                                         <a href="{{ route('admin#editProduct',$item->product_id) }}" class="btn btn-success btn-sm mb-2"><i class="fas fa-edit "></i></a>

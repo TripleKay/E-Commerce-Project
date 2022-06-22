@@ -32,8 +32,12 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/', function () {
-        if(auth()->check()){
-            return view('admin.dashboard');
+        if(Auth::check()){
+            if(Auth::user()->role == 'admin'){
+                return view('admin.dashboard');
+            }else if(Auth::user()->role == 'user'){
+                return redirect()->route('frontend#index');
+            }
         }
     })->name('dashboard');
 });
@@ -106,4 +110,5 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'],function(){
 
 Route::group(['namespace' => 'FrontEnd','prefix' => 'user'],function(){
     Route::get('/',[FrontEndController::class,'index'])->name('frontend#index');
+    // Route::get('/',[FrontEndController::class,'index'])->name('frontend#index');
 });

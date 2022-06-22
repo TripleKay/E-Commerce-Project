@@ -23,7 +23,14 @@ class ProductController extends Controller
                         ->leftJoin('product_variants','product_variants.product_id','products.product_id')
                         ->groupBy('products.product_id')
                         ->get();
-        return view('admin.product.index')->with(['data'=> $data]);
+        return view('admin.product.index')->with([
+            'data'=> $data,
+            //egar loading
+            'brand',
+            'category',
+            'subcategory',
+            'subsubcategory',
+        ]);
     }
     //redirect create page
     public function createProduct(){
@@ -67,6 +74,7 @@ class ProductController extends Controller
         //store data
         $file->move(public_path().'/uploads/products/',$fileName);
         $productId = Product::insertGetId($data);
+        // dd($productId);
 
         //check multi image
         if($request->hasFile('multiImage')){
@@ -181,8 +189,8 @@ class ProductController extends Controller
     public function showProduct($id){
         $product = Product::where('product_id',$id)->first();
         $variants = ProductVariant::select('product_variants.*','product_colors.name as colorName','product_sizes.name as sizeName')
-                        ->join('product_colors','product_colors.color_id','product_variants.color_id')
-                        ->join('product_sizes','product_sizes.size_id','product_variants.size_id')
+                        ->leftJoin('product_colors','product_colors.color_id','product_variants.color_id')
+                        ->leftJoin('product_sizes','product_sizes.size_id','product_variants.size_id')
                         ->where('product_id',$id)
                         ->get();
         $multiImages = MultiImage::where('product_id',$id)->get();
