@@ -110,5 +110,5 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'],function(){
 
 Route::group(['namespace' => 'FrontEnd','prefix' => 'user'],function(){
     Route::get('/',[FrontEndController::class,'index'])->name('frontend#index');
-    // Route::get('/',[FrontEndController::class,'index'])->name('frontend#index');
+    Route::get('/product/detail/{id}',[FrontEndController::class,'showProduct'])->name('frontend#showProduct');
 });

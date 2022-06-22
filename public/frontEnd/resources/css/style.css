@@ -359,6 +359,8 @@ F8F7FF bg-soft
     height: 300px;
 }
 .small-img{
+    /* width: 80px; */
+    height: 80px;
     border: 1px solid #88888850;
     transition: .3s linear;
 }
