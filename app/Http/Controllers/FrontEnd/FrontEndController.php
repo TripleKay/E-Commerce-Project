@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\MultiImage;
 use App\Models\Product;
 use App\Models\ProductVariant;
@@ -16,14 +17,18 @@ class FrontEndController extends Controller
         $newProduct = Product::where('publish_status','1')->orderBy('product_id','desc')->limit(6)->get();
         $products = Product::where('publish_status',1)->orderBy('product_id','desc')->get();
         $brands = Brand::get();
-        // dd($newProduct->toArray());
-        return view('frontEnd.index')->with(['products'=>$products,'newProduct'=>$newProduct,'brands'=>$brands]);
+        $categories = Category::get();
+        return view('frontEnd.index')->with([
+            'products'=>$products,
+            'newProduct'=>$newProduct,
+            'brands'=>$brands,
+            'categories' => $categories,
+        ]);
     }
 
     //detail
     public function showProduct($id){
-        $product = Product::
-                        where('product_id',$id)->first();
+        $product = Product:: where('product_id',$id)->first();
         $multiImages = MultiImage::where('product_id',$id)->get();
         $colors = ProductVariant::select('product_variants.*','product_colors.name as colorName')
                                 ->join('product_colors','product_colors.color_id','product_variants.color_id')
@@ -36,12 +41,15 @@ class FrontEndController extends Controller
                                 ->where('product_variants.product_id',$id)
                                 ->get();
                                 // dd($colors->toArray());
+                                $categories = Category::get();
         return view('frontEnd.detail')->with([
             'product'=>$product,
             'multiImages'=>$multiImages,
             'colors' => $colors,
             'sizes' => $sizes,
+            'categories' => $categories,
             // 'variants'=>$variants
         ]);
     }
+
 }

@@ -120,9 +120,46 @@ F8F7FF bg-soft
     top: -10px;
     right: -23px;
 }
+
+
+/* <!-- -------------------------------header 3 -------------------------------------  --> */
+
 .nav-bar .nav-item:hover .nav-link{
     color: #000 !important;
     transition: .3s linear;
+}
+
+.cat-dropdown .btn-info:focus{
+    box-shadow: none !important;
+}
+.cat-dropdown .dropdown-menu{
+    transform: translate3d(0px, 58px ,0px) !important;
+    border: 0px !important;
+    background-color: #f0ffff;
+}
+.cat-dropdown .dropdown-item a{
+    color: #212529;
+    text-decoration: none;
+}
+
+.cat-item{
+    position: relative;
+}
+.subcat-container{
+    display: none;
+    border: 0px !important;
+    background-color: #f0ffff;
+    border-radius: 0px;
+    position: absolute;
+    top: 0px;
+    left: 100%;
+    width: 500px;
+}
+.cat-item:hover .subcat-container{
+    display: block;
+}
+.cat-item.active{
+    background-color: #B8B8FF;
 }
 /* <!-- -------------------------------banner-------------------------------------  --> */
 .banner-img{
@@ -174,38 +211,7 @@ F8F7FF bg-soft
     border-radius: 10px; */
 /* } */
 
-.cat-dropdown .btn-info:focus{
-    box-shadow: none !important;
-}
-.cat-dropdown .dropdown-menu{
-    transform: translate3d(0px, 58px ,0px) !important;
-    border: 0px !important;
-    background-color: #f0ffff;
-}
-.cat-dropdown .dropdown-item a{
-    color: #212529;
-    text-decoration: none;
-}
 
-.cat-item{
-    position: relative;
-}
-.subcat-container{
-    display: none;
-    border: 0px !important;
-    background-color: #f0ffff;
-    border-radius: 0px;
-    position: absolute;
-    top: 0px;
-    left: 100%;
-    width: 500px;
-}
-.cat-item:hover .subcat-container{
-    display: block;
-}
-.cat-item.active{
-    background-color: #B8B8FF;
-}
 /* <!-- -------------------------------category-------------------------------------  --> */
 
 .cat-box{
@@ -409,6 +415,8 @@ F8F7FF bg-soft
         height: 80px;
         border-radius: 15px;
     }
+/* <!-- -------------------------------header 3-------------------------------------  --> */
+
     .header-3{
         display: block !important;
         background-color: #fff !important;
@@ -491,6 +499,8 @@ F8F7FF bg-soft
     .cat-item:hover .subcat-container{
         display: none !important;
     }
+/* <!-- -------------------------------header 3 end-------------------------------------  --> */
+
 }
 /* // `lg` applies to medium devices (tablets, less than 992px) */
 @media (max-width: 991.98px) {

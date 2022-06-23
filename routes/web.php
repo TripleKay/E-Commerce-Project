@@ -1,15 +1,18 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\SubCategoryController;
-use App\Http\Controllers\Admin\SubSubCategoryController;
-use App\Http\Controllers\Admin\ProductColorController;
-use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\ProductVariantController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductSizeController;
+use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\FrontEnd\FrontEndController;
+use App\Http\Controllers\Admin\ProductColorController;
+use App\Http\Controllers\Admin\ProductVariantController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SubSubCategoryController;
+use App\Http\Middleware\AdminCheckMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +45,7 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::group(['namespace' => 'Admin','prefix' => 'admin'],function(){
+Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCheckMiddleware::class]],function(){
     // brand
     Route::get('brand',[BrandController::class,'index'])->name('admin#brand');
     Route::post('brand/create',[BrandController::class,'createBrand'])->name('admin#createBrand');
@@ -106,9 +109,13 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'],function(){
     Route::get('product/variant/edit/{id}',[ProductVariantController::class,'editVariant'])->name('admin#editVariant');
     Route::post('product/variant/update/{id}',[ProductVariantController::class,'updateVariant'])->name('admin#updateVariant');
 
+    //admin profile
+    Route::get('profile',[ProfileController::class,'index'])->name('admin#profile');
+
+
 });
 
-Route::group(['namespace' => 'FrontEnd','prefix' => 'user'],function(){
+Route::group(['namespace' => 'FrontEnd'],function(){
     Route::get('/',[FrontEndController::class,'index'])->name('frontend#index');
-    Route::get('/product/detail/{id}',[FrontEndController::class,'showProduct'])->name('frontend#showProduct');
+    Route::get('product/detail/{id}',[FrontEndController::class,'showProduct'])->name('frontend#showProduct');
 });

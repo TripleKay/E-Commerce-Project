@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('frontEnd/node_modules/@fortawesome/fontawesome-free/css/all.min.css')}}" >
     <!-- <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="{{ asset('frontEnd/node_modules/owl.carousel/dist/assets/owl.carousel.min.css')}}" >
-    <link rel="stylesheet" href="{{ asset('frontEnd/node_modules/owl.carousel/dist/assets/owl.theme.default.min.css')}}" >
+    <link rel="stylesheet" href="{{ asset('frontEnd/node_modules/owl.carousel/dist/assets/owl.theme.default.min.css')}}"    >
     <link rel="stylesheet" href="{{ asset('frontEnd/scss/custom.css')}}">
     <link rel="stylesheet" href="{{ asset('frontEnd/resources/css/style.css')}}">
     <title>E-Market</title>
@@ -71,7 +71,7 @@
                                 </a>
                                 <a href="" class="text-white ms-3 position-relative">
                                     <i class="icon fa-solid fa-cart-shopping"></i>
-                                    <span class="badge bg-danger position-absolute rounded-circle cart-badge">4</span>
+                                    <span class="badge bg-dark position-absolute rounded-circle cart-badge">4</span>
                                 </a>
                             </div>
                         </div>
@@ -106,51 +106,46 @@
                                                     <i class="fa-solid fa-list me-3 d-none d-sm-none d-md-inline-block"></i> ALL CATEGORIES
                                                 </button>
                                                 <!-- all category container  -->
-                                                <ul class="dropdown-menu shadow-lg" aria-labelledby="category-btn" style="width: 100%; border-radius: 0px">
-
-                                                    <!-- main cat item  -->
-                                                    <li><a class="dropdown-item" href="#">Promotions</a></li>
+                                                <ul class="dropdown-menu shadow-lg" aria-labelledby="category-btn" style="width: 100%; border-radius: 0px 0px 10px 10px">
                                                     <!-- -------------main cat item-----------------  -->
-                                                    <li class="cat-item" id="cat-item-1">
-                                                        <div class="d-flex align-items-center justify-content-between dropdown-item">
-                                                            <a class="" >Electronics</a>
-                                                            <i class="fa-solid fa-angle-right d-none d-md-inline-block"></i>
-                                                        </div>
-                                                        <!-- sub cat container  -->
-                                                        <div class="card subcat-container shadow-lg" id="subcat-container-1">
-                                                            <div class="card-body px-0">
-                                                                <!-- sub cat item  -->
-                                                                <a href="" class="dropdown-item">Laptop</a>
-                                                                <a href="" class="dropdown-item">Mobile Phone</a>
-                                                                <a href="" class="dropdown-item">Gaming Accessories</a>
+                                                    @foreach ($categories as $cat)
+                                                        <li class="cat-item">
+                                                            <div class="d-flex align-items-center justify-content-between dropdown-item py-2 my-1">
+                                                                <a class="" >{{ $cat->name }}</a>
+                                                                <i class="fa-solid fa-angle-right d-none d-md-inline-block"></i>
                                                             </div>
-                                                        </div>
-                                                    </li>
+                                                            <!-- sub cat container  -->
+                                                            @php
+                                                                $subcategories = App\Models\SubCategory::where('category_id',$cat->category_id)->get();
+                                                            @endphp
+                                                            @if (!$subcategories->count() == 0)
+                                                                <div class="card subcat-container " >
+                                                                    <div class="card-body">
+                                                                    <!-- sub cat item  -->
+                                                                    <div class="row">
+                                                                        @foreach ($subcategories as $subcat)
+                                                                        <div class="col-6">
+                                                                                <a href="" class="dropdown-item"><h6>{{$subcat->name}}</h6></a>
+                                                                                <div class="d-flex flex-column px-3 mb-3">
+                                                                                    @php
+                                                                                        $subsubcategories = App\Models\SubSubCategory::where('subcategory_id',$subcat->subcategory_id)->get();
+                                                                                    @endphp
+                                                                                    @foreach ($subsubcategories as $subsubcat)
+                                                                                        <div class="d-flex align-items-center">
+                                                                                            <div class="bg-black rounded-circle" style="width:5px ; height: 5px;"></div>
+                                                                                            <a href="" class="btn text-start dropdown-item">{{ $subsubcat->name}}</a>
+                                                                                        </div>
+                                                                                    @endforeach
+                                                                                </div>
+                                                                            </div>
+                                                                            @endforeach
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </li>
+                                                    @endforeach
                                                      <!-- -------------main cat item-----------------  -->
-                                                     <li class="cat-item" id="cat-item-2">
-                                                        <div class="d-flex align-items-center justify-content-between dropdown-item">
-                                                            <a class="" href="#">Fashions</a>
-                                                            <i class="fa-solid fa-angle-right d-none d-md-inline-block"></i>
-                                                        </div>
-                                                        <!-- sub cat container  -->
-                                                        <div class="card subcat-container shadow-lg" id="subcat-container-2">
-                                                            <div class="card-body px-0">
-                                                                <!-- sub cat item  -->
-                                                                <a href="" class="dropdown-item">Desktop PC</a>
-                                                                <a href="" class="dropdown-item">Laptop</a>
-                                                                <a href="" class="dropdown-item">Mobile Phone</a>
-                                                                <a href="" class="dropdown-item">Gaming Accessories</a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <!-- main cat item  -->
-                                                    <li><a class="dropdown-item" href="#">Home Lifestyel</a></li>
-                                                    <li><a class="dropdown-item" href="#">Baby & Toys</a></li>
-                                                    <li><a class="dropdown-item" href="#">Health & Beauty</a></li>
-                                                    <li><a class="dropdown-item" href="#">Home Applications</a></li>
-                                                    <li><a class="dropdown-item" href="#">Vehicle & Machine</a></li>
-                                                    <li><a class="dropdown-item" href="#">General Accessories</a></li>
-                                                    <li><a class="dropdown-item" href="#">Others</a></li>
                                                 </ul>
                                             </div>
                                         </li>
@@ -166,6 +161,12 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link text-white" href="#">CONTACT US</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <form action="{{ route('logout') }}" method="post">
+                                                @csrf
+                                                <button class="btn btn-light">logout</button>
+                                            </form>
                                         </li>
                                       </ul>
                               </nav>
