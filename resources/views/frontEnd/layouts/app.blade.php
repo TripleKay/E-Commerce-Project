@@ -251,5 +251,6 @@
     <script src="{{ asset('frontEnd/node_modules/owl.carousel/dist/owl.carousel.min.js')}}"></script>
     <script src="{{ asset('frontEnd/node_modules/waypoints/lib/jquery.waypoints.min.js')}}"></script>
     <script src="{{ asset('frontEnd/resources/js/script.js')}}"></script>
+    @yield('script')
 </body>
 </html>

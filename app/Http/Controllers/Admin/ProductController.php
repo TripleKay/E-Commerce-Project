@@ -22,16 +22,13 @@ class ProductController extends Controller
         $data = Product::select('products.*',DB::raw('count(product_variants.product_id) as totalVariants'))
                         ->leftJoin('product_variants','product_variants.product_id','products.product_id')
                         ->groupBy('products.product_id')
+                        ->with('brand','category','subcategory','subsubcategory')
                         ->get();
         return view('admin.product.index')->with([
             'data'=> $data,
-            //egar loading
-            'brand',
-            'category',
-            'subcategory',
-            'subsubcategory',
         ]);
     }
+
     //redirect create page
     public function createProduct(){
         $brands = Brand::get();
@@ -187,7 +184,7 @@ class ProductController extends Controller
 
     //show product detail page
     public function showProduct($id){
-        $product = Product::where('product_id',$id)->first();
+        $product = Product::where('product_id',$id)->with('brand','category','subcategory','subsubcategory')->first();
         $variants = ProductVariant::select('product_variants.*','product_colors.name as colorName','product_sizes.name as sizeName')
                         ->leftJoin('product_colors','product_colors.color_id','product_variants.color_id')
                         ->leftJoin('product_sizes','product_sizes.size_id','product_variants.size_id')
@@ -198,11 +195,6 @@ class ProductController extends Controller
             'product'=>$product,
             'variants' => $variants,
             'multiImages' => $multiImages,
-            //for eager loading
-            'brand',
-            'category',
-            'subcategory',
-            'subsubcategory',
             ]);
     }
 
