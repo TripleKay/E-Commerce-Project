@@ -212,7 +212,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <li class="nav-header text-white text-uppercase">Manage Profile</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin#editProfile') }}" class="nav-link">
               <i class="nav-icon fas fa-user-circle"></i>
               <p>
                 Edit Profile
@@ -220,7 +220,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin#editPassword') }}" class="nav-link">
               <i class="nav-icon fas fa-lock"></i>
               <p>
                 Change Password

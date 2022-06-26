@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\MultiImage;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\SubCategory;
+use App\Models\SubSubCategory;
 use Illuminate\Http\Request;
 
 class FrontEndController extends Controller
@@ -18,11 +20,15 @@ class FrontEndController extends Controller
         $products = Product::where('publish_status',1)->orderBy('product_id','desc')->get();
         $brands = Brand::get();
         $categories = Category::get();
+        $subcategories = SubCategory::get();
+        $subsubcategories = SubSubCategory::get();
         return view('frontEnd.index')->with([
             'products'=>$products,
             'newProduct'=>$newProduct,
             'brands'=>$brands,
             'categories' => $categories,
+            'subcategories' => $subcategories,
+            'subsubcategories' => $subsubcategories,
         ]);
     }
 

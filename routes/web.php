@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Admin\ProductVariantController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
+use App\Http\Controllers\FrontEnd\CartController;
 use App\Http\Middleware\AdminCheckMiddleware;
 
 /*
@@ -34,10 +35,10 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/', function () {
+    Route::get('/dashboard', function () {
         if(Auth::check()){
             if(Auth::user()->role == 'admin'){
-                return view('admin.dashboard');
+                return redirect()->route('admin#profile');
             }else if(Auth::user()->role == 'user'){
                 return redirect()->route('frontend#index');
             }
@@ -110,12 +111,17 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::post('product/variant/update/{id}',[ProductVariantController::class,'updateVariant'])->name('admin#updateVariant');
 
     //admin profile
-    Route::get('profile',[ProfileController::class,'index'])->name('admin#profile');
-
+    Route::get('profile/edit',[ProfileController::class,'index'])->name('admin#profile');
+    Route::post('profile/edit',[ProfileController::class,'editProfile'])->name('admin#editProfile');
+    Route::get('profile/password/edit',[ProfileController::class,'editPassword'])->name('admin#editPassword');
+    Route::post('profile/password/edit',[ProfileController::class,'updatePassword'])->name('admin#updatePassword');
 
 });
 
 Route::group(['namespace' => 'FrontEnd'],function(){
     Route::get('/',[FrontEndController::class,'index'])->name('frontend#index');
     Route::get('product/detail/{id}',[FrontEndController::class,'showProduct'])->name('frontend#showProduct');
+
+    //cart
+    Route::post('product/addToCart/',[CartController::class,'addToCart'])->name('frontend#addToCart');
 });
