@@ -62,17 +62,12 @@
                                     <button class="btn btn-primary text-white">Search</button>
                                 </div>
                             </form>
-                            <div class="d-flex">
-                                <a href="" class="text-white ms-3">
-                                    <i class="icon fa-solid fa-user"></i>
-                                </a>
-                                <a href="" class="text-white ms-3">
-                                    <i class="icon fa-solid fa-heart"></i>
-                                </a>
-                                <a href="" class="text-white ms-3 position-relative">
-                                    <i class="icon fa-solid fa-cart-shopping"></i>
-                                    <span class="badge bg-dark position-absolute rounded-circle cart-badge">4</span>
-                                </a>
+                            <div class="">
+                                <button class="btn btn-outline-light position-relative text-white p-0 d-flex justify-content-between align-items-center">
+                                    <i class="fa-solid fa-cart-shopping py-2 px-2" style="border-right: 1px solid #fff"></i>
+                                    <span class="badge bg-dark rounded-circle mb-0 position-absolute cart-badge">4</span>
+                                    <p class="mb-0 py-2 px-2">CART - 30000 Ks</p>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -111,7 +106,7 @@
                                                     @foreach ($categories as $cat)
                                                         <li class="cat-item">
                                                             <div class="d-flex align-items-center justify-content-between dropdown-item py-2 my-1">
-                                                                <a class="" >{{ $cat->name }}</a>
+                                                                <a href="{{ route('frontend#catProduct',$cat->category_id) }}" class="" >{{ $cat->name }}</a>
                                                                 <i class="fa-solid fa-angle-right d-none d-md-inline-block"></i>
                                                             </div>
                                                             <!-- sub cat container  -->
@@ -125,7 +120,7 @@
                                                                     <div class="row">
                                                                         @foreach ($subcategories as $subcat)
                                                                         <div class="col-6">
-                                                                                <a href="" class="dropdown-item"><h6>{{$subcat->name}}</h6></a>
+                                                                                <a href="{{ route('frontend#subcatProduct',$subcat->subcategory_id) }}" class="dropdown-item"><h6>{{$subcat->name}}</h6></a>
                                                                                 <div class="d-flex flex-column px-3 mb-3">
                                                                                     @php
                                                                                         $subsubcategories = App\Models\SubSubCategory::where('subcategory_id',$subcat->subcategory_id)->get();
@@ -133,7 +128,7 @@
                                                                                     @foreach ($subsubcategories as $subsubcat)
                                                                                         <div class="d-flex align-items-center">
                                                                                             <div class="bg-black rounded-circle" style="width:5px ; height: 5px;"></div>
-                                                                                            <a href="" class="btn text-start dropdown-item">{{ $subsubcat->name}}</a>
+                                                                                            <a href="{{ route('frontend#subsubcatProduct',$subsubcat->subsubcategory_id) }}" class="btn text-start dropdown-item">{{ $subsubcat->name}}</a>
                                                                                         </div>
                                                                                     @endforeach
                                                                                 </div>

@@ -55,29 +55,32 @@
                                         <hr>
                                     @endif
                                     @if (!$colors->count() == 0)
-                                        <div class="d-flex">
-                                            @foreach ($colors as $item)
-                                                <div class="me-2" style="background-color: {{ $item->colorName }};width: 40px; height: 40px; border: 1px solid #888">
-                                                </div>
-                                            @endforeach
+                                        <div class="form-group">
+                                            <select name="" id="" class="colorOption form-control" style="width: 200px">
+                                                <option value="">---select color---</option>
+                                                @foreach ($colors as $item)
+                                                    <option value="{{ $item->color_id }}">{{ $item->colorName }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <hr>
                                     @endif
                                     @if (!$sizes->count() == 0)
-                                        <div class="d-flex">
+                                    <div class="form-group">
+                                        <select name="" id="" class="sizeOption form-control" style="width: 200px">
+                                            <option value="">---select size---</option>
                                             @foreach ($sizes as $item)
-                                                <div class="me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; border: 1px solid #888">
-                                                    {{ $item->sizeName }}
-                                                </div>
+                                                <option value="{{ $item->size_id }}">{{ $item->sizeName }}</option>
                                             @endforeach
-                                        </div>
+                                        </select>
+                                    </div>
                                         <hr>
                                     @endif
                                     <div class="d-flex align-items-center">
                                         <p class="mb-0 me-3">Quantity : </p>
                                         <div class="d-flex p-1 rounded" style="width: 150px ;">
                                             <button class="btn btn-dark">+</button>
-                                            <input type="number" class="form-control" placeholder="qty" value="1">
+                                            <input type="number" class="quantity form-control" placeholder="qty" value="1">
                                             <button class="btn btn-dark">-</button>
                                         </div>
                                     </div>
@@ -95,7 +98,7 @@
                                     <hr>
                                     <div class="mt-4">
                                         <button class="btn btn-danger me-3 text-white">Buy Now</button>
-                                        <button class="btn btn-primary text-white">Add to Cart</button>
+                                        <button class="addToCart btn btn-primary text-white">Add to Cart</button>
                                     </div>
 
                                 </div>
@@ -106,6 +109,19 @@
             </div>
             <div class="row">
                 <div class="col-12">
+                    @if (Session::has('cart'))
+                        <div class="card">
+                            <div class="card-body">
+
+                                <p>have cart</p>
+                                @foreach (Session::get('cart') as $cart)
+                                    <p>{{ $cart['productId'] }}</p>
+                                    <p>{{ $cart['colorId'] }}</p>
+
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                     <div class="card my-4 border-0">
                         <div class="card-body">
                             <h5>Product Details</h5>
@@ -117,4 +133,61 @@
             </div>
         </div>
     </section>
+@endsection
+@section('script')
+<script>
+    $('document').ready(function(){
+        $('.colorOption').on('click',function(){
+            let productId = "{{ $product->product_id }}";
+            let colorId = $(this).val();
+            $.ajax({
+                url: "{{ route('frontend#getProductSize') }}",
+                method: "post",
+                dataType: "json",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    colorId: colorId,
+                    productId: productId,
+                },
+                beforeSend:function(){
+                    let sizeOptionHtml = '<option value="">----loading----</option>';
+                    $('.sizeOption').html(sizeOptionHtml);
+                },
+                success:function(response){
+                    if(response.sizes.length != 0){
+                        let sizeOptionHtml = '';
+                        for(let i =0 ; i < response.sizes.length ; i++){
+                            sizeOptionHtml += `
+                                <option value="${response.sizes[i].size_id}">${response.sizes[i].sizeName}</option>
+                            `;
+                        }
+                        $('.sizeOption').html(sizeOptionHtml);
+                    }
+                }
+
+            })
+        })
+        $('.addToCart').on('click',function(){
+            let productId = "{{ $product->product_id }}";
+            let colorId = $('.colorOption').val();
+            let sizeId = $('.sizeOption').val();
+            let qty = $('.quantity').val();
+            $.ajax({
+                url: "{{ route('frontend#addToCart') }}",
+                method: "post",
+                dataType: "json",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    productId: productId,
+                    colorId: colorId,
+                    sizeId: sizeId,
+                    qty: qty,
+                },
+                success:function(response){
+                    console.log(response.variant);
+                }
+            })
+        })
+    })
+</script>
 @endsection

@@ -20,16 +20,42 @@ class FrontEndController extends Controller
         $products = Product::where('publish_status',1)->orderBy('product_id','desc')->get();
         $brands = Brand::get();
         $categories = Category::get();
-        $subcategories = SubCategory::get();
-        $subsubcategories = SubSubCategory::get();
         return view('frontEnd.index')->with([
             'products'=>$products,
             'newProduct'=>$newProduct,
             'brands'=>$brands,
             'categories' => $categories,
-            'subcategories' => $subcategories,
-            'subsubcategories' => $subsubcategories,
         ]);
+    }
+
+    //Products by category page
+    public function categoryProduct($id){
+        $products = Product::where('category_id',$id)->get();
+        $categories = Category::get();
+        return view('frontEnd.categoryProduct')->with([
+            'products' => $products,
+            'categories' => $categories,
+        ]);;
+    }
+
+    //Products by category page
+    public function subcategoryProduct($id){
+        $products = Product::where('subcategory_id',$id)->get();
+        $categories = Category::get();
+        return view('frontEnd.categoryProduct')->with([
+            'products' => $products,
+            'categories' => $categories,
+        ]);;
+    }
+
+    //Products by category page
+    public function subsubcategoryProduct($id){
+        $products = Product::where('subsubcategory_id',$id)->get();
+        $categories = Category::get();
+        return view('frontEnd.categoryProduct')->with([
+            'products' => $products,
+            'categories' => $categories,
+        ]);;
     }
 
     //detail
@@ -54,7 +80,18 @@ class FrontEndController extends Controller
             'colors' => $colors,
             'sizes' => $sizes,
             'categories' => $categories,
-            // 'variants'=>$variants
+        ]);
+    }
+
+    //getProductSize ajax
+    public function getProductSize(Request $request){
+        $sizes = ProductVariant::select('product_variants.*','product_sizes.name as sizeName')
+                        ->join('product_sizes','product_sizes.size_id','product_variants.size_id')
+                        ->where('product_variants.product_id',$request->productId)
+                        ->where('product_variants.color_id',$request->colorId)
+                        ->get();
+        return response()->json([
+            'sizes'=> $sizes,
         ]);
     }
 

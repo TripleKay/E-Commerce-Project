@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row banner-container bg-white p-3 rounded mx-auto owl-carousel owl-theme">
             <a href="#" class="banner-slider position-relative item">
-                <img src="{{ asset('frontEnd/resources/image/banner1.png')}}"  class="banner-img" alt="" srcset="">
+                <img src="{{ asset('frontEnd/resources/image/banner2.png')}}"  class="banner-img" alt="" srcset="">
                 <!-- <div class="card bg-white p-3 border-0 banner-content position-absolute">
                     <div class="card-body">
                         <h3>Hello banner</h3>
@@ -48,7 +48,7 @@
     </div>
 </section>
 <!-- -------------------------------caategory-------------------------------------  -->
-<section class="py-4" id="category-section">
+{{-- <section class="py-4" id="category-section">
     <div class="container">
         <div class="row">
             <!-- category box  -->
@@ -89,7 +89,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 <!-- -------------------------------products carusal-------------------------------------  -->
 <section class="py-4">
     <div class="container">

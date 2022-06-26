@@ -120,7 +120,13 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
 
 Route::group(['namespace' => 'FrontEnd'],function(){
     Route::get('/',[FrontEndController::class,'index'])->name('frontend#index');
+    Route::get('category/{id}/product/',[FrontEndController::class,'categoryProduct'])->name('frontend#catProduct');
+    Route::get('subcategory/{id}/product/',[FrontEndController::class,'subcategoryProduct'])->name('frontend#subcatProduct');
+    Route::get('subsubcategory/{id}/product/',[FrontEndController::class,'subsubcategoryProduct'])->name('frontend#subsubcatProduct');
+
+    //product detail
     Route::get('product/detail/{id}',[FrontEndController::class,'showProduct'])->name('frontend#showProduct');
+    Route::post('product/detail/size',[FrontEndController::class,'getProductSize'])->name('frontend#getProductSize');
 
     //cart
     Route::post('product/addToCart/',[CartController::class,'addToCart'])->name('frontend#addToCart');
