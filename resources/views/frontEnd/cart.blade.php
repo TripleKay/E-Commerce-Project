@@ -23,7 +23,7 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead class="bg-primary text-nowrap text-white">
-                                        <tr>
+                                        <tr class="text-center">
                                             <th>#</th>
                                             <th style="">Product</th>
                                             <th style="width:20%">Name</th>
@@ -32,7 +32,7 @@
                                             <th style="width:10%">Price</th>
                                             <th style="width:8%">Quantity</th>
                                             <th style="width:15%" class="text-center">Subtotal</th>
-                                            <th style="">Action</th>
+                                            <th style="">Remove</th>
                                         </tr>
                                     </thead>
                                     @if (Session::has('cart'))
@@ -41,25 +41,25 @@
                                                 $i = 1;
                                                 $total = 0;
                                             @endphp
-                                            @foreach (Session::get('cart') as $item)
+                                            @foreach (Session::get('cart') as $key => $item)
                                                 @php
                                                     $total += $item['price'] * $item['quantity']
                                                 @endphp
-                                                <tr>
+                                                <tr class="text-center">
                                                     <td>{{ $i++ }}</td>
                                                     <td>
                                                         <img src="{{ asset('uploads/products/'.$item['productImage']) }}" alt="" srcset="" style="width: 100px; heigth: 100px">
                                                     </td>
-                                                    <td>{{ $item['productName'] }}</td>
+                                                    <td class="text-start">{{ $item['productName'] }}</td>
                                                     <td>{{ empty($item['color']) ? '.....' : $item['color'] }}</td>
                                                     <td>{{ empty($item['size']) ? '.....' : $item['size'] }}</td>
                                                     <td>{{ $item['price'] }} Ks</td>
                                                     <td>
-                                                        <input type="number" class="form-control" value="{{ $item['quantity'] }}">
+                                                        <input type="number" id="{{ $key }}" class="qtyInput form-control" placeholder="qty" min="1" max="10" value="{{ $item['quantity'] }}" >
                                                     </td>
                                                     <td>{{ $item['price'] * $item['quantity'] }} Ks</td>
                                                     <td>
-                                                        <button class="btn btn-danger btn-sm text-white"><i class="fas fa-trash"></i></button>
+                                                        <a href="{{ route('frontend#deleteCart',$key) }}" class="btn btn-danger btn-sm text-white"><i class="fas fa-trash"></i></a>
                                                     </td>
                                                 </tr>
 
@@ -89,4 +89,28 @@
             </div>
         </div>
     </section>
+@endsection
+@section('script')
+<script>
+    $('document').ready(function(){
+        $('.qtyInput').on('change',function(){
+            let quantity = $(this).val();
+            let id = $(this).attr('id');
+            $.ajax({
+                url: "{{ route('frontend#updateCart') }}",
+                method: "post",
+                dataType: "json",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: id,
+                    quantity: quantity,
+                },
+                success:function(response){
+                    window.location.reload();
+                }
+
+            })
+        })
+    })
+</script>
 @endsection

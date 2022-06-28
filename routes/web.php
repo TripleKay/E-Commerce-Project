@@ -128,7 +128,6 @@ Route::group(['namespace' => 'FrontEnd'],function(){
     Route::get('category/{id}/product/',[FrontEndController::class,'categoryProduct'])->name('frontend#catProduct');
     Route::get('subcategory/{id}/product/',[FrontEndController::class,'subcategoryProduct'])->name('frontend#subcatProduct');
     Route::get('subsubcategory/{id}/product/',[FrontEndController::class,'subsubcategoryProduct'])->name('frontend#subsubcatProduct');
-    Route::get('product/carts',[FrontEndController::class,'viewCarts'])->name('frontend#viewCarts');
 
     //product detail
     Route::get('product/detail/{id}',[FrontEndController::class,'showProduct'])->name('frontend#showProduct');
@@ -136,4 +135,7 @@ Route::group(['namespace' => 'FrontEnd'],function(){
 
     //cart
     Route::post('product/addToCart/',[CartController::class,'addToCart'])->name('frontend#addToCart');
+    Route::get('myCarts',[CartController::class,'viewCarts'])->name('frontend#viewCarts');
+    Route::post('myCarts/update',[CartController::class,'updateCart'])->name('frontend#updateCart');
+    Route::get('myCarts/delete/{id}',[CartController::class,'deleteCart'])->name('frontend#deleteCart');
 });

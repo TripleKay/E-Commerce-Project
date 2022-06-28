@@ -65,24 +65,26 @@
                             <div class="">
                                 <a href="{{ route('frontend#viewCarts') }}" class="btn btn-outline-light position-relative text-white p-0 d-flex justify-content-between align-items-center">
                                     <i class="fa-solid fa-cart-shopping py-2 px-2" style="border-right: 1px solid #fff"></i>
-                                    <span class="badge bg-dark rounded-circle mb-0 position-absolute cart-badge">
+                                    <div class="headerCartBox">
+                                        <span class="badge bg-dark rounded-circle mb-0 position-absolute cart-badge">
+                                            @if (Session::has('cart'))
+                                                {{ count(Session::get('cart')) }}
+                                            @else
+                                                0
+                                            @endif
+                                        </span>
                                         @if (Session::has('cart'))
-                                            {{ count(Session::get('cart')) }}
+                                            @php $total = 0 @endphp
+                                            @foreach (Session::get('cart') as $item)
+                                                     @php
+                                                        $total += $item['price'] * $item['quantity']
+                                                     @endphp
+                                            @endforeach
+                                            <p class="mb-0 py-2 px-2">CART - {{ $total}} Ks</p>
                                         @else
-                                            0
+                                            <p class="mb-0 py-2 px-2">CART - 0 Ks</p>
                                         @endif
-                                    </span>
-                                    @if (Session::has('cart'))
-                                        @php $total = 0 @endphp
-                                        @foreach (Session::get('cart') as $item)
-                                                 @php
-                                                    $total += $item['price'] * $item['quantity']
-                                                 @endphp
-                                        @endforeach
-                                        <p class="mb-0 py-2 px-2">CART - {{ $total}} Ks</p>
-                                    @else
-                                        <p class="mb-0 py-2 px-2">CART - 0 Ks</p>
-                                    @endif
+                                    </div>
                                 </a>
                                 {{-- <div class="cart-overlay card shadow-lg border-0 bg-primary position-absolute" style="top: 100%; bottom: 0; right: 0; width: 300px; z-index: 2000;">
                                     <div class="card-body p-1">
@@ -284,7 +286,93 @@
     <script src="{{ asset('frontEnd/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('frontEnd/node_modules/owl.carousel/dist/owl.carousel.min.js')}}"></script>
     <script src="{{ asset('frontEnd/node_modules/waypoints/lib/jquery.waypoints.min.js')}}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('frontEnd/resources/js/script.js')}}"></script>
     @yield('script')
+    <script>
+        const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    });
+        function addToCart(id,amount){
+
+            let productId = id;
+            let colorId = '';
+            let sizeId = '';
+            let colorName = '';
+            let sizeName = '';
+            let qty = $('.quantity').val();
+            let price = amount;
+
+            //validation
+            if($('.colorOption').length && $('.sizeOption').length){
+                colorId = $('.colorOption').val();
+                colorName = $('.colorOption').find("option:selected").text();
+
+                sizeId = $('.sizeOption').val();
+                sizeName = $('.sizeOption').find("option:selected").text();
+
+                //each empty state
+                if(colorId == '' || sizeId == ''){
+                    $('.colorErrorMessage').removeClass('d-none');
+                    return $('.sizeErrorMessage').removeClass('d-none');
+                }
+            }else if($('.colorOption').length){
+                colorId = $('.colorOption').val();
+                colorName = $('.colorOption').find("option:selected").text();
+                //empty state
+                if(colorId == ''){
+                    return $('.colorErrorMessage').removeClass('d-none');
+                }
+            }else if($('.sizeOption').length){
+                sizeId = $('.sizeOption').val();
+                sizeName = $('.sizeOption').find("option:selected").text();
+                //empty state
+                if(sizeId == ''){
+                    return $('.sizeErrorMessage').removeClass('d-none');
+                }
+            }
+
+            $.ajax({
+                url: "{{ route('frontend#addToCart') }}",
+                method: "post",
+                dataType: "json",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    productId: productId,
+                    colorId: colorId,
+                    colorName: colorName,
+                    sizeId: sizeId,
+                    sizeName: sizeName,
+                    qty: qty,
+                    price: price,
+                },
+                success:function(response){
+
+
+                    if(response.error){
+                        Swal.fire(response.error);
+                    }else{
+                        let headerCartBoxHtml = `
+                            <span class="badge bg-dark rounded-circle mb-0 position-absolute cart-badge">${response.count}</span>
+                            <p class="mb-0 py-2 px-2">CART - ${response.totalPrice} Ks</p>
+                        `;
+                        $('.headerCartBox').html(headerCartBoxHtml);
+                        Toast.fire({
+                            icon: 'success',
+                            title: response.success,
+                        })
+                    }
+                }
+            })
+        }
+    </script>
 </body>
 </html>

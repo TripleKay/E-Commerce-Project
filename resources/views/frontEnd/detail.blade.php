@@ -86,13 +86,13 @@
                                             <button class="btn btn-dark">-</button>
                                         </div>
                                     </div>
+                                    <small class="text-danger qtyErrorMessage d-none">quantity must be min: 1 or max: 10</small>
                                     <hr>
                                     <div class="d-flex align-items-baseline">
-                                        @if (!empty($product->discount_price))
-                                            <h5 class="mb-0 text-danger">SubTotal : {{ $product->selling_price - $product->discount_price }} Ks</h5>
-                                        @else
-                                            <h5 class="mb-0 text-danger">SubTotal : {{ $product->selling_price }} Ks</h5>
-                                        @endif
+                                        @php
+                                            $price = !empty($product->discount_price) ? $product->selling_price - $product->discount_price : $product->selling_price;
+                                        @endphp
+                                            <h5 class="mb-0 text-danger">SubTotal : {{ $price }} Ks</h5>
                                         @if (!empty($product->discount_price))
                                             <p class="h6 mb-0 ms-2 text-black-50 text-decoration-line-through">{{ $product->selling_price }} Ks</p>
                                         @endif
@@ -100,7 +100,7 @@
                                     <hr>
                                     <div class="mt-4">
                                         <button class="btn btn-danger me-3 text-white">Buy Now</button>
-                                        <button class="addToCart btn btn-primary text-white">Add to Cart</button>
+                                        <button class="addToCart btn btn-primary text-white" onclick="addToCart({{$product->product_id}},{{ $price }})">Add to Cart</button>
                                     </div>
 
                                 </div>
@@ -156,69 +156,6 @@
                 }
 
             })
-        })
-        // add to cart
-        $('.addToCart').on('click',function(){
-            let productId = "{{ $product->product_id }}";
-            let colorId = '';
-            let sizeId = '';
-            let colorName = '';
-            let sizeName = '';
-            let qty = $('.quantity').val();
-            let price = "{{ !empty($product->discount_price) ? $product->selling_price - $product->discount_price : $product->selling_price }}";
-
-            //validation
-            if($('.colorOption').length && $('.sizeOption').length){
-                colorId = $('.colorOption').val();
-                colorName = $('.colorOption').find("option:selected").text();
-
-                sizeId = $('.sizeOption').val();
-                sizeName = $('.sizeOption').find("option:selected").text();
-
-                //each empty state
-                if(colorId == '' || sizeId == ''){
-                    $('.colorErrorMessage').removeClass('d-none');
-                    return $('.sizeErrorMessage').removeClass('d-none');
-                }
-            }else if($('.colorOption').length){
-                colorId = $('.colorOption').val();
-                colorName = $('.colorOption').find("option:selected").text();
-                //empty state
-                if(colorId == ''){
-                    return $('.colorErrorMessage').removeClass('d-none');
-                }
-            }else if($('.sizeOption').length){
-                sizeId = $('.sizeOption').val();
-                sizeName = $('.sizeOption').find("option:selected").text();
-                //empty state
-                if(sizeId == ''){
-                    return $('.sizeErrorMessage').removeClass('d-none');
-                }
-            }
-
-            $.ajax({
-                url: "{{ route('frontend#addToCart') }}",
-                method: "post",
-                dataType: "json",
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    productId: productId,
-                    colorId: colorId,
-                    colorName: colorName,
-                    sizeId: sizeId,
-                    sizeName: sizeName,
-                    qty: qty,
-                    price: price,
-                },
-                success:function(response){
-                    if(response.error){
-                        alert(response.error);
-                    }else{
-                        alert(response.success);
-                    }
-                }
-            })
-
         })
     })
 </script>

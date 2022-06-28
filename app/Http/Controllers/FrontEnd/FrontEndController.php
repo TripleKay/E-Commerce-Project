@@ -93,10 +93,5 @@ class FrontEndController extends Controller
         ]);
     }
 
-    //view all carts page
-    public function viewCarts(){
-        $categories = Category::get();
-        return view('frontEnd.cart')->with(['categories'=>$categories]);
-    }
-
+   
 }
