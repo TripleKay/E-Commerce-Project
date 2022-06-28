@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\FrontEnd\FrontEndController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\FrontEnd\CartController;
 use App\Http\Middleware\AdminCheckMiddleware;
+use League\CommonMark\Extension\FrontMatter\FrontMatterParser;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +40,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         if(Auth::check()){
             if(Auth::user()->role == 'admin'){
-                return redirect()->route('admin#profile');
+                return redirect()->route('admin#dashboard');
             }else if(Auth::user()->role == 'user'){
                 return redirect()->route('frontend#index');
             }
@@ -47,6 +49,9 @@ Route::middleware([
 });
 
 Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCheckMiddleware::class]],function(){
+    //dashboard
+    Route::get('dashboard',[DashboardController::class,'index'])->name('admin#dashboard');
+
     // brand
     Route::get('brand',[BrandController::class,'index'])->name('admin#brand');
     Route::post('brand/create',[BrandController::class,'createBrand'])->name('admin#createBrand');
@@ -123,6 +128,7 @@ Route::group(['namespace' => 'FrontEnd'],function(){
     Route::get('category/{id}/product/',[FrontEndController::class,'categoryProduct'])->name('frontend#catProduct');
     Route::get('subcategory/{id}/product/',[FrontEndController::class,'subcategoryProduct'])->name('frontend#subcatProduct');
     Route::get('subsubcategory/{id}/product/',[FrontEndController::class,'subsubcategoryProduct'])->name('frontend#subsubcatProduct');
+    Route::get('product/carts',[FrontEndController::class,'viewCarts'])->name('frontend#viewCarts');
 
     //product detail
     Route::get('product/detail/{id}',[FrontEndController::class,'showProduct'])->name('frontend#showProduct');

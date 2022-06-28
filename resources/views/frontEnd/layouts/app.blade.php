@@ -63,11 +63,50 @@
                                 </div>
                             </form>
                             <div class="">
-                                <button class="btn btn-outline-light position-relative text-white p-0 d-flex justify-content-between align-items-center">
+                                <a href="{{ route('frontend#viewCarts') }}" class="btn btn-outline-light position-relative text-white p-0 d-flex justify-content-between align-items-center">
                                     <i class="fa-solid fa-cart-shopping py-2 px-2" style="border-right: 1px solid #fff"></i>
-                                    <span class="badge bg-dark rounded-circle mb-0 position-absolute cart-badge">4</span>
-                                    <p class="mb-0 py-2 px-2">CART - 30000 Ks</p>
-                                </button>
+                                    <span class="badge bg-dark rounded-circle mb-0 position-absolute cart-badge">
+                                        @if (Session::has('cart'))
+                                            {{ count(Session::get('cart')) }}
+                                        @else
+                                            0
+                                        @endif
+                                    </span>
+                                    @if (Session::has('cart'))
+                                        @php $total = 0 @endphp
+                                        @foreach (Session::get('cart') as $item)
+                                                 @php
+                                                    $total += $item['price'] * $item['quantity']
+                                                 @endphp
+                                        @endforeach
+                                        <p class="mb-0 py-2 px-2">CART - {{ $total}} Ks</p>
+                                    @else
+                                        <p class="mb-0 py-2 px-2">CART - 0 Ks</p>
+                                    @endif
+                                </a>
+                                {{-- <div class="cart-overlay card shadow-lg border-0 bg-primary position-absolute" style="top: 100%; bottom: 0; right: 0; width: 300px; z-index: 2000;">
+                                    <div class="card-body p-1">
+                                        <div class="card cart-item mb-1">
+                                            <div class="card-body p-1 d-flex justify-content-between align-items-center">
+                                                <img src="{{ asset('frontEnd/resources/image/product1.jpg') }}" alt="" srcset="" style="width: 80px; height: 80px">
+                                                <div class="">
+                                                    <p class="mb-0">Apple Watch</p>
+                                                    <span>8 items</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card cart-item mb-1">
+                                            <div class="card-body p-1 d-flex justify-content-between align-items-center">
+                                                <img src="{{ asset('frontEnd/resources/image/product1.jpg') }}" alt="" srcset="" style="width: 80px; height: 80px">
+                                                <div class="">
+                                                    <p class="mb-0">Apple Watch</p>
+                                                    <span>8 items</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="" class="btn btn-primary text-white w-100">View All</a>
+                                    </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

@@ -56,12 +56,13 @@
                                     @endif
                                     @if (!$colors->count() == 0)
                                         <div class="form-group">
-                                            <select name="" id="" class="colorOption form-control" style="width: 200px">
+                                            <select name="" id="" class="colorOption form-control" style="width: 200px" required>
                                                 <option value="">---select color---</option>
                                                 @foreach ($colors as $item)
                                                     <option value="{{ $item->color_id }}">{{ $item->colorName }}</option>
                                                 @endforeach
                                             </select>
+                                            <small class="text-danger colorErrorMessage d-none">Color is required!</small>
                                         </div>
                                         <hr>
                                     @endif
@@ -73,6 +74,7 @@
                                                 <option value="{{ $item->size_id }}">{{ $item->sizeName }}</option>
                                             @endforeach
                                         </select>
+                                        <small class="text-danger sizeErrorMessage d-none">Size is required!</small>
                                     </div>
                                         <hr>
                                     @endif
@@ -87,9 +89,9 @@
                                     <hr>
                                     <div class="d-flex align-items-baseline">
                                         @if (!empty($product->discount_price))
-                                            <h5 class="mb-0 text-danger">{{ $product->selling_price - $product->discount_price }} Ks</h5>
+                                            <h5 class="mb-0 text-danger">SubTotal : {{ $product->selling_price - $product->discount_price }} Ks</h5>
                                         @else
-                                            <h5 class="mb-0 text-danger">{{ $product->selling_price }} Ks</h5>
+                                            <h5 class="mb-0 text-danger">SubTotal : {{ $product->selling_price }} Ks</h5>
                                         @endif
                                         @if (!empty($product->discount_price))
                                             <p class="h6 mb-0 ms-2 text-black-50 text-decoration-line-through">{{ $product->selling_price }} Ks</p>
@@ -109,19 +111,6 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    @if (Session::has('cart'))
-                        <div class="card">
-                            <div class="card-body">
-
-                                <p>have cart</p>
-                                @foreach (Session::get('cart') as $cart)
-                                    <p>{{ $cart['productId'] }}</p>
-                                    <p>{{ $cart['colorId'] }}</p>
-
-                                @endforeach
-                            </div>
-                        </div>
-                    @endif
                     <div class="card my-4 border-0">
                         <div class="card-body">
                             <h5>Product Details</h5>
@@ -137,6 +126,7 @@
 @section('script')
 <script>
     $('document').ready(function(){
+        //get size
         $('.colorOption').on('click',function(){
             let productId = "{{ $product->product_id }}";
             let colorId = $(this).val();
@@ -167,11 +157,45 @@
 
             })
         })
+        // add to cart
         $('.addToCart').on('click',function(){
             let productId = "{{ $product->product_id }}";
-            let colorId = $('.colorOption').val();
-            let sizeId = $('.sizeOption').val();
+            let colorId = '';
+            let sizeId = '';
+            let colorName = '';
+            let sizeName = '';
             let qty = $('.quantity').val();
+            let price = "{{ !empty($product->discount_price) ? $product->selling_price - $product->discount_price : $product->selling_price }}";
+
+            //validation
+            if($('.colorOption').length && $('.sizeOption').length){
+                colorId = $('.colorOption').val();
+                colorName = $('.colorOption').find("option:selected").text();
+
+                sizeId = $('.sizeOption').val();
+                sizeName = $('.sizeOption').find("option:selected").text();
+
+                //each empty state
+                if(colorId == '' || sizeId == ''){
+                    $('.colorErrorMessage').removeClass('d-none');
+                    return $('.sizeErrorMessage').removeClass('d-none');
+                }
+            }else if($('.colorOption').length){
+                colorId = $('.colorOption').val();
+                colorName = $('.colorOption').find("option:selected").text();
+                //empty state
+                if(colorId == ''){
+                    return $('.colorErrorMessage').removeClass('d-none');
+                }
+            }else if($('.sizeOption').length){
+                sizeId = $('.sizeOption').val();
+                sizeName = $('.sizeOption').find("option:selected").text();
+                //empty state
+                if(sizeId == ''){
+                    return $('.sizeErrorMessage').removeClass('d-none');
+                }
+            }
+
             $.ajax({
                 url: "{{ route('frontend#addToCart') }}",
                 method: "post",
@@ -180,13 +204,21 @@
                     _token: '{{ csrf_token() }}',
                     productId: productId,
                     colorId: colorId,
+                    colorName: colorName,
                     sizeId: sizeId,
+                    sizeName: sizeName,
                     qty: qty,
+                    price: price,
                 },
                 success:function(response){
-                    console.log(response.variant);
+                    if(response.error){
+                        alert(response.error);
+                    }else{
+                        alert(response.success);
+                    }
                 }
             })
+
         })
     })
 </script>

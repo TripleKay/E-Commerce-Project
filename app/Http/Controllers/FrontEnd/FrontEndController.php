@@ -8,8 +8,6 @@ use App\Models\Category;
 use App\Models\MultiImage;
 use App\Models\Product;
 use App\Models\ProductVariant;
-use App\Models\SubCategory;
-use App\Models\SubSubCategory;
 use Illuminate\Http\Request;
 
 class FrontEndController extends Controller
@@ -93,6 +91,12 @@ class FrontEndController extends Controller
         return response()->json([
             'sizes'=> $sizes,
         ]);
+    }
+
+    //view all carts page
+    public function viewCarts(){
+        $categories = Category::get();
+        return view('frontEnd.cart')->with(['categories'=>$categories]);
     }
 
 }
