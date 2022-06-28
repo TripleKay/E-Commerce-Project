@@ -121,6 +121,17 @@ F8F7FF bg-soft
     right: -23px;
 }
 
+.myAccountOverlay{
+    z-index: 2000;
+    width: 150px;
+    display: none;
+    transition: .5s linear;
+}
+.myAccount:hover .myAccountOverlay{
+    display: flex;
+    transition: .5s linear;
+}
+
 
 /* <!-- -------------------------------header 3 -------------------------------------  --> */
 

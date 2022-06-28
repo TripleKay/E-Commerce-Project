@@ -15,7 +15,6 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\FrontEnd\CartController;
 use App\Http\Middleware\AdminCheckMiddleware;
-use League\CommonMark\Extension\FrontMatter\FrontMatterParser;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +27,9 @@ use League\CommonMark\Extension\FrontMatter\FrontMatterParser;
 |
 */
 
-// Route::get('/', function () {
+// Route::get('/dashboard', function () {
 //     return view('admin.dashboard');
-// });
+// })->name('dashboard');
 
 Route::middleware([
     'auth:sanctum',

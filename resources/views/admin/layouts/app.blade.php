@@ -12,13 +12,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{ asset('dashboard/plugins/fontawesome-free/css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
   {{-- toaster  --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <!-- data tables -->
-  <link rel="stylesheet" href="{{ asset('dashboard/plugins/data_table/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin/plugins/data_table/dataTables.bootstrap4.min.css') }}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('dashboard/dist/css/adminlte.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.css') }}">
   <style>
     .sidebar-light-white {
       background-color: #9381FF !important ;
@@ -125,7 +125,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{ route('admin#dashboard') }}" class="nav-link {{ Request::url() == route('admin#dashboard') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-home"></i>
                 <p>
                     Dashboard
@@ -212,7 +212,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <li class="nav-header text-white text-uppercase">Manage Profile</li>
           <li class="nav-item">
-            <a href="{{ route('admin#editProfile') }}" class="nav-link">
+            <a href="{{ route('admin#editProfile') }}" class="nav-link {{ Request::url() == route('admin#editProfile') ? 'active' : '' }}">
               <i class="nav-icon fas fa-user-circle"></i>
               <p>
                 Edit Profile
@@ -220,7 +220,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin#editPassword') }}" class="nav-link">
+            <a href="{{ route('admin#editPassword') }}" class="nav-link {{ Request::url() == route('admin#editPassword') ? 'active' : '' }}">
               <i class="nav-icon fas fa-lock"></i>
               <p>
                 Change Password
@@ -274,17 +274,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="{{ asset('dashboard/plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
-<script src="{{ asset('dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 {{-- toaster  --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 {{-- datatable --}}
-<script src="{{ asset('dashboard/plugins/data_table/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('dashboard/plugins/data_table/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('admin/plugins/data_table/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/data_table/dataTables.bootstrap4.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="{{ asset('dashboard/dist/js/adminlte.min.js') }}"></script>
+<script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
 @yield('script')
 <script>
     $(document).ready(function () {

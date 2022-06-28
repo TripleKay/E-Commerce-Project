@@ -125,6 +125,7 @@
                                 <!-- mobile close btn  -->
                                 <button class="btn btn-light shadow-lg d-block d-md-none mobile-close"><i class="fa-solid fa-xmark" style="font-size: 25px ;"></i></button>
                                 <!-- mobile close btn  -->
+                                <div class="d-flex justify-content-between align-items-center">
                                     <ul class="nav d-flex align-items-center nav-bar">
                                         <!-- for mobile  -->
                                         <li class="mobile-search-bar d-md-none">
@@ -198,13 +199,37 @@
                                         <li class="nav-item">
                                             <a class="nav-link text-white" href="#">CONTACT US</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <form action="{{ route('logout') }}" method="post">
-                                                @csrf
-                                                <button class="btn btn-light">logout</button>
-                                            </form>
-                                        </li>
                                       </ul>
+                                      <div class="d-flex">
+                                        <div class="me-2">
+                                            <a href="" class="btn btn-outline-light"><i class="fas fa-heart"></i></a>
+                                        </div>
+                                        <div class="myAccount me-2 position-relative">
+                                            <a href="" class=" btn btn-outline-light"><i class="fas fa-user-alt"></i></a>
+                                            @if (auth()->check())
+                                                <div class="myAccountOverlay card border-0 bg-primary position-absolute">
+                                                    <div class=" card-body p-1  d-flex flex-column">
+                                                        <a href="" class="btn btn-primary text-white  text-start">My Account</a>
+                                                        <a href="" class="btn  btn-primary text-white text-start">My Orders</a>
+                                                        <hr class="my-1">
+                                                        <form action="{{ route('logout') }}" method="post">
+                                                            @csrf
+                                                            <button class="btn btn-primary text-white w-100 text-start">logout</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="myAccountOverlay card border-0 bg-primary position-absolute">
+                                                    <div class=" card-body p-1  d-flex flex-column">
+                                                        <a href="{{ route('login') }}" class="btn btn-primary text-white  text-start">Login</a>
+                                                        <a href="{{ route('register') }}" class="btn  btn-primary text-white text-start">Register</a>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                      </div>
+
+                                </div>
                               </nav>
                         </div>
                     </div>
