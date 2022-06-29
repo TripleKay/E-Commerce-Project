@@ -71,13 +71,11 @@ class FrontEndController extends Controller
                                 ->where('product_variants.product_id',$id)
                                 ->get();
                                 // dd($colors->toArray());
-                                $categories = Category::get();
         return view('frontEnd.detail')->with([
             'product'=>$product,
             'multiImages'=>$multiImages,
             'colors' => $colors,
             'sizes' => $sizes,
-            'categories' => $categories,
         ]);
     }
 
@@ -93,5 +91,5 @@ class FrontEndController extends Controller
         ]);
     }
 
-   
+
 }

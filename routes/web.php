@@ -14,7 +14,9 @@ use App\Http\Controllers\Admin\ProductVariantController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\FrontEnd\CartController;
+use App\Http\Controllers\User\WishListController;
 use App\Http\Middleware\AdminCheckMiddleware;
+use App\Models\WishList;
 
 /*
 |--------------------------------------------------------------------------
@@ -137,4 +139,13 @@ Route::group(['namespace' => 'FrontEnd'],function(){
     Route::get('myCarts',[CartController::class,'viewCarts'])->name('frontend#viewCarts');
     Route::post('myCarts/update',[CartController::class,'updateCart'])->name('frontend#updateCart');
     Route::get('myCarts/delete/{id}',[CartController::class,'deleteCart'])->name('frontend#deleteCart');
+});
+
+Route::group(['prefix' => 'user','namespace' => 'User'],function(){
+    Route::get('wishlist',[WishListController::class,'index'])->name('user#wishlist');
+    Route::get('getWishlist',[WishListController::class,'getWishlist'])->name('user#getWishlist');
+    Route::post('wishlist/add/{id}',[WishListController::class,'addWishlist'])->name('user#addWishlist');
+    Route::get('wishlist/delete/{id}',[WishListController::class,'deleteWishlist'])->name('user#deleteWishlist');
+
+
 });

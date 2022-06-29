@@ -145,6 +145,9 @@
                                                 <!-- all category container  -->
                                                 <ul class="dropdown-menu shadow-lg" aria-labelledby="category-btn" style="width: 100%; border-radius: 0px 0px 10px 10px">
                                                     <!-- -------------main cat item-----------------  -->
+                                                    @php
+                                                    $categories = App\Models\Category::get();
+                                                    @endphp
                                                     @foreach ($categories as $cat)
                                                         <li class="cat-item">
                                                             <div class="d-flex align-items-center justify-content-between dropdown-item py-2 my-1">
@@ -202,7 +205,7 @@
                                       </ul>
                                       <div class="d-flex">
                                         <div class="me-2">
-                                            <a href="" class="btn btn-outline-light"><i class="fas fa-heart"></i></a>
+                                            <a href="{{ route('user#wishlist') }}" class="btn btn-outline-light" title="My Wishlist"><i class="fas fa-heart"></i></a>
                                         </div>
                                         <div class="myAccount me-2 position-relative">
                                             <a href="" class=" btn btn-outline-light"><i class="fas fa-user-alt"></i></a>
@@ -380,10 +383,11 @@
                     price: price,
                 },
                 success:function(response){
-
-
                     if(response.error){
-                        Swal.fire(response.error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.error,
+                        });
                     }else{
                         let headerCartBoxHtml = `
                             <span class="badge bg-dark rounded-circle mb-0 position-absolute cart-badge">${response.count}</span>

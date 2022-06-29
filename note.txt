@@ -38,3 +38,6 @@ result = [
 let productId = 3;
 url: "{{ url('admin/product/delete') }}/"+productId,
 --------------------------------------------------------------------------------------
+jetstream url('/ dashboard') 404 not found error after login or register
+
+soln: public/dashboard/  change folder name => dashboard to other name

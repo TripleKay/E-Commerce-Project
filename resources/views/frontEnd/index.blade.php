@@ -124,7 +124,7 @@
                             @endif
                             <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
                                 <a href="{{ route('frontend#showProduct',$item->product_id) }}" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
-                                <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></a>
+                                <button onclick="addToWishList({{ $item->product_id }})" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></button>
                                 <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to cart" style="width: 40px; height: 40px;"><i class="mx-auto fa fa-shopping-cart text-primary" style="font-size: 25px;"></i></a>
                             </div>
                         </div>
@@ -183,7 +183,7 @@
                             @endif
                             <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
                                 <a href="detail.html" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
-                                <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></a>
+                                <button onclick="addToWishList({{ $item->product_id }})" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></button>
                                 <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to cart" style="width: 40px; height: 40px;"><i class="mx-auto fa fa-shopping-cart text-primary" style="font-size: 25px;"></i></a>
                             </div>
                         </div>
@@ -222,4 +222,49 @@
         </div>
     </div>
 </section>
+@endsection
+@section('script')
+<script>
+    function addToWishList(id){
+        $.ajax({
+                url: "{{ url('user/wishlist/add') }}/"+id,
+                method: "post",
+                dataType: "json",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                },
+                success:function(response){
+                    if(response.authError){
+                        Swal.fire({
+                            icon: 'info',
+                            title: response.authError,
+                            showDenyButton: true,
+                            showCancelButton: true,
+                            confirmButtonText: 'Login',
+                            denyButtonText: `Register`,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "{{ route('login') }}";
+                            } else if (result.isDenied) {
+                                window.location.href = "{{ route('register') }}";
+                            }
+                        })
+
+                    }else if(response.error){
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.error,
+                        });
+                    }else{
+                        Toast.fire({
+                            icon: 'success',
+                            title: response.success,
+                        });
+                    }
+                }
+
+            })
+    }
+
+</script>
 @endsection

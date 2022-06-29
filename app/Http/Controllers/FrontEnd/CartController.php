@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use App\Models\Product;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
 use App\Http\Controllers\Controller;
@@ -12,10 +11,9 @@ use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
-     //view all carts page
-     public function viewCarts(){
-        $categories = Category::get();
-        return view('frontEnd.cart')->with(['categories'=>$categories]);
+    //view all carts page
+    public function viewCarts(){
+        return view('frontEnd.cart');
     }
 
     //add to cart
