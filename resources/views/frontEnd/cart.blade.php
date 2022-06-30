@@ -21,7 +21,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered">
+                                <table class="table">
                                     <thead class="bg-primary text-nowrap text-white">
                                         <tr class="text-center">
                                             <th>#</th>
@@ -82,6 +82,46 @@
                                         </tbody>
                                     @endif
                                 </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="card border-0 rounded">
+                                        <div class="card-body">
+                                            <div class="">
+                                                <h5>Discount Code</h5>
+                                                <p class="text-black-50">Enter your coupon code if you have one.....</p>
+                                            </div>
+                                            {{-- <hr> --}}
+                                            <div class="">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <input type="text" class="form-control" placeholder="enter your coupon...">
+                                                    <button class="btn btn-outline-primary text-nowrap ms-2">Apply Coupon</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="card border-0 bg-light py-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mb-3">
+                                                <h6 class="mb-0">Total :</h6>
+                                                <h5 class="mb-0">500000 Ks</h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="mb-0">Coupon Discount :</h6>
+                                                <h5 class="mb-0">50 %</h5>
+                                            </div>
+                                            <hr>
+                                            <div class="d-flex justify-content-between mb-3">
+                                                <h6 class="mb-0">Grand Total :</h6>
+                                                <h5 class="mb-0">250000 Ks</h5>
+                                            </div>
+                                            <hr>
+                                            <button class="btn btn-primary mt-3 float-end text-white">Proceed to Checkout</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

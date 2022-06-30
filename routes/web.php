@@ -2,21 +2,23 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\AdminCheckMiddleware;
+use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\FrontEnd\CartController;
+use App\Http\Controllers\User\WishListController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\FrontEnd\FrontEndController;
 use App\Http\Controllers\Admin\ProductColorController;
+use App\Http\Controllers\Admin\StateDivisionController;
 use App\Http\Controllers\Admin\ProductVariantController;
-use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
-use App\Http\Controllers\FrontEnd\CartController;
-use App\Http\Controllers\User\WishListController;
-use App\Http\Middleware\AdminCheckMiddleware;
 
 
 /*
@@ -124,6 +126,20 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('coupon/edit/{id}',[CouponController::class,'editCoupon'])->name('admin#editCoupon');
     Route::post('coupon/update/{id}',[CouponController::class,'updateCoupon'])->name('admin#updateCoupon');
     Route::get('coupon/delete/{id}',[CouponController::class,'deleteCoupon'])->name('admin#deleteCoupon');
+
+    //state & division
+    Route::get('statedivision',[StateDivisionController::class,'index'])->name('admin#statedivision');
+    Route::post('statedivision/create',[StateDivisionController::class,'createStatedivision'])->name('admin#createStatedivision');
+    Route::get('statedivision/edit/{id}',[StateDivisionController::class,'editStatedivision'])->name('admin#editStatedivision');
+    Route::post('statedivision/edit/{id}',[StateDivisionController::class,'updateStatedivision'])->name('admin#updateStatedivision');
+    Route::get('statedivision/delete/{id}',[StateDivisionController::class,'deleteStatedivision'])->name('admin#deleteStatedivision');
+
+    //city
+    Route::get('city',[CityController::class,'index'])->name('admin#city');
+    Route::post('city/create',[CityController::class,'createCity'])->name('admin#createCity');
+    Route::get('city/edit/{id}',[CityController::class,'editCity'])->name('admin#editCity');
+    Route::post('city/edit/{id}',[CityController::class,'updateCity'])->name('admin#updateCity');
+    Route::get('city/delete/{id}',[CityController::class,'deleteCity'])->name('admin#deleteCity');
 
     //admin profile
     Route::get('profile/edit',[ProfileController::class,'index'])->name('admin#profile');

@@ -208,6 +208,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
 
+          <li class="nav-header text-white text-uppercase">Manage Delivery Locations</li>
+          <li class="nav-item">
+            <a href="{{ route('admin#statedivision') }}" class="nav-link {{ Request::url() == route('admin#statedivision') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-map-marker-alt"></i>
+              <p>
+                State Divisions
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin#city') }}" class="nav-link {{ Request::url() == route('admin#city') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-map-marker-alt"></i>
+              <p>
+                City
+              </p>
+            </a>
+          </li>
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
