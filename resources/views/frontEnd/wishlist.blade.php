@@ -63,6 +63,7 @@
                     _token: '{{ csrf_token() }}',
                 },
                 success:function(response){
+
                     let wishlistHtml = '';
                     if(response.wishlists.length != 0){
                         for(let i=0; i < response.wishlists.length; i++){
@@ -70,11 +71,11 @@
                             <tr class="wishlistRow${response.wishlists[i].wish_list_id} text-center">
                                 <td>${i+1}</td>
                                 <td>
-                                    <img src="{{ asset('uploads/products/') }}/${response.wishlists[i].productImage}" alt="" srcset="" style="width:100px;height:100px">
+                                    <img src="{{ asset('uploads/products/') }}/${response.wishlists[i].preview_image}" alt="" srcset="" style="width:100px;height:100px">
                                 </td>
-                                <td class="text-start">${ response.wishlists[i].productName }</td>
-                                <td class="text-start">${response.wishlists[i].shortDescription}</td>
-                                <td>${ response.wishlists[i].productPrice } Ks</td>
+                                <td class="text-start">${ response.wishlists[i].name }</td>
+                                <td class="text-start">${response.wishlists[i].short_description}</td>
+                                <td>${ response.wishlists[i].discount_price == null || response.wishlists[i].discount_price == 0 ? response.wishlists[i].selling_price : response.wishlists[i].selling_price - response.wishlists[i].discount_price } Ks</td>
                                 <td>
                                     <a href="{{ url('product/detail/') }}/${response.wishlists[i].product_id}" class="btn btn-primary btn-sm text-white"><i class="fas fa-eye me-2"></i>View Detail</a>
                                 </td>

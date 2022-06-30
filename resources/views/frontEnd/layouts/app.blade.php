@@ -54,8 +54,10 @@
                             <!-- mobile menu btn  -->
                             <button class="btn d-block d-sm-block d-md-none text-white mobile-menu"><i class="fa-solid fa-bars" style="font-size: 25px ;"></i></button>
                             <!-- mobile menu btn  -->
+                            <a href="{{ route('frontend#index') }}" class="btn p-0">
+                                <h3 class="mb-0 text-white logo">E-Market</h3>
+                            </a>
 
-                            <h3 class="mb-0 text-white logo">E-Market</h3>
                             <form action="" class="">
                                 <div class="d-none d-sm-none d-md-flex bg-white rounded-pill p-1 header-search-bar">
                                     <input type="text" class="form-control border-0" placeholder="search product....">
@@ -63,7 +65,7 @@
                                 </div>
                             </form>
                             <div class="">
-                                <a href="{{ route('frontend#viewCarts') }}" class="btn btn-outline-light position-relative text-white p-0 d-flex justify-content-between align-items-center">
+                                <a href="{{ route('frontend#viewCarts') }}" class="btn btn-outline-light position-relative  p-0 d-flex justify-content-between align-items-center">
                                     <i class="fa-solid fa-cart-shopping py-2 px-2" style="border-right: 1px solid #fff"></i>
                                     <div class="headerCartBox">
                                         <span class="badge bg-dark rounded-circle mb-0 position-absolute cart-badge">
@@ -149,15 +151,15 @@
                                                     $categories = App\Models\Category::get();
                                                     @endphp
                                                     @foreach ($categories as $cat)
+                                                        @php
+                                                            $subcategories = App\Models\SubCategory::where('category_id',$cat->category_id)->get();
+                                                        @endphp
                                                         <li class="cat-item">
                                                             <div class="d-flex align-items-center justify-content-between dropdown-item py-2 my-1">
                                                                 <a href="{{ route('frontend#catProduct',$cat->category_id) }}" class="" >{{ $cat->name }}</a>
-                                                                <i class="fa-solid fa-angle-right d-none d-md-inline-block"></i>
+                                                                <i class="fa-solid fa-angle-right d-none {{ $subcategories->count() == 0 ? 'd-md-none' : 'd-md-inline-block' }}"></i>
                                                             </div>
                                                             <!-- sub cat container  -->
-                                                            @php
-                                                                $subcategories = App\Models\SubCategory::where('category_id',$cat->category_id)->get();
-                                                            @endphp
                                                             @if (!$subcategories->count() == 0)
                                                                 <div class="card subcat-container " >
                                                                     <div class="card-body">
@@ -191,7 +193,7 @@
                                         </li>
                                          <!-- nav menu -->
                                         <li class="nav-item">
-                                          <a class="nav-link text-white" href="#">HOME</a>
+                                          <a class="nav-link text-white" href="{{ route('frontend#index') }}">HOME</a>
                                         </li>
                                         <li class="nav-item">
                                           <a class="nav-link text-white" href="#">BLOG</a>

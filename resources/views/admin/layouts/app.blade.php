@@ -199,6 +199,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li> --}}
+          <li class="nav-item">
+            <a href="{{ route('admin#coupon') }}" class="nav-link {{ Request::url() == route('admin#coupon') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-percent"></i>
+              <p>
+                Coupons
+              </p>
+            </a>
+          </li>
 
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -277,12 +285,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-{{-- toaster  --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 {{-- datatable --}}
 <script src="{{ asset('admin/plugins/data_table/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('admin/plugins/data_table/dataTables.bootstrap4.min.js')}}"></script>
+{{-- sweet alert  --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
 @yield('script')
@@ -290,13 +297,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $(document).ready(function () {
          $('#dataTable').DataTable();
     });
+
+    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    });
     @if (Session::has('success'))
-        toastr.options = {
-            "positionClass": "toast-top-full-width",
-            "showMethod": "slideDown",
-            "hideMethod": "slideUp"
-        };
-        toastr.success("{{ Session::get('success') }}");
+        Toast.fire({
+                    icon: 'success',
+                    title: "{{ Session::get('success') }}",
+                })
     @endif
 </script>
 

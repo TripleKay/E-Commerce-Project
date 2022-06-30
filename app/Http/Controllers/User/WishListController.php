@@ -17,7 +17,7 @@ class WishListController extends Controller
 
     //get wish list ajax
     public function getWishlist(){
-        $wishlists = WishList::select('wish_lists.*','products.name as productName','products.preview_image as productImage','products.selling_price as productPrice','products.short_description as shortDescription')
+        $wishlists = WishList::select('wish_lists.*','products.*')
                             ->join('products','products.product_id','wish_lists.product_id')
                             ->where('user_id',auth()->user()->id)
                             ->get();

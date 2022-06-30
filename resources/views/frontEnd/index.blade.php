@@ -167,7 +167,7 @@
             <div class="col-3">
                 <div class="card bg-white product-card p-3 mb-3">
                         <div class="product-img-container">
-                            <img src="{{ asset('uploads/products/'.$item->preview_image) }}" alt="" srcset="" class="img-fluid">
+                            <img src="{{ asset('uploads/products/'.$item->preview_image) }}" alt="" srcset="" class="d-block w-100">
                             @if (!empty($item->discount_price))
                             @php
                                 $amount = $item->discount_price / $item->selling_price;
@@ -182,7 +182,7 @@
                                 </div>
                             @endif
                             <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
-                                <a href="detail.html" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
+                                <a href="{{ route('frontend#showProduct',$item->product_id) }}" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
                                 <button onclick="addToWishList({{ $item->product_id }})" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></button>
                                 <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to cart" style="width: 40px; height: 40px;"><i class="mx-auto fa fa-shopping-cart text-primary" style="font-size: 25px;"></i></a>
                             </div>
@@ -212,10 +212,10 @@
 <section class="">
     <div class="container">
         <div class="row">
-            <div class="row brand-container my-5 mx-auto owl-carousel owl-theme">
+            <div class="row brand-container bg-white my-5 mx-auto owl-carousel owl-theme py-3" style="border-radius: 10px">
                 @foreach ($brands as $item)
                     <div class="item">
-                        <img src="{{ asset('uploads/brands/'.$item->image) }}" class="brand-img" alt="" srcset="">
+                        <img src="{{ asset('uploads/brands/'.$item->image) }}" class="brand-img mx-auto" alt="" srcset="">
                     </div>
                 @endforeach
             </div>

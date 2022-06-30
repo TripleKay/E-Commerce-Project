@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\SubCategoryController;
@@ -16,7 +17,7 @@ use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\FrontEnd\CartController;
 use App\Http\Controllers\User\WishListController;
 use App\Http\Middleware\AdminCheckMiddleware;
-use App\Models\WishList;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -115,6 +116,14 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('product/variant/delete/{id}',[ProductVariantController::class,'deleteVariant'])->name('admin#deleteVariant');
     Route::get('product/variant/edit/{id}',[ProductVariantController::class,'editVariant'])->name('admin#editVariant');
     Route::post('product/variant/update/{id}',[ProductVariantController::class,'updateVariant'])->name('admin#updateVariant');
+
+    //coupon
+    Route::get('coupon',[CouponController::class,'index'])->name('admin#coupon');
+    Route::get('coupon/create',[CouponController::class,'createCoupon'])->name('admin#createCoupon');
+    Route::post('coupon/store',[CouponController::class,'storeCoupon'])->name('admin#storeCoupon');
+    Route::get('coupon/edit/{id}',[CouponController::class,'editCoupon'])->name('admin#editCoupon');
+    Route::post('coupon/update/{id}',[CouponController::class,'updateCoupon'])->name('admin#updateCoupon');
+    Route::get('coupon/delete/{id}',[CouponController::class,'deleteCoupon'])->name('admin#deleteCoupon');
 
     //admin profile
     Route::get('profile/edit',[ProfileController::class,'index'])->name('admin#profile');
