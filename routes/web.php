@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\FrontEnd\CartController;
 use App\Http\Controllers\User\WishListController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\TownshipController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\SubCategoryController;
@@ -140,6 +141,14 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('city/edit/{id}',[CityController::class,'editCity'])->name('admin#editCity');
     Route::post('city/edit/{id}',[CityController::class,'updateCity'])->name('admin#updateCity');
     Route::get('city/delete/{id}',[CityController::class,'deleteCity'])->name('admin#deleteCity');
+
+    //township
+    Route::get('township',[TownshipController::class,'index'])->name('admin#township');
+    Route::post('township/getCity',[TownshipController::class,'getCity'])->name('admin#getCity');
+    Route::post('township/create',[TownshipController::class,'createTownship'])->name('admin#createTownship');
+    Route::get('township/edit/{id}',[TownshipController::class,'editTownship'])->name('admin#editTownship');
+    Route::post('township/edit/{id}',[TownshipController::class,'updateTownship'])->name('admin#updateTownship');
+    Route::get('township/delete/{id}',[TownshipController::class,'deleteTownship'])->name('admin#deleteTownship');
 
     //admin profile
     Route::get('profile/edit',[ProfileController::class,'index'])->name('admin#profile');

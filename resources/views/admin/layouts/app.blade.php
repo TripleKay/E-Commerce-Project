@@ -225,6 +225,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('admin#township') }}" class="nav-link {{ Request::url() == route('admin#township') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-map-marker-alt"></i>
+              <p>
+                Township    
+              </p>
+            </a>
+          </li>
 
           <li class="nav-item">
             <a href="#" class="nav-link">
