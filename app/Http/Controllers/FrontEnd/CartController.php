@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\FrontEnd;
 
+use Carbon\Carbon;
+use App\Models\Coupon;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
@@ -82,6 +84,24 @@ class CartController extends Controller
         ]);
     }
 
+    //apply coupon
+    public function applyCoupon(Request $request){
+        $coupon = Coupon::where('coupon_code',$request->couponCode)->first();
+        if(!empty($coupon)){
+            if($coupon->start_date <= Carbon::now() && $coupon->end_date >= Carbon::now()){
+                return response()->json([
+                    'coupon' => $coupon,
+                ]);
+            }else{
+                return response()->json([
+                    'error' => 'sorry,your coupon is expired',
+                ]);
+            }
+        }
+        return response()->json([
+            'error' => 'fails',
+        ]);
+    }
 
     //cart total price
     private function cartTotalPrice(){

@@ -65,13 +65,13 @@
 
                                             @endforeach
                                         </tbody>
-                                        <tfoot>
+                                        {{-- <tfoot>
                                             <tr class="text-end">
                                                 <td colspan="9">
                                                     <h5>Total : {{$total}} Ks</h5>
                                                 </td>
                                             </tr>
-                                        </tfoot>
+                                        </tfoot> --}}
                                     @else
                                         <tbody>
                                             <tr class="text-center text-danger">
@@ -94,8 +94,8 @@
                                             {{-- <hr> --}}
                                             <div class="">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <input type="text" class="form-control" placeholder="enter your coupon...">
-                                                    <button class="btn btn-outline-primary text-nowrap ms-2">Apply Coupon</button>
+                                                    <input type="text" class="couponCode form-control" placeholder="enter your coupon...">
+                                                    <button class="btn btn-outline-primary text-nowrap ms-2" onclick="applyCoupon()">Apply Coupon</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,12 +105,12 @@
                                     <div class="card border-0 bg-light py-3">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between mb-3">
-                                                <h6 class="mb-0">Total :</h6>
-                                                <h5 class="mb-0">500000 Ks</h5>
+                                                <h6 class="mb-0">Total : </h6>
+                                                <h5 class="mb-0">{{$total}} Ks</h5>
                                             </div>
                                             <div class="d-flex justify-content-between">
                                                 <h6 class="mb-0">Coupon Discount :</h6>
-                                                <h5 class="mb-0">50 %</h5>
+                                                <h5 class="mb-0 couponDiscount">0 %</h5>
                                             </div>
                                             <hr>
                                             <div class="d-flex justify-content-between mb-3">
@@ -118,7 +118,7 @@
                                                 <h5 class="mb-0">250000 Ks</h5>
                                             </div>
                                             <hr>
-                                            <button class="btn btn-primary mt-3 float-end text-white">Proceed to Checkout</button>
+                                            <a href="{{ route('user#checkout') }}" class="btn btn-primary mt-3 float-end text-white">Proceed to Checkout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -132,6 +132,35 @@
 @endsection
 @section('script')
 <script>
+    function applyCoupon(){
+        let couponCode = $('.couponCode').val();
+        if(couponCode){
+            $.ajax({
+                url: "{{ route('user#applyCoupon') }}",
+                method: "post",
+                dataType: "json",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    couponCode: couponCode,
+                },
+                success:function(response){
+                    if(response.error){
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.error,
+                        });
+                    }else{
+                        $('.couponDiscount').text(response.coupon.coupon_discount+'%');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Congrautions, coupon discount '+response.coupon.coupon_discount+'% added',
+                        });
+                    }
+                }
+
+            })
+        }
+    }
     $('document').ready(function(){
         $('.qtyInput').on('change',function(){
             let quantity = $(this).val();

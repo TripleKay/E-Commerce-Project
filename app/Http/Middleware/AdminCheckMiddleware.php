@@ -20,7 +20,7 @@ class AdminCheckMiddleware
         if(Auth::check() && auth()->user()->role == 'admin'){
             return $next($request);
         }else{
-            return back();
+            return abort(404);
         }
     }
 }

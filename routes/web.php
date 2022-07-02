@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\FrontEnd\CartController;
+use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\WishListController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TownshipController;
@@ -181,5 +182,10 @@ Route::group(['prefix' => 'user','namespace' => 'User'],function(){
     Route::post('wishlist/add/{id}',[WishListController::class,'addWishlist'])->name('user#addWishlist');
     Route::get('wishlist/delete/{id}',[WishListController::class,'deleteWishlist'])->name('user#deleteWishlist');
 
+    //coupon
+    Route::post('applyCoupon',[CartController::class,'applyCoupon'])->name('user#applyCoupon');
+
+    //checkout
+    Route::get('product/checkout',[CheckoutController::class,'checkoutPage'])->name('user#checkout');
 
 });
