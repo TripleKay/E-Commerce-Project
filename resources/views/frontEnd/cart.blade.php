@@ -17,12 +17,12 @@
                 <div class="col-12">
                     <div class="card border-0">
                         <div class="card-header bg-white">
-                            <h5 class="mb-0">My Carts</h5>
+                            <h5 class="my-2">My Carts</h5>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table">
-                                    <thead class="bg-primary text-nowrap text-white">
+                                    <thead class="text-nowrap ">
                                         <tr class="text-center">
                                             <th>#</th>
                                             <th style="">Product</th>
@@ -46,32 +46,32 @@
                                                     $total += $item['price'] * $item['quantity']
                                                 @endphp
                                                 <tr class="text-center">
-                                                    <td>{{ $i++ }}</td>
-                                                    <td>
+                                                    <td class="align-middle">{{ $i++ }}</td>
+                                                    <td class="align-middle">
                                                         <img src="{{ asset('uploads/products/'.$item['productImage']) }}" alt="" srcset="" style="width: 100px; heigth: 100px">
                                                     </td>
-                                                    <td class="text-start">{{ $item['productName'] }}</td>
-                                                    <td>{{ empty($item['color']) ? '.....' : $item['color'] }}</td>
-                                                    <td>{{ empty($item['size']) ? '.....' : $item['size'] }}</td>
-                                                    <td>{{ $item['price'] }} Ks</td>
-                                                    <td>
+                                                    <td class="text-start align-middle">{{ $item['productName'] }}</td>
+                                                    <td class="align-middle">{{ empty($item['color']) ? '.....' : $item['color'] }}</td>
+                                                    <td class="align-middle">{{ empty($item['size']) ? '.....' : $item['size'] }}</td>
+                                                    <td class="align-middle">{{ $item['price'] }} Ks</td>
+                                                    <td class="align-middle">
                                                         <input type="number" id="{{ $key }}" class="qtyInput form-control" placeholder="qty" min="1" max="10" value="{{ $item['quantity'] }}" >
                                                     </td>
-                                                    <td>{{ $item['price'] * $item['quantity'] }} Ks</td>
-                                                    <td>
+                                                    <td class="align-middle">{{ $item['price'] * $item['quantity'] }} Ks</td>
+                                                    <td class="align-middle">
                                                         <a href="{{ route('frontend#deleteCart',$key) }}" class="btn btn-danger btn-sm text-white"><i class="fas fa-trash"></i></a>
                                                     </td>
                                                 </tr>
 
                                             @endforeach
                                         </tbody>
-                                        {{-- <tfoot>
+                                        <tfoot>
                                             <tr class="text-end">
                                                 <td colspan="9">
                                                     <h5>Total : {{$total}} Ks</h5>
                                                 </td>
                                             </tr>
-                                        </tfoot> --}}
+                                        </tfoot>
                                     @else
                                         <tbody>
                                             <tr class="text-center text-danger">
@@ -82,45 +82,9 @@
                                         </tbody>
                                     @endif
                                 </table>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="card border-0 rounded">
-                                        <div class="card-body">
-                                            <div class="">
-                                                <h5>Discount Code</h5>
-                                                <p class="text-black-50">Enter your coupon code if you have one.....</p>
-                                            </div>
-                                            {{-- <hr> --}}
-                                            <div class="">
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <input type="text" class="couponCode form-control" placeholder="enter your coupon...">
-                                                    <button class="btn btn-outline-primary text-nowrap ms-2" onclick="applyCoupon()">Apply Coupon</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="card border-0 bg-light py-3">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between mb-3">
-                                                <h6 class="mb-0">Total : </h6>
-                                                <h5 class="mb-0">{{$total}} Ks</h5>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <h6 class="mb-0">Coupon Discount :</h6>
-                                                <h5 class="mb-0 couponDiscount">0 %</h5>
-                                            </div>
-                                            <hr>
-                                            <div class="d-flex justify-content-between mb-3">
-                                                <h6 class="mb-0">Grand Total :</h6>
-                                                <h5 class="mb-0">250000 Ks</h5>
-                                            </div>
-                                            <hr>
-                                            <a href="{{ route('user#checkout') }}" class="btn btn-primary mt-3 float-end text-white">Proceed to Checkout</a>
-                                        </div>
-                                    </div>
+                                <div class="float-end my-2">
+                                    <a href="#" class=" btn btn-outline-primary">Continous Shopping</a>
+                                    <a href="{{ route('user#checkout') }}" class="ms-3 btn btn-primary text-white">Proceed To Checkout</a>
                                 </div>
                             </div>
                         </div>
@@ -132,35 +96,7 @@
 @endsection
 @section('script')
 <script>
-    function applyCoupon(){
-        let couponCode = $('.couponCode').val();
-        if(couponCode){
-            $.ajax({
-                url: "{{ route('user#applyCoupon') }}",
-                method: "post",
-                dataType: "json",
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    couponCode: couponCode,
-                },
-                success:function(response){
-                    if(response.error){
-                        Swal.fire({
-                            icon: 'error',
-                            title: response.error,
-                        });
-                    }else{
-                        $('.couponDiscount').text(response.coupon.coupon_discount+'%');
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Congrautions, coupon discount '+response.coupon.coupon_discount+'% added',
-                        });
-                    }
-                }
 
-            })
-        }
-    }
     $('document').ready(function(){
         $('.qtyInput').on('change',function(){
             let quantity = $(this).val();

@@ -184,8 +184,12 @@ Route::group(['prefix' => 'user','namespace' => 'User'],function(){
 
     //coupon
     Route::post('applyCoupon',[CartController::class,'applyCoupon'])->name('user#applyCoupon');
+    Route::get('showGrandTotal',[CartController::class,'showGrandTotal'])->name('user#showGrandTotal');
+
 
     //checkout
-    Route::get('product/checkout',[CheckoutController::class,'checkoutPage'])->name('user#checkout');
+    Route::get('checkout',[CheckoutController::class,'checkoutPage'])->name('user#checkout');
+    Route::post('getCity',[CheckoutController::class,'getCity'])->name('user#getCity');
+    Route::post('getTownship',[CheckoutController::class,'getTownship'])->name('user#getTownship');
 
 });
