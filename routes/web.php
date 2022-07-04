@@ -182,14 +182,14 @@ Route::group(['prefix' => 'user','namespace' => 'User'],function(){
     Route::post('wishlist/add/{id}',[WishListController::class,'addWishlist'])->name('user#addWishlist');
     Route::get('wishlist/delete/{id}',[WishListController::class,'deleteWishlist'])->name('user#deleteWishlist');
 
-    //coupon
-    Route::post('applyCoupon',[CartController::class,'applyCoupon'])->name('user#applyCoupon');
-    Route::get('showGrandTotal',[CartController::class,'showGrandTotal'])->name('user#showGrandTotal');
-
-
     //checkout
     Route::get('checkout',[CheckoutController::class,'checkoutPage'])->name('user#checkout');
     Route::post('getCity',[CheckoutController::class,'getCity'])->name('user#getCity');
     Route::post('getTownship',[CheckoutController::class,'getTownship'])->name('user#getTownship');
+
+    //coupon
+    Route::post('applyCoupon',[CartController::class,'applyCoupon'])->name('user#applyCoupon');
+    Route::get('deleteCoupon',[CartController::class,'deleteCoupon'])->name('user#deleteCoupon');
+
 
 });

@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use Carbon\Carbon;
+use App\Models\Coupon;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
+use PhpParser\Node\Expr\FuncCall;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-
 
 class CartController extends Controller
 {
@@ -19,6 +20,9 @@ class CartController extends Controller
 
     //add to cart
     public function addToCart(Request $request){
+        if(Session::has('coupon')){
+            Session::forget('coupon');
+        }
         //request data
         $productId = $request->productId;
         $colorId = $request->colorId;
@@ -66,6 +70,13 @@ class CartController extends Controller
             unset($cart[$id]);
             Session::put('cart',$cart);
         }
+        $this->cartTotalPrice();
+        if (Session::has('coupon')) {
+            $couponCode = Session::get('coupon')['couponCode'];
+            $coupon = Coupon::where('coupon_code',$couponCode)->first();
+            $couponData = $this->requestCouponData($coupon);
+            Session::put('coupon',$couponData);
+        }
         return back()->with(['success'=>'deleted successfully']);
 
     }
@@ -78,6 +89,15 @@ class CartController extends Controller
             $cart[$request->id]['quantity'] = $request->quantity;
             Session::put('cart',$cart);
         }
+        $this->cartTotalPrice();
+
+        if (Session::has('coupon')) {
+            $couponCode = Session::get('coupon')['couponCode'];
+            $coupon = Coupon::where('coupon_code',$couponCode)->first();
+            $couponData = $this->requestCouponData($coupon);
+            Session::put('coupon',$couponData);
+        }
+
         return response()->json([
             'success'=>'updated successfully'
         ]);
@@ -89,12 +109,14 @@ class CartController extends Controller
         foreach(Session::get('cart') as $item){
             $totalPrice += $item['price'] * $item['quantity'];
         }
+        Session::put('subTotal',$totalPrice);
         return $totalPrice;
     }
 
     //get request cart data
     private function requestCartData($request,$product){
         $data = [
+            // 'product_id' => $request->productId,
             'productName' => $product->name,
             'productImage' => $product->preview_image,
             'quantity' => $request->qty,
@@ -109,5 +131,47 @@ class CartController extends Controller
             $data['size'] = $request->sizeName;
         }
         return $data;
+    }
+
+    //apply coupon
+    public function applyCoupon(Request $request){
+        $coupon = Coupon::where('coupon_code',$request->couponCode)->first();
+        if(!empty($coupon)){
+            if($coupon->start_date <= Carbon::now() && $coupon->end_date >= Carbon::now()){
+                $data = $this->requestCouponData($coupon);
+                Session::put('coupon',$data);
+                return response()->json([
+                    'coupon' => $coupon,
+                ]);
+            }else{
+                return response()->json([
+                    'error' => 'sorry,your coupon is expired',
+                ]);
+            }
+        }
+        return response()->json([
+            'error' => 'Invalid Coupon',
+        ]);
+    }
+
+    //delete coupon
+    public function deleteCoupon(){
+        if(Session::has('coupon')){
+            Session::forget('coupon');
+        }
+        return back()->with(['success'=>'coupon deleted successfully']);
+    }
+
+    //get request coupon data
+    private function requestCouponData($coupon){
+        $subTotal = Session::get('subTotal');
+        $discountAmount = round($subTotal * $coupon->coupon_discount/100);
+        $GrandTotal = $subTotal - $discountAmount;
+        return [
+            'couponCode' => $coupon->coupon_code,
+            'couponDiscount' => $coupon->coupon_discount,
+            'discontAmount' => $discountAmount,
+            'GrandTotal' => $GrandTotal,
+        ];
     }
 }
