@@ -20,7 +20,7 @@
                         <h5 class="my-2">Billing Details</h5>
                     </div>
                     <div class="card-body">
-                        <form action="" method="POST">
+                        <form action="{{ route('user#createOrder') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-4">
@@ -28,19 +28,31 @@
                                         <div class="card-body">
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Full Name</label>
-                                                <input name="fullName" type="text" class="form-control" placeholder="enter your name">
+                                                <input name="name" type="text" class="form-control" value="{{ old('name') }}" placeholder="enter your name">
+                                                @error('name')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Email</label>
-                                                <input name="email" type="email" class="form-control" placeholder="enter your name">
+                                                <input name="email" type="email" class="form-control" value="{{ old('email') }}" placeholder="enter your name">
+                                                @error('email')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Phone Number</label>
-                                                <input name="phone" type="number" class="form-control" placeholder="enter your name">
+                                                <input name="phone" type="number" class="form-control" value="{{ old('phone') }}" placeholder="enter your name">
+                                                @error('phone')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Note</label>
-                                                <textarea name="note" class="form-control" id="" rows="3" placeholder="say something...."></textarea>
+                                                <textarea name="note" class="form-control" id="" rows="3" placeholder="say something....">{{ old('note') }}</textarea>
+                                                @error('note')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -56,22 +68,34 @@
                                                         <option value="{{ $item->state_division_id }}">{{ $item->name }}</option>
                                                     @endforeach
                                                 </select>
+                                                @error('stateDivisionId')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">City</label>
                                                 <select name="cityId" id="" class="cityOption form-control" disabled>
                                                     <option value="">----Select City----</option>
                                                 </select>
+                                                @error('cityId')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Township</label>
                                                 <select name="townshipId" id="" class="townshipOption form-control" disabled>
                                                     <option value="">----Select Township----</option>
                                                 </select>
+                                                @error('townshipId')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                             </div>
                                             <div class="mb-4">
                                                 <label for="" class="form-label">Address</label>
-                                                <input name="address" type="text" class="form-control" placeholder="enter your name">
+                                                <input name="address" type="text" class="form-control" value="{{ old('address') }}" placeholder="enter your name">
+                                                @error('address')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                             </div>
                                             <div class="mb-3 card">
                                                 <div class="card-header bg-transparent">
@@ -79,18 +103,21 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="form-check mb-2">
-                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                        <input class="form-check-input" name="paymentMethod" value="stripe" type="radio" id="flexRadioDefault1">
                                                         <label class="form-check-label" for="flexRadioDefault1">
                                                             Stripe Payment
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <input class="form-check-input" name="paymentMethod" value="cos" type="radio" id="flexRadioDefault2">
                                                         <label class="form-check-label" for="flexRadioDefault2">
                                                             Cash On Delivery
                                                         </label>
                                                     </div>
                                                 </div>
+                                                @error('paymentMethod')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>

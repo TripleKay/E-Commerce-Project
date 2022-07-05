@@ -116,18 +116,22 @@ class CartController extends Controller
     //get request cart data
     private function requestCartData($request,$product){
         $data = [
-            // 'product_id' => $request->productId,
+            'product_id' => $request->productId,
             'productName' => $product->name,
             'productImage' => $product->preview_image,
             'quantity' => $request->qty,
             'color' => null,
             'size' => null,
+            'colorId' => null,
+            'sizeId' => null,
             'price' => $request->price,
         ];
         if(!empty($request->colorId)){
+            $data['colorId'] = $request->colorId;
             $data['color'] = $request->colorName;
         }
         if(!empty($request->sizeId)){
+            $data['sizeId'] = $request->sizeId;
             $data['size'] = $request->sizeName;
         }
         return $data;
@@ -166,12 +170,12 @@ class CartController extends Controller
     private function requestCouponData($coupon){
         $subTotal = Session::get('subTotal');
         $discountAmount = round($subTotal * $coupon->coupon_discount/100);
-        $GrandTotal = $subTotal - $discountAmount;
+        $grandTotal = $subTotal - $discountAmount;
         return [
             'couponCode' => $coupon->coupon_code,
             'couponDiscount' => $coupon->coupon_discount,
             'discontAmount' => $discountAmount,
-            'GrandTotal' => $GrandTotal,
+            'grandTotal' => $grandTotal,
         ];
     }
 }

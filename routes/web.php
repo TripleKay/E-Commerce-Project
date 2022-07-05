@@ -21,7 +21,7 @@ use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Admin\StateDivisionController;
 use App\Http\Controllers\Admin\ProductVariantController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
-
+use App\Http\Controllers\User\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -191,5 +191,6 @@ Route::group(['prefix' => 'user','namespace' => 'User'],function(){
     Route::post('applyCoupon',[CartController::class,'applyCoupon'])->name('user#applyCoupon');
     Route::get('deleteCoupon',[CartController::class,'deleteCoupon'])->name('user#deleteCoupon');
 
-
+    //order
+    Route::post('createOrder',[OrderController::class,'createOrder'])->name('user#createOrder');
 });
