@@ -4,16 +4,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminCheckMiddleware;
 use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\FrontEnd\CartController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\WishListController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TownshipController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\FrontEnd\ProfileController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\FrontEnd\FrontEndController;
@@ -21,7 +22,6 @@ use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Admin\StateDivisionController;
 use App\Http\Controllers\Admin\ProductVariantController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
-use App\Http\Controllers\User\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -193,4 +193,10 @@ Route::group(['prefix' => 'user','namespace' => 'User'],function(){
 
     //order
     Route::post('createOrder',[OrderController::class,'createOrder'])->name('user#createOrder');
+
+    //profile
+    Route::get('profile',[ProfileController::class,'index'])->name('user#profile');
+    Route::get('orders',[ProfileController::class,'myOrder'])->name('user#myOrder');
+    Route::get('orders/detail/{id}',[ProfileController::class,'orderDetail'])->name('user#orderDetail');
+
 });

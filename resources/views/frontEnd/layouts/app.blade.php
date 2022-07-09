@@ -214,7 +214,7 @@
                                             @if (auth()->check())
                                                 <div class="myAccountOverlay card border-0 bg-primary position-absolute">
                                                     <div class=" card-body p-1  d-flex flex-column">
-                                                        <a href="" class="btn btn-primary text-white  text-start">My Account</a>
+                                                        <a href="{{ route('user#profile') }}" class="btn btn-primary text-white  text-start">My Account</a>
                                                         <a href="" class="btn  btn-primary text-white text-start">My Orders</a>
                                                         <hr class="my-1">
                                                         <form action="{{ route('logout') }}" method="post">
@@ -331,6 +331,13 @@
                             toast.addEventListener('mouseleave', Swal.resumeTimer)
                         }
                     });
+
+        @if (Session::has('success'))
+            Toast.fire({
+                        icon: 'success',
+                        title: "{{ Session::get('success') }}",
+                    })
+        @endif
         function addToCart(id,amount){
 
             let productId = id;

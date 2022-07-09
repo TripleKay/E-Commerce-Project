@@ -172,9 +172,10 @@ class CartController extends Controller
         $discountAmount = round($subTotal * $coupon->coupon_discount/100);
         $grandTotal = $subTotal - $discountAmount;
         return [
+            'couponId' => $coupon->coupon_id,
             'couponCode' => $coupon->coupon_code,
             'couponDiscount' => $coupon->coupon_discount,
-            'discontAmount' => $discountAmount,
+            'discountAmount' => $discountAmount,
             'grandTotal' => $grandTotal,
         ];
     }

@@ -40,7 +40,7 @@ class OrderController extends Controller
           'note' => $request->note,
           'payment_method' => $request->paymentMethod,
           'sub_total' => Session::get('subTotal'),
-          'invoice_number' => 'EOS'.mt_rand(10000000,99999999),
+          'invoice_number' => 'EOS'.'-'.mt_rand(10000000,99999999),
           'order_date' => Carbon::now()->format('d F Y'),
            'order_month' => Carbon::now()->format('F'),
            'order_year' => Carbon::now()->format('Y'),
@@ -49,7 +49,8 @@ class OrderController extends Controller
         ];
         if(Session::has('coupon')){
             $coupon = Session::get('coupon');
-            $data['coupon_discount'] = $coupon['couponDiscount'];
+            $data['coupon_id'] = $coupon['couponId'];
+            $data['coupon_discount'] = $coupon['discountAmount'];
             $data['grand_total'] = $coupon['grandTotal'];
         }else{
             $data['grand_total'] = Session::get('subTotal');
@@ -70,6 +71,11 @@ class OrderController extends Controller
                 'total_price' => $cart['price'] * $cart['quantity'],
             ]);
         }
+
+        Session::forget('cart');
+        Session::forget('coupon');
+        Session::forget('subTotal');
+
         return redirect()->route('frontend#index')->with(['success'=>'Order successfully']);
 
 

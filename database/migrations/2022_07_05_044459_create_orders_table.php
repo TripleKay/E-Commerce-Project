@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('note')->nullable();
             $table->string('payment_method');
             $table->string('sub_total');
+            $table->string('coupon_id')->nullable();
             $table->string('coupon_discount')->nullable();
             $table->string('grand_total');
             $table->string('invoice_number');
