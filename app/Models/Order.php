@@ -39,7 +39,9 @@ class Order extends Model
         'return_reason',
         'status'
     ];
-
+    public function user(){
+        return $this->belongsTo(User::class,'user_id','id');
+    }
     public function stateDivision(){
         return $this->belongsTo(StateDivision::class,'state_division_id','state_division_id');
     }

@@ -6,6 +6,7 @@ use App\Http\Middleware\AdminCheckMiddleware;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\FrontEnd\CartController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TownshipController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\FrontEnd\ProfileController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\FrontEnd\FrontEndController;
@@ -152,10 +154,21 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('township/delete/{id}',[TownshipController::class,'deleteTownship'])->name('admin#deleteTownship');
 
     //admin profile
-    Route::get('profile/edit',[ProfileController::class,'index'])->name('admin#profile');
-    Route::post('profile/edit',[ProfileController::class,'editProfile'])->name('admin#editProfile');
-    Route::get('profile/password/edit',[ProfileController::class,'editPassword'])->name('admin#editPassword');
-    Route::post('profile/password/edit',[ProfileController::class,'updatePassword'])->name('admin#updatePassword');
+    Route::get('profile/edit',[AdminProfileController::class,'index'])->name('admin#profile');
+    Route::post('profile/edit',[AdminProfileController::class,'editProfile'])->name('admin#editProfile');
+    Route::get('profile/password/edit',[AdminProfileController::class,'editPassword'])->name('admin#editPassword');
+    Route::post('profile/password/edit',[AdminProfileController::class,'updatePassword'])->name('admin#updatePassword');
+
+    //order
+    Route::get('order',[AdminOrderController::class,'index'])->name('admin#order');
+    Route::get('order/filter/{status}',[AdminOrderController::class,'filterOrder'])->name('admin#filterOrder');
+    Route::get('order/detail/{id}',[AdminOrderController::class,'showOrder'])->name('admin#showOrder');
+    Route::get('order/confirm/{id}',[AdminOrderController::class,'confirmOrder'])->name('admin#confirmOrder');
+    Route::get('order/process/{id}',[AdminOrderController::class,'processOrder'])->name('admin#processOrder');
+    Route::get('order/pick/{id}',[AdminOrderController::class,'pickOrder'])->name('admin#pickOrder');
+    Route::get('order/ship/{id}',[AdminOrderController::class,'shipOrder'])->name('admin#shipOrder');
+    Route::get('order/deliver/{id}',[AdminOrderController::class,'deliverOrder'])->name('admin#deliverOrder');
+    Route::get('order/complete/{id}',[AdminOrderController::class,'completeOrder'])->name('admin#completeOrder');
 
 });
 
