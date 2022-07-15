@@ -107,6 +107,37 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
+                                    <div class="form-group">
+                                        <label for="">Color</label>
+                                        <select name="colorId" class="form-control" id="">
+                                            <option value="">----- select colors ------</option>
+                                            @foreach ($colors as $item)
+                                                <option value="{{ $item->color_id }}" {{ old('color_id') == $item->color_id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('colorId')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Size</label>
+                                        <select name="sizeId" class="form-control" id="">
+                                            <option value="">----- select size ------</option>
+                                            @foreach ($sizes as $item)
+                                                <option value="{{ $item->size_id }}" {{ old('size_id') == $item->size_id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('sizeId')
+                                                <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Stock</label>
+                                        <input name="avaiStock" type="number" class="form-control" placeholder="available stock">
+                                        @error('avaiStock')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>

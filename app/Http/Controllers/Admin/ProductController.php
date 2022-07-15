@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\MultiImage;
+use App\Models\ProductSize;
 use App\Models\SubCategory;
+use App\Models\ProductColor;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
 use App\Models\SubSubCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
@@ -34,9 +36,14 @@ class ProductController extends Controller
     public function createProduct(){
         $brands = Brand::get();
         $categories = Category::get();
+        $colors = ProductColor::get();
+        $sizes = ProductSize::get();
+
         return view('admin.product.create')->with([
             'brands' => $brands,
             'categories' => $categories,
+            'colors' => $colors,
+            'sizes' => $sizes,
         ]);
     }
 
@@ -89,6 +96,11 @@ class ProductController extends Controller
             }
 
         }
+
+        //for variant
+        $variantData = $this->requestProductVariantData($request,$productId);
+        ProductVariant::create($variantData);
+
         return redirect()->route('admin#product')->with(['success'=>'Product created successfully']);
 
     }
@@ -251,6 +263,21 @@ class ProductController extends Controller
         return $data;
     }
 
+    //get variant request data
+    private function requestProductVariantData($request,$id){
+        $data = [
+            'product_id' => $id,
+            'available_stock' => $request->avaiStock,
+        ];
+        if(isset($request->colorId)){
+            $data['colorId'] = $request->colorId;
+        }
+        if(isset($request->sizeId)){
+            $data['sizeId'] = $request->sizeId;
+        }
+        return $data;
+    }
+
     //validation
     private function productValidation($request){
         return Validator::make($request->all(),[
@@ -265,6 +292,7 @@ class ProductController extends Controller
             'originalPrice' => 'required',
             'sellingPrice' => 'required',
             'publishStatus' => 'required',
+            'avaiStock' => 'required',
         ]);
     }
 

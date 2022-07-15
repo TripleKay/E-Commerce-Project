@@ -14,8 +14,11 @@
 <div class="row pb-4">
     <div class="col-12">
         <div class="card shadow-none rounded">
-            <div class="card-header">
-                <h4>Edit Product</h4>
+            <div class="card-header ">
+                <div class="d-flex align-items-center justify-content-between my-2">
+                    <h4 class="mb-0">Edit Product</h4>
+                    <a href="{{ route('admin#createVariant',$product->product_id) }}" class="btn btn-success shadow"><i class="fas fa-edit mr-2"></i>View & Edit Variants</a>
+                </div>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin#updateProduct',$product->product_id) }}" method="POST" enctype="multipart/form-data">
