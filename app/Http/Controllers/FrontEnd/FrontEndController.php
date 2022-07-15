@@ -28,32 +28,98 @@ class FrontEndController extends Controller
 
     //Products by category page
     public function categoryProduct($id){
-        $products = Product::where('category_id',$id)->get();
+        $products = Product::where('category_id',$id)->paginate(9);
         $categories = Category::get();
+        $brands = Brand::get();
         return view('frontEnd.categoryProduct')->with([
             'products' => $products,
             'categories' => $categories,
+            'brands' => $brands,
         ]);;
     }
 
     //Products by category page
     public function subcategoryProduct($id){
-        $products = Product::where('subcategory_id',$id)->get();
+        $products = Product::where('subcategory_id',$id)->paginate(9);
         $categories = Category::get();
+        $brands = Brand::get();
         return view('frontEnd.categoryProduct')->with([
             'products' => $products,
             'categories' => $categories,
+            'brands' => $brands,
         ]);;
     }
 
     //Products by category page
     public function subsubcategoryProduct($id){
-        $products = Product::where('subsubcategory_id',$id)->get();
+        $products = Product::where('subsubcategory_id',$id)->paginate(9);
         $categories = Category::get();
+        $brands = Brand::get();
         return view('frontEnd.categoryProduct')->with([
             'products' => $products,
             'categories' => $categories,
+            'brands' => $brands,
         ]);;
+    }
+
+    //Products by brands
+    public function brandProduct($id){
+        $products = Product::where('brand_id',$id)->get();
+        $categories = Category::get();
+        $brands = Brand::get();
+        return view('frontEnd.categoryProduct')->with([
+            'products' => $products,
+            'categories' => $categories,
+            'brands' => $brands,
+        ]);;
+
+    }
+
+    //filter By price & date
+    public function filterProduct(Request $request){
+
+        $minPrice = $request->minPrice;
+        $maxPrice = $request->maxPrice;
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+
+        $query = Product::select('*');
+
+        //for date
+        if(!is_null($startDate) && is_null($endDate)){
+            //have startDate
+            $query->whereDate('created_at','>=',$startDate);
+        }else if(is_null($startDate) && !is_null($endDate)){
+            //have endDate
+            $query->whereDate('created_at','<=',$endDate);
+        }else if(!is_null($startDate) && !is_null($endDate)){
+            //have both
+            $query->whereDate('created_at','>=',$startDate)
+                    ->whereDate('created_at','<=',$endDate);
+        }
+
+        //for price
+        if(!is_null($minPrice) && is_null($maxPrice)){
+            //have minPrice
+            $query->where('selling_price','>=',$minPrice);
+        }else if(is_null($minPrice) && !is_null($maxPrice)){
+            //have maxPrice
+            $query->where('selling_price','<=',$maxPrice);
+        }else if(!is_null($minPrice) && !is_null($maxPrice)){
+            //have both
+            $query->where('selling_price','>=',$minPrice)
+                    ->where('selling_price','<=',$maxPrice);
+        }
+
+        $query = $query->get();
+        $categories = Category::get();
+        $brands = Brand::get();
+        return view('frontEnd.categoryProduct')->with([
+            'products' => $query,
+            'categories' => $categories,
+            'brands' => $brands,
+        ]);;
+
     }
 
     //detail

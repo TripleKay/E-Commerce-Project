@@ -14,11 +14,59 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-3">
-                <div class="card min-vh-100 border-0">
-                    <div class="card-body">
-                        <h3>filter</h3>
+             <div class="col-3">
+                <!-- -------------------------------------------------------------------- -->
+                <div class=" card border-0 mb-4 bg-white p-3 position-sticky">
+
+                    <!-- -------------------------------categories------------------------------------- -->
+                    <div class="">
+                      <div class="mb-2 fw-bolder">Categories</div>
+                      <div class="list-group">
+                        @foreach ($categories as $item)
+                            <a href="{{ route('frontend#catProduct',$item->category_id) }}" class="list-group-item list-group-item-action {{ Request::url() == route('frontend#catProduct',$item->category_id) ? 'active' : '' }}">{{ $item->name }}</a>
+                        @endforeach
+                      </div>
                     </div>
+
+                </div>
+
+                <!-- -------------------------------price & date------------------------------------- -->
+                <div class=" card border-0 mb-4 bg-white p-3 position-sticky">
+                    <form action="{{ route('frontend#filterProduct') }}" method="get">
+                        @csrf
+                        <div class="mb-4">
+                            <div class="mb-2">Price</div>
+                            <div class="d-flex">
+                                <input type="number" name="minPrice" class="form-control me-2" placeholder="min">
+                                <input type="number" name="maxPrice" class="form-control" placeholder="max">
+
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="mb-2">Date</div>
+                            <input type="date" name="startDate" class="form-control mb-2">
+                            <input type="date"  name="endDate"class="form-control ">
+                        </div>
+                        <div class="d-flex ">
+                            <button class="btn btn-primary text-white w-100 me-2">Filter</button>
+                            <button type="button" class="btn btn-outline-primary w-100 ">Cancel</button>
+                        </div>
+                    </form>
+
+                </div>
+
+                <!-- -------------------------------brand------------------------------------- -->
+                <div class=" card border-0 mb-4 bg-white p-3 position-sticky">
+
+                    <div class="">
+                      <div class="mb-2 fw-bolder">Brands</div>
+                      <div class="list-group">
+                        @foreach ($brands as $item)
+                            <a href="{{ route('frontend#brandProduct',$item->brand_id) }}" class="list-group-item list-group-item-action {{ Request::url() == route('frontend#brandProduct',$item->brand_id) ? 'active' : '' }}">{{ $item->name }}</a>
+                        @endforeach
+                      </div>
+                    </div>
+
                 </div>
             </div>
             <div class="col-9">

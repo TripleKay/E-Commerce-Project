@@ -16,21 +16,6 @@
             <div class="card-header">
                <div class="d-flex align-items-center justify-content-between my-1">
                     <h4 class="mb-0">All Orders</h4>
-                    <form class="d-flex align-items-center" action="{{ route('admin#filterOrder') }}" method="GET">
-                        @csrf
-                        <p class="mb-0 text-nowrap mr-2">Order Status :</p>
-                        <select name="orderStatus" id="" class="custom-select mb-0 mr-2">
-                            <option value="">All</option>
-                            <option value="pending">Pending</option>
-                            <option value="confirmed">confirmed</option>
-                            <option value="processing">processing</option>
-                            <option value="picked">picked</option>
-                            <option value="shipped">shipped</option>
-                            <option value="deliverd">deliverd</option>
-                            <option value="completed">completed</option>
-                        </select>
-                        <button class="btn btn-primary">Filter</button>
-                    </form>
                </div>
             </div>
             <div class="card-body">

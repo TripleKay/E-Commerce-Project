@@ -14,6 +14,15 @@ class OrderController extends Controller
 {
     //create
     public function createOrder(Request $request){
+        //empty cart checking
+        if(Session::has('cart')){
+            if(count(Session::get('cart')) == 0){
+                return back()->with(['error'=>'Your cart is empty!']);
+            }
+        }else{
+            return back()->with(['error'=>'Your cart is empty!']);
+        }
+        //validation
         $validation = Validator::make($request->all(),[
             'name' => 'required',
             'email' => 'required',

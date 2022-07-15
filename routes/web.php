@@ -161,7 +161,8 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
 
     //order
     Route::get('order',[AdminOrderController::class,'index'])->name('admin#order');
-    Route::get('order/filter/{status}',[AdminOrderController::class,'filterOrder'])->name('admin#filterOrder');
+    Route::get('order/filter',[AdminOrderController::class,"filterOrder"])->name('admin#filterOrder');
+    Route::get('order/pending',[AdminOrderController::class,'pendingOrder'])->name('admin#pendingOrder');
     Route::get('order/detail/{id}',[AdminOrderController::class,'showOrder'])->name('admin#showOrder');
     Route::get('order/confirm/{id}',[AdminOrderController::class,'confirmOrder'])->name('admin#confirmOrder');
     Route::get('order/process/{id}',[AdminOrderController::class,'processOrder'])->name('admin#processOrder');
@@ -173,23 +174,30 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
 });
 
 Route::group(['namespace' => 'FrontEnd'],function(){
+    //index
     Route::get('/',[FrontEndController::class,'index'])->name('frontend#index');
-    Route::get('category/{id}/product/',[FrontEndController::class,'categoryProduct'])->name('frontend#catProduct');
-    Route::get('subcategory/{id}/product/',[FrontEndController::class,'subcategoryProduct'])->name('frontend#subcatProduct');
-    Route::get('subsubcategory/{id}/product/',[FrontEndController::class,'subsubcategoryProduct'])->name('frontend#subsubcatProduct');
+
+    //category product
+    Route::get('product/category/{id}',[FrontEndController::class,'categoryProduct'])->name('frontend#catProduct');
+    Route::get('product/subcategory/{id}',[FrontEndController::class,'subcategoryProduct'])->name('frontend#subcatProduct');
+    Route::get('product/subsubcategory/{id}',[FrontEndController::class,'subsubcategoryProduct'])->name('frontend#subsubcatProduct');
+    Route::get('product/brand/{id}',[FrontEndController::class,'brandProduct'])->name('frontend#brandProduct');
+    Route::get('product/filter',[FrontEndController::class,'filterProduct'])->name('frontend#filterProduct');
 
     //product detail
     Route::get('product/detail/{id}',[FrontEndController::class,'showProduct'])->name('frontend#showProduct');
     Route::post('product/detail/size',[FrontEndController::class,'getProductSize'])->name('frontend#getProductSize');
 
+});
+
+Route::group(['prefix' => 'user','namespace' => 'User','middleware' => 'auth'],function(){
     //cart
     Route::post('product/addToCart/',[CartController::class,'addToCart'])->name('frontend#addToCart');
     Route::get('myCarts',[CartController::class,'viewCarts'])->name('frontend#viewCarts');
     Route::post('myCarts/update',[CartController::class,'updateCart'])->name('frontend#updateCart');
     Route::get('myCarts/delete/{id}',[CartController::class,'deleteCart'])->name('frontend#deleteCart');
-});
 
-Route::group(['prefix' => 'user','namespace' => 'User'],function(){
+    //wishlist
     Route::get('wishlist',[WishListController::class,'index'])->name('user#wishlist');
     Route::get('getWishlist',[WishListController::class,'getWishlist'])->name('user#getWishlist');
     Route::post('wishlist/add/{id}',[WishListController::class,'addWishlist'])->name('user#addWishlist');

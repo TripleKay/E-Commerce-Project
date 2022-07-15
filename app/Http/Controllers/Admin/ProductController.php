@@ -12,6 +12,7 @@ use App\Models\ProductVariant;
 use App\Models\SubSubCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
@@ -68,6 +69,7 @@ class ProductController extends Controller
         //get data
         $data = $this->requestProductData($request);
         $data['preview_image'] = $fileName;
+        $data['created_at'] = Carbon::now();
         //store data
         $file->move(public_path().'/uploads/products/',$fileName);
         $productId = Product::insertGetId($data);

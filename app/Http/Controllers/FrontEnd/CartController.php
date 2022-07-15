@@ -88,6 +88,10 @@ class CartController extends Controller
             $cart = Session::get('cart');
             $cart[$request->id]['quantity'] = $request->quantity;
             Session::put('cart',$cart);
+        }else{
+            return response()->json([
+                'error' => 'this product not available for this quantity',
+            ]);
         }
         $this->cartTotalPrice();
 

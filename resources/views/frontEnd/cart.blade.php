@@ -174,9 +174,6 @@
                             title: response.error,
                         });
                     }else{
-                        // $('.couponDiscount').text(response.coupon.coupon_discount+'%');
-
-
                         Swal.fire({
                             icon: 'success',
                             title: 'Congrautions, coupon discount '+response.coupon.coupon_discount+'% added',
@@ -204,6 +201,19 @@
                     quantity: quantity,
                 },
                 success:function(response){
+
+                    if(response.error){
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.error,
+                        });
+                    }else{
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.success,
+                        });
+
+                    }
                     window.location.reload();
                 }
 

@@ -252,68 +252,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <li class="nav-header text-white text-uppercase">Manage Orders</li>
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="{{ route('admin#order') }}" class="nav-link {{ Request::url() == route('admin#order') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-shopping-bag"></i>
               <p>
-                Orders
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
+                All Orders
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pending Order</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Confirmed Order</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Processing Order</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Picked Order</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-topnav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Shipped Order</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-footer.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Delivered Order</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Canceled Order</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('admin#order') }}" class="nav-link active {{ Request::url() == route('admin#order') ? 'active' : '' }}">
-                    <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Order
-                  </p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('admin#pendingOrder') }}" class="nav-link {{ Request::url() == route('admin#pendingOrder') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-shopping-bag"></i>
+              <p>
+                Pending Orders
+              </p>
+            </a>
+        </li>
 
 
           <li class="nav-header text-white text-uppercase">Manage Profile</li>

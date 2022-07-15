@@ -15,10 +15,16 @@ class OrderController extends Controller
         return view('admin.order.index')->with(['data'=>$data]);
     }
 
-    //filter order
-    public function filterOrder($status){
-        $data = Order::where('status',$status)->get();
+    //ordrer filter
+    public function filterOrder(Request $request){
+        $data = Order::with('user')->where('status','like','%'.$request->orderStatus.'%')->get();
         return view('admin.order.index')->with(['data'=>$data]);
+    }
+
+    //pending order
+    public function pendingOrder(){
+        $data = Order::where('status','pending')->get();
+        return view('admin.order.pendingOrder')->with(['data'=>$data]);
     }
 
     //order detail page

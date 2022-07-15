@@ -41,3 +41,10 @@ url: "{{ url('admin/product/delete') }}/"+productId,
 jetstream url('/ dashboard') 404 not found error after login or register
 
 soln: public/dashboard/  change folder name => dashboard to other name
+--------------------------------------------------------------------------------------
+
+
+###cart qty change error
+ when qty change or update,error message with alert is not very fast if qyt is out of stock bz of using window reload;
+
+
