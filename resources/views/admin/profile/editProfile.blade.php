@@ -16,13 +16,25 @@
             <div class="card-header bg-primary">
                 <h4 class="mb-0">Edit Profile</h4>
             </div>
-            {{-- <img src="{{ asset('frontEnd/resources/image/user-default.png') }}" class="rounded-circle" alt="" srcset="" style="width: 80px !important: height: 100px !important"> --}}
             <div class="card-body">
+                @if (!empty($data->profile_photo_path))
+                    <img src="{{ asset('uploads/user/'.$data->profile_photo_path) }}" class="rounded-circle" alt="" srcset="" style="width: 100px !important; height: 100px !important">
+                @else
 
-                <form action="{{ route('admin#editProfile') }}" method="POST">
+                    <img src="{{ asset('frontEnd/resources/image/user-default.png') }}" class="rounded-circle" alt="" srcset="" style="width: 100px !important; height: 100px !important">
+
+                @endif
+                <form action="{{ route('admin#editProfile') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="">User Name</label>
+                        <label for="">Change Profile Photo</label>
+                        <input name="photo" type="file" class="form-control">
+                        @error('photo')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="">Name</label>
                         <input name="name" type="text" class="form-control" value="{{ $data->name }}">
                         @error('name')
                             <small class="text-danger">{{ $message }}</small>

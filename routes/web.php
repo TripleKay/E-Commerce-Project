@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Admin\StateDivisionController;
 use App\Http\Controllers\Admin\ProductVariantController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
+use App\Http\Controllers\Admin\UserController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
@@ -172,6 +173,8 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('order/deliver/{id}',[AdminOrderController::class,'deliverOrder'])->name('admin#deliverOrder');
     Route::get('order/complete/{id}',[AdminOrderController::class,'completeOrder'])->name('admin#completeOrder');
 
+    //user list
+    Route::get('user',[UserController::class,'index'])->name('admin#userList');
 });
 
 Route::group(['namespace' => 'FrontEnd'],function(){

@@ -17,7 +17,14 @@
                 <h4 class="mb-0">Change Password</h4>
             </div>
             <div class="card-body">
-
+                @if (Session::has('message'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{ Session::get('message') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
                 <form action="{{ route('admin#editPassword') }}" method="POST">
                     @csrf
                     <div class="form-group">
