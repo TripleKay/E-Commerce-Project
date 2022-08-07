@@ -174,7 +174,12 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('order/complete/{id}',[AdminOrderController::class,'completeOrder'])->name('admin#completeOrder');
 
     //user list
-    Route::get('user',[UserController::class,'index'])->name('admin#userList');
+    Route::get('userList',[UserController::class,'userList'])->name('admin#userList');
+    Route::get('adminList',[UserController::class,'adminList'])->name('admin#adminList');
+    Route::get('user/edit/{id}',[UserController::class,'editUser'])->name('admin#editUser');
+    Route::post('user/edit/{id}',[UserController::class,'updateUser'])->name('admin#updateUser');
+    Route::get('user/delete/{id}',[UserController::class,'deleteUser'])->name('admin#deleteUser');
+
 });
 
 Route::group(['namespace' => 'FrontEnd'],function(){

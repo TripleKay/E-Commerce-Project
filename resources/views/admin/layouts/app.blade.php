@@ -268,6 +268,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
         </li>
 
+        <li class="nav-header text-white text-uppercase">Manage User</li>
+          <li class="nav-item">
+            <a href="{{ route('admin#userList') }}" class="nav-link {{ Request::url() == route('admin#userList') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                User Lists
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin#adminList') }}" class="nav-link {{ Request::url() == route('admin#adminList') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Admin Lists
+              </p>
+            </a>
+          </li>
 
           <li class="nav-header text-white text-uppercase">Manage Profile</li>
           <li class="nav-item">
