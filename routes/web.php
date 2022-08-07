@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Admin\StateDivisionController;
 use App\Http\Controllers\Admin\ProductVariantController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -219,5 +220,6 @@ Route::group(['prefix' => 'user','namespace' => 'User','middleware' => 'auth'],f
     Route::get('profile',[ProfileController::class,'index'])->name('user#profile');
     Route::get('orders',[ProfileController::class,'myOrder'])->name('user#myOrder');
     Route::get('orders/detail/{id}',[ProfileController::class,'orderDetail'])->name('user#orderDetail');
+    Route::get('downloadInvoice/{id}',[ProfileController::class,'downloadInvoice'])->name('user#download#downloadInvoice');
 
 });

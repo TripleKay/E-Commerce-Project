@@ -127,7 +127,7 @@
                                 <!-- mobile close btn  -->
                                 <button class="btn btn-light shadow-lg d-block d-md-none mobile-close"><i class="fa-solid fa-xmark" style="font-size: 25px ;"></i></button>
                                 <!-- mobile close btn  -->
-                                <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-md-flex justify-content-between align-items-center">
                                     <ul class="nav d-flex align-items-center nav-bar">
                                         <!-- for mobile  -->
                                         <li class="mobile-search-bar d-md-none">
@@ -206,11 +206,11 @@
                                         </li>
                                       </ul>
                                       <div class="d-flex">
-                                        <div class="me-2">
+                                        <div class="me-2 d-none d-md-block">
                                             <a href="{{ route('user#wishlist') }}" class="btn btn-outline-light" title="My Wishlist"><i class="fas fa-heart"></i></a>
                                         </div>
-                                        <div class="myAccount me-2 position-relative">
-                                            <a href="" class=" btn btn-outline-light"><i class="fas fa-user-alt"></i></a>
+                                        <div class="myAccount me-2 position-relative d-none d-md-block">
+                                            <div class=" btn btn-outline-light"><i class="fas fa-user-alt"></i></div>
                                             @if (auth()->check())
                                                 <div class="myAccountOverlay card border-0 bg-primary position-absolute">
                                                     <div class=" card-body p-1  d-flex flex-column">
@@ -231,6 +231,25 @@
                                                     </div>
                                                 </div>
                                             @endif
+                                        </div>
+                                        <div class="card border-0 bg-primary mt-2 mb-3 w-100 d-block d-md-none" style="border-radius: 15px">
+                                            <div class="card-body">
+                                                @if (auth()->check())
+                                                    <h5 class="text-white">{{ auth()->user()->name }}</h5>
+                                                    <hr class="bg-white">
+                                                    <a href="{{ route('user#wishlist') }}" class="btn px-0 text-white" title="My Wishlist"><i class="fas fa-heart"></i> My WishList</a>
+                                                    <a href="" class="btn w-100 px-0 text-start text-white"><i class="fas fa-shopping-bag"></i> My Orders</a>
+                                                    <a href="{{ route('user#profile') }}" class="btn w-100 px-0 text-start text-white"><i class="fas fa-user-alt"></i> My Account</a>
+                                                    <hr class="bg-white">
+                                                    <form action="{{ route('logout') }}" method="post">
+                                                        @csrf
+                                                        <button class="btn btn-danger text-white w-100 text-start">Logout</button>
+                                                    </form>
+                                                @else
+                                                    <a href="{{ route('login') }}" class="btn text-start text-white">Login</a>
+                                                    <a href="{{ route('register') }}" class="btn btn-danger  text-white text-start">Register</a>
+                                                @endif
+                                            </div>
                                         </div>
                                       </div>
 

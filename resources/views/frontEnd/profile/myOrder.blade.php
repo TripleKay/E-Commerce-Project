@@ -56,7 +56,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('user#orderDetail',$item->order_id) }}" class="btn btn-sm btn-info text-white "><i class="fas fa-eye me-2"></i>View</a>
-                                        <a href="{{ route('user#orderDetail',$item->order_id) }}" class="btn btn-sm btn-dark text-white"><i class="fas fa-download me-2"></i>Invoice</a>
+                                        <a target="_blank" href="{{ route('user#download#downloadInvoice',$item->order_id) }}" class="btn btn-sm btn-dark text-white"><i class="fas fa-download me-2"></i>Invoice</a>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -416,6 +416,12 @@ F8F7FF bg-soft
     body{
         overflow-x: hidden;
     }
+    .h5,h5 {
+        font-size: 15px;
+    }
+    .h6,h6 {
+        font-size: 13px;
+    }
     .banner-img{
         height: 300px;
     }

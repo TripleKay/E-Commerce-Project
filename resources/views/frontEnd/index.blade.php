@@ -160,14 +160,14 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row product-container mx-auto owl-carousel owl-theme">
             <!-- -----------------------product item ------------------------------- -->
             @foreach ($products as $item)
 
-            <div class="col-3">
-                <div class="card bg-white product-card p-3 mb-3">
+            <div class="item me-3 my-5">
+                <div class="card bg-white product-card p-3">
                         <div class="product-img-container">
-                            <img src="{{ asset('uploads/products/'.$item->preview_image) }}" alt="" srcset="" class="d-block w-100">
+                            <img src="{{ asset('uploads/products/'.$item->preview_image) }}" alt="" srcset="">
                             @if (!empty($item->discount_price))
                             @php
                                 $amount = $item->discount_price / $item->selling_price;
