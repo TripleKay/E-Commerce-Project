@@ -15,15 +15,8 @@
             </div>
             <div class="row">
                 <div class="col-3">
-                    <div class="list-group">
-                        <a href="{{ route('user#profile') }}" class="list-group-item list-group-item-action " aria-current="true">
-                          My Profile
-                        </a>
-                        <a href="{{ route('user#myOrder') }}" class="list-group-item list-group-item-action active">My Orders</a>
-                        <a href="#" class="list-group-item list-group-item-action">My Wishlists</a>
-                        <a href="#" class="list-group-item list-group-item-action">My Carts</a>
-                        <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">A disabled link item</a>
-                    </div>
+                    @include('frontEnd.profile/profileSidebar')
+
                 </div>
                 <div class="col-9">
                     <div class="row">

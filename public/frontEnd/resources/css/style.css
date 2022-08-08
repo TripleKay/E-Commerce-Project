@@ -124,6 +124,7 @@ F8F7FF bg-soft
 .myAccountOverlay{
     z-index: 2000;
     width: 150px;
+    right: 0px;
     display: none;
     transition: .5s linear;
 }

@@ -25,9 +25,7 @@ $app = new Illuminate\Foundation\Application(
 | incoming requests to this application from both the web and CLI.
 |
 */
-//dompdf for invoice download
-// $app->register(\Barryvdh\DomPDF\ServiceProvider::class);
-// $app->configure('dompdf');
+
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,

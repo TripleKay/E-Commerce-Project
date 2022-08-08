@@ -226,6 +226,9 @@ Route::group(['prefix' => 'user','namespace' => 'User','middleware' => 'auth'],f
 
     //profile
     Route::get('profile',[ProfileController::class,'index'])->name('user#profile');
+    Route::post('profile/update',[ProfileController::class,'updateProfile'])->name('user#updateProfile');
+    Route::post('profile/password/update',[ProfileController::class,'updatePassword'])->name('user#updatePassword');
+
     Route::get('orders',[ProfileController::class,'myOrder'])->name('user#myOrder');
     Route::get('orders/detail/{id}',[ProfileController::class,'orderDetail'])->name('user#orderDetail');
     Route::get('downloadInvoice/{id}',[ProfileController::class,'downloadInvoice'])->name('user#download#downloadInvoice');
