@@ -6,6 +6,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\OrderItem;
+use App\Models\ProductVariant;
 
 class OrderController extends Controller
 {
@@ -54,6 +55,16 @@ class OrderController extends Controller
         return back()->with(['success'=>'Order Status Updated Successfully']);
     }
     public function deliverOrder($id){
+        //update product stock
+        $orderItems = OrderItem::where('order_id',$id)->get();
+        foreach($orderItems as $orderItem){
+            $productVariant = ProductVariant::where('product_variant_id',$orderItem->product_variant_id)->first();
+            $stock = [
+                'available_stock' => $productVariant->available_stock - $orderItem->quantity,
+            ];
+            $productVariant = ProductVariant::where('product_variant_id',$orderItem->product_variant_id)->update($stock);
+        }
+        //update order status
         $this->changeOrderStatus($id,'delivered');
         return back()->with(['success'=>'Order Status Updated Successfully']);
     }

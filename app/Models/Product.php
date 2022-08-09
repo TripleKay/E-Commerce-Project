@@ -44,4 +44,8 @@ class Product extends Model
     public function subsubcategory(){
         return $this->belongsTo(SubSubCategory::class,'subsubcategory_id','subsubcategory_id');
     }
+    
+    public function productVariant(){
+        return $this->hasMany(ProductVariant::class,'product_id','product_id');
+    }
 }

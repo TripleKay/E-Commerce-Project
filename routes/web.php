@@ -117,6 +117,11 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('product/detail/{id}',[ProductController::class,'showProduct'])->name('admin#showProduct');
     Route::get('product/delete/{id}',[ProductController::class,'deleteProduct'])->name('admin#deleteProduct');
 
+    //product stock
+    Route::get('product/stock',[ProductController::class,'productStock'])->name('admin#productStock');
+    Route::get('product/stock/filter',[ProductController::class,'productStockFilter'])->name('admin#productStockFilter');
+
+
     //products variant
     Route::get('product/variant',[ProductVariantController::class,'index'])->name('admin#productVariant');
     Route::get('product/variant/create/{id}',[ProductVariantController::class,'createVariant'])->name('admin#createVariant');

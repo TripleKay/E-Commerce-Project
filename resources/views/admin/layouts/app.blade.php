@@ -213,6 +213,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          <li class="nav-header text-white text-uppercase">Manage Stocks</li>
+          <li class="nav-item">
+            <a href="{{ route('admin#productStock') }}" class="nav-link {{ Request::url() == route('admin#productStock') ? 'active' : '' }}">
+                <i class="nav-icon fab fa-product-hunt"></i>
+              <p>
+                Stocks
+              </p>
+            </a>
+          </li>
 
           <li class="nav-header text-white text-uppercase">Manage Delivery Locations</li>
           <li class="nav-item">

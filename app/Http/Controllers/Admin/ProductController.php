@@ -240,6 +240,23 @@ class ProductController extends Controller
         return back()->with(['success'=>'Products deleted successfully']);
     }
 
+    //product stock page
+    public function productStock(){
+        $data = Product::select('product_id','name','preview_image','publish_status')->with('productVariant','productVariant.color','productVariant.size')->get();
+        // dd($data->toArray());
+        return view('admin.productStock.index')->with(['data'=>$data->toArray(),'products'=>$data]);
+    }
+
+    //product stock filter
+    public function productStockFilter(Request $request){
+        $data = Product::select('product_id','name','preview_image','publish_status')
+                        ->where('product_id','like','%'.$request->productId.'%')
+                        ->with('productVariant','productVariant.color','productVariant.size')
+                        ->get();
+        $products = Product::select('product_id','name')->get();
+        return view('admin.productStock.index')->with(['data'=>$data->toArray(),'products'=>$products]);
+    }
+
     //get request data
     private function requestProductData($request){
         $data = [

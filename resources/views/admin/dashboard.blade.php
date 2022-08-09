@@ -142,25 +142,7 @@
                                     <a href="http://127.0.0.1:8000/admin/product/variant/create/1" class="btn btn-dark btn-sm mb-2"><i class="fas fa-plus-circle"></i></a>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>
-                                    <img src="http://127.0.0.1:8000/uploads/products/62b1bcc72863c_mobilePhone4.jpg" class="rounded shadow-sm" alt="" srcset="" style="width: 90px; height: 90px;">
-                                </td>
-                                <td>Iphone 11 (16:128)</td>
-                                <td>Apple</td>
-                                <td>Mobile Phone</td>
-
-                                <td>White</td>
-                                <td>---</td>
-                                <td>5</td>
-                                <td>Publish</td>
-                                <td class="text-wrap">
-                                    <a href="http://127.0.0.1:8000/admin/product/detail/1" class="btn btn-info btn-sm mb-2"><i class="fas fa-eye "></i></a>
-                                    <a href="http://127.0.0.1:8000/admin/product/edit/1" class="btn btn-success btn-sm mb-2"><i class="fas fa-edit "></i></a>
-                                    <a href="http://127.0.0.1:8000/admin/product/variant/create/1" class="btn btn-dark btn-sm mb-2"><i class="fas fa-plus-circle"></i></a>
-                                </td>
-                            </tr>
+                            
                         </tbody>
                       </table>
                 </div>

@@ -21,13 +21,13 @@
                         <p class="mb-0 text-nowrap mr-2">Order Status :</p>
                         <select name="orderStatus" id="" class="custom-select mb-0 mr-2">
                             <option value="">All</option>
-                            <option value="pending">Pending</option>
-                            <option value="confirmed">confirmed</option>
-                            <option value="processing">processing</option>
-                            <option value="picked">picked</option>
-                            <option value="shipped">shipped</option>
-                            <option value="deliverd">deliverd</option>
-                            <option value="completed">completed</option>
+                            <option value="pending" {{ request()->orderStatus == 'pending' ? 'selected' : ''}}>Pending</option>
+                            <option value="confirmed" {{ request()->orderStatus == 'confirmed' ? 'selected' : ''}}>confirmed</option>
+                            <option value="processing" {{ request()->orderStatus == 'processing' ? 'selected' : ''}}>processing</option>
+                            <option value="picked" {{ request()->orderStatus == 'picked' ? 'selected' : ''}}>picked</option>
+                            <option value="shipped" {{ request()->orderStatus == 'shipped' ? 'selected' : ''}}>shipped</option>
+                            <option value="delivered" {{ request()->orderStatus == 'delivered' ? 'selected' : ''}}>deliverd</option>
+                            <option value="completed" {{ request()->orderStatus == 'completed' ? 'selected' : ''}}>completed</option>
                         </select>
                         <button class="btn btn-primary">Filter</button>
                     </form>
