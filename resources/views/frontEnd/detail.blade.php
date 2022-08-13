@@ -81,9 +81,7 @@
                                     <div class="d-flex align-items-center">
                                         <p class="mb-0 me-3">Quantity : </p>
                                         <div class="d-flex p-1 rounded" style="width: 150px ;">
-                                            <button class="btn btn-dark">+</button>
-                                            <input type="number" class="quantity form-control" placeholder="qty" value="1">
-                                            <button class="btn btn-dark">-</button>
+                                            <input type="number" class="quantity form-control" placeholder="qty" value="1" max="10" min="1">
                                         </div>
                                     </div>
                                     <small class="text-danger qtyErrorMessage d-none">quantity must be min: 1 or max: 10</small>
@@ -99,8 +97,8 @@
                                     </div>
                                     <hr>
                                     <div class="mt-4">
-                                        
-                                        <button class="addToCart btn btn-primary text-white" onclick="addToCart({{$product->product_id}},{{ $price }})">Add to Cart</button>
+                                        <button class="addToCart btn btn-primary text-white" onclick="addToWishList({{ $product->product_id }})">Add to WishList</button>
+                                        <button class="addToCart btn btn-danger text-white" onclick="addToCart({{$product->product_id}},{{ $price }})">Add to Cart</button>
                                     </div>
 
                                 </div>

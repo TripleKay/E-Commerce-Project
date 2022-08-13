@@ -135,7 +135,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="float-end my-2 mt-5">
-                                        <a href="#" class=" btn btn-outline-primary">Continous Shopping</a>
+                                        <a href="{{ URL::previous() }} " class=" btn btn-outline-primary">Continous Shopping</a>
                                         <a href="{{ route('user#checkout') }}" class="ms-3 btn btn-primary text-white">Proceed To Checkout</a>
                                     </div>
                                 </div>

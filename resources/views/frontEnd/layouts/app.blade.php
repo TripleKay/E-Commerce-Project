@@ -346,9 +346,11 @@
     <script src="{{ asset('frontEnd/resources/js/script.js')}}"></script>
     @yield('script')
     <script>
+        // DataTable
         $(document).ready(function () {
             $('#dataTable').DataTable();
         });
+        //sweet alert
         const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
@@ -360,7 +362,7 @@
                             toast.addEventListener('mouseleave', Swal.resumeTimer)
                         }
                     });
-
+        //session message
         @if (Session::has('success'))
             Toast.fire({
                         icon: 'success',
@@ -373,79 +375,147 @@
                         title: "{{ Session::get('error') }}",
                     })
         @endif
+        //auth check
+        var authStatus = @if (auth()->check())
+                'true';
+            @else
+                'false';
+            @endif
+        //add to cart
         function addToCart(id,amount){
+            if(authStatus == 'true'){
+                let productId = id;
+                let colorId = '';
+                let sizeId = '';
+                let colorName = '';
+                let sizeName = '';
+                let qty = $('.quantity').val();
+                let price = amount;
 
-            let productId = id;
-            let colorId = '';
-            let sizeId = '';
-            let colorName = '';
-            let sizeName = '';
-            let qty = $('.quantity').val();
-            let price = amount;
+                //validation
+                if($('.colorOption').length && $('.sizeOption').length){
+                    colorId = $('.colorOption').val();
+                    colorName = $('.colorOption').find("option:selected").text();
 
-            //validation
-            if($('.colorOption').length && $('.sizeOption').length){
-                colorId = $('.colorOption').val();
-                colorName = $('.colorOption').find("option:selected").text();
+                    sizeId = $('.sizeOption').val();
+                    sizeName = $('.sizeOption').find("option:selected").text();
 
-                sizeId = $('.sizeOption').val();
-                sizeName = $('.sizeOption').find("option:selected").text();
-
-                //each empty state
-                if(colorId == '' || sizeId == ''){
-                    $('.colorErrorMessage').removeClass('d-none');
-                    return $('.sizeErrorMessage').removeClass('d-none');
-                }
-            }else if($('.colorOption').length){
-                colorId = $('.colorOption').val();
-                colorName = $('.colorOption').find("option:selected").text();
-                //empty state
-                if(colorId == ''){
-                    return $('.colorErrorMessage').removeClass('d-none');
-                }
-            }else if($('.sizeOption').length){
-                sizeId = $('.sizeOption').val();
-                sizeName = $('.sizeOption').find("option:selected").text();
-                //empty state
-                if(sizeId == ''){
-                    return $('.sizeErrorMessage').removeClass('d-none');
-                }
-            }
-
-            $.ajax({
-                url: "{{ route('frontend#addToCart') }}",
-                method: "post",
-                dataType: "json",
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    productId: productId,
-                    colorId: colorId,
-                    colorName: colorName,
-                    sizeId: sizeId,
-                    sizeName: sizeName,
-                    qty: qty,
-                    price: price,
-                },
-                success:function(response){
-                    if(response.error){
-                        Swal.fire({
-                            icon: 'error',
-                            title: response.error,
-                        });
-                    }else{
-                        let headerCartBoxHtml = `
-                            <span class="badge bg-dark rounded-circle mb-0 position-absolute cart-badge">${response.count}</span>
-                            <p class="mb-0 py-2 px-2">CART - ${response.totalPrice} Ks</p>
-                        `;
-                        $('.headerCartBox').html(headerCartBoxHtml);
-                        Toast.fire({
-                            icon: 'success',
-                            title: response.success,
-                        })
+                    //each empty state
+                    if(colorId == '' || sizeId == ''){
+                        $('.colorErrorMessage').removeClass('d-none');
+                        return $('.sizeErrorMessage').removeClass('d-none');
+                    }
+                }else if($('.colorOption').length){
+                    colorId = $('.colorOption').val();
+                    colorName = $('.colorOption').find("option:selected").text();
+                    //empty state
+                    if(colorId == ''){
+                        return $('.colorErrorMessage').removeClass('d-none');
+                    }
+                }else if($('.sizeOption').length){
+                    sizeId = $('.sizeOption').val();
+                    sizeName = $('.sizeOption').find("option:selected").text();
+                    //empty state
+                    if(sizeId == ''){
+                        return $('.sizeErrorMessage').removeClass('d-none');
                     }
                 }
-            })
+
+                $.ajax({
+                    url: "{{ route('frontend#addToCart') }}",
+                    method: "post",
+                    dataType: "json",
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        productId: productId,
+                        colorId: colorId,
+                        colorName: colorName,
+                        sizeId: sizeId,
+                        sizeName: sizeName,
+                        qty: qty,
+                        price: price,
+                    },
+                    success:function(response){
+                        if(response.error){
+                            Swal.fire({
+                                icon: 'error',
+                                title: response.error,
+                            });
+                        }else{
+                            let headerCartBoxHtml = `
+                                <span class="badge bg-dark rounded-circle mb-0 position-absolute cart-badge">${response.count}</span>
+                                <p class="mb-0 py-2 px-2">CART - ${response.totalPrice} Ks</p>
+                            `;
+                            $('.headerCartBox').html(headerCartBoxHtml);
+                            Toast.fire({
+                                icon: 'success',
+                                title: response.success,
+                            })
+                        }
+                    }
+                })
+            }else{
+                Swal.fire({
+                            icon: 'info',
+                            title: 'Please,Login First?',
+                            showDenyButton: true,
+                            showCancelButton: true,
+                            confirmButtonText: 'Login',
+                            denyButtonText: `Register`,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "{{ route('login') }}";
+                            } else if (result.isDenied) {
+                                window.location.href = "{{ route('register') }}";
+                            }
+                        })
+            }
+
         }
+        //add to wishlist
+        function addToWishList(id){
+
+            if(authStatus == 'true'){
+                $.ajax({
+                    url: "{{ url('user/wishlist/add') }}/"+id,
+                    method: "post",
+                    dataType: "json",
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                    },
+                    success:function(response){
+                        if(response.error){
+                            Swal.fire({
+                                icon: 'error',
+                                title: response.error,
+                            });
+                        }else{
+                            Toast.fire({
+                                icon: 'success',
+                                title: response.success,
+                            });
+                        }
+                    }
+
+                })
+            }else{
+                Swal.fire({
+                            icon: 'info',
+                            title: 'Please,Login First?',
+                            showDenyButton: true,
+                            showCancelButton: true,
+                            confirmButtonText: 'Login',
+                            denyButtonText: `Register`,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "{{ route('login') }}";
+                            } else if (result.isDenied) {
+                                window.location.href = "{{ route('register') }}";
+                            }
+                        })
+            }
+
+    }
     </script>
 </body>
 </html>

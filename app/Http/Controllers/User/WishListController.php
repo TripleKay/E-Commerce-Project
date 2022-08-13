@@ -28,22 +28,16 @@ class WishListController extends Controller
 
     //create wishlist
     public function addWishlist(Request $request,$id){
-        if(auth()->check()){
-            $wishList = WishList::where('user_id',auth()->user()->id)->where('product_id',$id)->first();
-            if(!isset($wishList)){
-                $data = [
-                    'user_id' => auth()->user()->id,
-                    'product_id' => $id,
-                    'created_at' => Carbon::now(),
-                ];
-            }else{
-                return response()->json([
-                    'error' => 'Already added to wishlist',
-                ]);
-            }
+        $wishList = WishList::where('user_id',auth()->user()->id)->where('product_id',$id)->first();
+        if(!isset($wishList)){
+            $data = [
+                'user_id' => auth()->user()->id,
+                'product_id' => $id,
+                'created_at' => Carbon::now(),
+            ];
         }else{
             return response()->json([
-                'authError' => 'Please,Login First?',
+                'error' => 'Already added to wishlist',
             ]);
         }
         WishList::create($data);

@@ -223,48 +223,4 @@
     </div>
 </section>
 @endsection
-@section('script')
-<script>
-    function addToWishList(id){
-        $.ajax({
-                url: "{{ url('user/wishlist/add') }}/"+id,
-                method: "post",
-                dataType: "json",
-                data: {
-                    _token: '{{ csrf_token() }}',
-                },
-                success:function(response){
-                    if(response.authError){
-                        Swal.fire({
-                            icon: 'info',
-                            title: response.authError,
-                            showDenyButton: true,
-                            showCancelButton: true,
-                            confirmButtonText: 'Login',
-                            denyButtonText: `Register`,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = "{{ route('login') }}";
-                            } else if (result.isDenied) {
-                                window.location.href = "{{ route('register') }}";
-                            }
-                        })
 
-                    }else if(response.error){
-                        Swal.fire({
-                            icon: 'error',
-                            title: response.error,
-                        });
-                    }else{
-                        Toast.fire({
-                            icon: 'success',
-                            title: response.success,
-                        });
-                    }
-                }
-
-            })
-    }
-
-</script>
-@endsection
