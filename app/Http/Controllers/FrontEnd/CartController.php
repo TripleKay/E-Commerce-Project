@@ -15,7 +15,38 @@ class CartController extends Controller
 {
     //view all carts page
     public function viewCarts(){
+        $this->removeOutofStockCart();
         return view('frontEnd.cart');
+    }
+
+    //remove out of stock product from cart
+    private function removeOutofStockCart(){
+        //check cart exists
+        if(Session::has('cart')){
+            if(count(Session::get('cart')) != 0){
+                $carts = Session::get('cart');
+                //to check for each cart item
+                foreach($carts as $key => $cart){
+                    $productVariant = ProductVariant::where('product_variant_id',$key)->first();
+                    //check stock
+                    if($cart['quantity'] > $productVariant->available_stock){
+                        //remove out of stock cart
+                        unset($carts[$key]);
+                    }
+                }
+                //add to session
+                Session::put('cart',$carts);
+                //recalculate cart subtotal
+                $this->cartTotalPrice();
+                //coupon check and recalculate grand total
+                if (Session::has('coupon')) {
+                    $couponCode = Session::get('coupon')['couponCode'];
+                    $coupon = Coupon::where('coupon_code',$couponCode)->first();
+                    $couponData = $this->requestCouponData($coupon);
+                    Session::put('coupon',$couponData);
+                }
+            }
+        }
     }
 
     //add to cart
@@ -34,17 +65,25 @@ class CartController extends Controller
 
         $cart = session()->get('cart',[]);
 
+
         //check stock and qty
-        if($variant->available_stock >= $quantity && $quantity <= 10 && $quantity > 0 ){
-            //check alerady cart
-            if(isset($cart[$variant->product_variant_id])){
-                return response()->json([
-                    'error' => 'Already added to cart',
-                ]);
+        if( $quantity <= 10 && $quantity > 0 ){
+
+            if($variant->available_stock >= $quantity){
+                //check alerady cart
+                if(isset($cart[$variant->product_variant_id])){
+                    return response()->json([
+                        'error' => 'Already added to cart',
+                    ]);
+                }else{
+                    $data = $this->requestCartData($request,$product);
+                    $cart[$variant->product_variant_id] = $data;
+                    Session::put('cart',$cart);
+                }
             }else{
-                $data = $this->requestCartData($request,$product);
-                $cart[$variant->product_variant_id] = $data;
-                Session::put('cart',$cart);
+                return response()->json([
+                    'error' => 'Out of stocks!'
+                ]);
             }
         }else{
             return response()->json([
@@ -89,8 +128,9 @@ class CartController extends Controller
             $cart[$request->id]['quantity'] = $request->quantity;
             Session::put('cart',$cart);
         }else{
+            session()->flash('error', 'this product not available for this quantity');
             return response()->json([
-                'error' => 'this product not available for this quantity',
+                'success' => 'true',
             ]);
         }
         $this->cartTotalPrice();
@@ -102,8 +142,9 @@ class CartController extends Controller
             Session::put('coupon',$couponData);
         }
 
+        session()->flash('success', 'updated successfully');
         return response()->json([
-            'success'=>'updated successfully'
+            'success' => 'true',
         ]);
     }
 

@@ -47,4 +47,8 @@ soln: public/dashboard/  change folder name => dashboard to other name
 ###cart qty change error
  when qty change or update,error message with alert is not very fast if qyt is out of stock bz of using window reload;
 
+###todo or bug
+when user placed order,
+to check coupon is expired,
+to check stock .
 

@@ -130,11 +130,11 @@
                                                 <div class="applyCouponBox card border-0 rounded mb-3 bg-light p-3">
                                                     <div class="d-flex justify-content-between mb-3">
                                                         <p class="mb-0">Your Coupon :</p>
-                                                        <h6 class="mb-0">Happy new year</h6>
+                                                        <h6 class="mb-0">{{ Session::get('coupon')['couponCode'] }}</h6>
                                                     </div>
                                                     <div class="d-flex justify-content-between ">
                                                         <p class="mb-0">Coupon Discount(%) :</p>
-                                                        <h6 class="mb-0">-50%</h6>
+                                                        <h6 class="mb-0">-{{ Session::get('coupon')['couponDiscount'] }}%</h6>
                                                     </div>
                                                 </div>
                                             @else

@@ -99,7 +99,7 @@
                                     </div>
                                     <hr>
                                     <div class="mt-4">
-                                        <button class="btn btn-danger me-3 text-white">Buy Now</button>
+                                        
                                         <button class="addToCart btn btn-primary text-white" onclick="addToCart({{$product->product_id}},{{ $price }})">Add to Cart</button>
                                     </div>
 

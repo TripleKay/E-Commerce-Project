@@ -35,7 +35,7 @@
                                             <th style="">Remove</th>
                                         </tr>
                                     </thead>
-                                    @if (Session::has('cart'))
+                                    @if (Session::has('cart') && count(Session::get('cart')) != 0)
                                         <tbody>
                                             @php
                                                 $i = 1;
@@ -61,13 +61,7 @@
 
                                             @endforeach
                                         </tbody>
-                                        {{-- <tfoot>
-                                            <tr class="text-end">
-                                                <td colspan="9">
-                                                    <h5>Sub Total : {{$total}} Ks</h5>
-                                                </td>
-                                            </tr>
-                                        </tfoot> --}}
+
                                     @else
                                         <tbody>
                                             <tr class="text-center text-danger">
@@ -87,13 +81,13 @@
                                             <div class="d-flex justify-content-between mb-3">
                                                 <p class="mb-0">Your Coupon :</p>
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <h6 class="mb-0">Happy new year</h6>
+                                                    <h6 class="mb-0">{{ Session::get('coupon')['couponCode'] }}</h6>
                                                     <a href="{{ route('user#deleteCoupon') }}" class="ms-3 btn btn-outline-danger btn-sm "><i class="fas fa-close"></i></a>
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-between ">
                                                 <p class="mb-0">Coupon Discount(%) :</p>
-                                                <h6 class="mb-0">-50%</h6>
+                                                <h6 class="mb-0">-{{ Session::get('coupon')['couponDiscount'] }}%</h6>
                                             </div>
                                         </div>
                                     @else
@@ -201,20 +195,9 @@
                     quantity: quantity,
                 },
                 success:function(response){
-
-                    if(response.error){
-                        Swal.fire({
-                            icon: 'error',
-                            title: response.error,
-                        });
-                    }else{
-                        Swal.fire({
-                            icon: 'success',
-                            title: response.success,
-                        });
-
+                    if(response.success == 'true'){
+                        window.location.reload();
                     }
-                    window.location.reload();
                 }
 
             })
