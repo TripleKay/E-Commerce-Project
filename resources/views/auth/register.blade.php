@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
@@ -57,4 +57,71 @@
             </div>
         </form>
     </x-jet-authentication-card>
-</x-guest-layout>
+</x-guest-layout> --}}
+
+@extends('frontEnd.layouts.app')
+@section('content')
+    <section class="py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="#">Home</a></li>
+                          <li class="breadcrumb-item"><a href="#">Library</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">Data</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="row my-5 py-5">
+                <div class="col-6 offset-3">
+                    <div class="card border-0  shadow" style="border-radius: 10px">
+                        <div class="card-header bg-transparent">
+                            <h5 class="mb-0 py-2">Register</h5>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('register') }}">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Name</label>
+                                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" required autofocus>
+                                    @error('name')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Email</label>
+                                    <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" required autofocus>
+                                    @error('email')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Password</label>
+                                    <input type="password" class="form-control" name="password" id="password" value="{{ old('password') }}" required autocomplete="new-password">
+                                    @error('password')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Password Confirmation</label>
+                                    <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" value="{{ old('password_confirmation') }}" required autocomplete="new-password">
+                                    @error('password_confirmation')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div class="mt-3 d-flex align-items-center">
+                                    <button class="btn btn-primary text-white  px-3">Register</button>
+                                    <p class="mb-0 ms-2">If you have an account, <a href="{{ route('login') }}" class="text-danger">Login Here</a> .</p>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection

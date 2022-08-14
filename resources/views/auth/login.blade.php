@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
@@ -45,7 +45,71 @@
             </div>
         </form>
     </x-jet-authentication-card>
-</x-guest-layout>
+</x-guest-layout> --}}
 
+
+@extends('frontEnd.layouts.app')
+@section('content')
+    <section class="py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="#">Home</a></li>
+                          <li class="breadcrumb-item"><a href="#">Library</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">Data</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="row my-5 py-5">
+                <div class="col-6 offset-3">
+                    <div class="card border-0  shadow" style="border-radius: 10px">
+                        <div class="card-header bg-transparent">
+                            <h5 class="mb-0 py-2">My login</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (session('status'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ session('status') }}</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              </div>
+                            @endif
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Email</label>
+                                    <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" required autofocus>
+                                    @error('email')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Password</label>
+                                    <input type="password" class="form-control" name="password" id="password" value="{{ old('password') }}" required autocomplete="current-password">
+                                    @error('password')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                @if (Route::has('password.request'))
+                                <a class="text-secondary " href="{{ route('password.request') }}">
+                                    {{ __('Forgot your password?') }}
+                                </a>
+                            @endif
+                            <hr>
+                                <div class="mt-3 d-flex align-items-center">
+                                    <button class="btn btn-primary text-white  px-3">Login</button>
+                                    <p class="mb-0 ms-2">If you don't have an account, <a href="{{ route('register') }}" class="text-danger">Register Here</a> .</p>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection
 
 
