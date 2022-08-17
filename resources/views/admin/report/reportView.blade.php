@@ -2,8 +2,11 @@
 @section('content')
 <div class="pt-4 row">
     <div class="col-12">
-        <nav aria-label="breadcrumb">
-            <ol class="bg-white breadcrumb">
+        <nav aria-label="breadcrumb" class="">
+            <ol class="bg-white breadcrumb d-flex align-items-center">
+            <li>
+                <a href="{{ url()->previous() }}" class="mr-3 btn btn-secondary"><i class="mr-2 fas fa-caret-left"></i>Back</a>
+            </li>
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">Products</li>
             </ol>
@@ -14,8 +17,15 @@
     <div class="col-12">
         <div class="rounded card" style="box-shadow: none !important">
             <div class="card-header">
-               <div class="my-1 d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0">All Pending Orders</h4>
+               <div class="my-1 d-flex align-items-center ">
+                @if (request()->date)
+                    <div class="mr-2 shadow btn btn-primary font-weight-bolder">{{ request()->date }}</div>
+                @elseif (request()->month)
+                    <div class="mr-2 shadow btn btn-primary font-weight-bolder">{{ request()->month }} / {{ request()->year }}</div>
+                @else
+                    <div class="mr-2 shadow btn btn-primary font-weight-bolder"> {{ request()->year }}</div>
+                @endif
+                    <h4 class="mb-0">Orders</h4>
                </div>
             </div>
             <div class="card-body">
@@ -47,7 +57,7 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('admin#showOrder',$item->order_id) }}" class="text-white btn btn-sm btn-info "><i class="fas fa-eye me-2"></i>View</a>
-                                    <a href="{{ route('admin#showOrder',$item->order_id) }}" class="text-white btn btn-sm btn-dark"><i class="fas fa-download me-2"></i>Invoice</a>
+                                    <a href="{{ route('user#download#downloadInvoice',$item->order_id) }}" class="text-white btn btn-sm btn-dark"><i class="fas fa-download me-2"></i>Invoice</a>
                                 </td>
                             </tr>
                             @endforeach

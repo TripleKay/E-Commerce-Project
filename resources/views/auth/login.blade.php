@@ -67,7 +67,7 @@
                 <div class="col-6 offset-3">
                     <div class="card border-0  shadow" style="border-radius: 10px">
                         <div class="card-header bg-transparent">
-                            <h5 class="mb-0 py-2">My login</h5>
+                            <h5 class="mb-0 py-2">Login</h5>
                         </div>
                         <div class="card-body">
                             @if (session('status'))

@@ -68,6 +68,7 @@ class OrderController extends Controller
         $this->changeOrderStatus($id,'delivered');
         return back()->with(['success'=>'Order Status Updated Successfully']);
     }
+
     public function completeOrder($id){
         $this->changeOrderStatus($id,'complete');
         return back()->with(['success'=>'Order Status Updated Successfully']);

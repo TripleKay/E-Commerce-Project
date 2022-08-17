@@ -50,7 +50,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </ul>
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
+    <ul class="ml-auto navbar-nav">
       <!-- Navbar Search -->
       <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -83,18 +83,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <span class="dropdown-header">15 Notifications</span>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
+            <i class="mr-2 fas fa-envelope"></i> 4 new messages
+            <span class="float-right text-sm text-muted">3 mins</span>
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
+            <i class="mr-2 fas fa-users"></i> 8 friend requests
+            <span class="float-right text-sm text-muted">12 hours</span>
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
+            <i class="mr-2 fas fa-file"></i> 3 new reports
+            <span class="float-right text-sm text-muted">2 days</span>
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
@@ -119,7 +119,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Brand Logo -->
     <a href="{{route('frontend#index')}}" class="brand-link">
       {{-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-      <span class="brand-text font-weight-bold text-white">E-Market</span>
+      <span class="text-white brand-text font-weight-bold">E-Market</span>
     </a>
 
     <!-- Sidebar -->
@@ -138,7 +138,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </p>
             </a>
           </li>
-          <li class="nav-header text-white text-uppercase">Tools</li>
+          <li class="text-white nav-header text-uppercase">Tools</li>
           <li class="nav-item">
             <a href="{{ route('admin#brand') }}" class="nav-link {{ Request::url() == route('admin#brand') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-cube"></i>
@@ -163,7 +163,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-header text-white text-uppercase">Manage Category</li>
+          <li class="text-white nav-header text-uppercase">Manage Category</li>
           <li class="nav-item">
             <a href="{{ route('admin#category') }}" class="nav-link {{ Request::url() == route('admin#category') ? 'active' : '' }}">
                 <i class="fas fa-layer-group nav-icon"></i>
@@ -188,7 +188,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-header text-white text-uppercase">Manage Products</li>
+          <li class="text-white nav-header text-uppercase">Manage Products</li>
           <li class="nav-item">
             <a href="{{ route('admin#product') }}" class="nav-link {{ Request::url() == route('admin#product') ? 'active' : '' }}">
                 <i class="nav-icon fab fa-product-hunt"></i>
@@ -213,7 +213,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-header text-white text-uppercase">Manage Stocks</li>
+          <li class="text-white nav-header text-uppercase">Manage Stocks</li>
           <li class="nav-item">
             <a href="{{ route('admin#productStock') }}" class="nav-link {{ Request::url() == route('admin#productStock') ? 'active' : '' }}">
                 <i class="nav-icon fab fa-product-hunt"></i>
@@ -223,7 +223,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
 
-          <li class="nav-header text-white text-uppercase">Manage Delivery Locations</li>
+          <li class="text-white nav-header text-uppercase">Manage Delivery Locations</li>
           <li class="nav-item">
             <a href="{{ route('admin#statedivision') }}" class="nav-link {{ Request::url() == route('admin#statedivision') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-map-marker-alt"></i>
@@ -259,7 +259,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
 
-          <li class="nav-header text-white text-uppercase">Manage Orders</li>
+          <li class="text-white nav-header text-uppercase">Manage Orders</li>
           <li class="nav-item">
             <a href="{{ route('admin#order') }}" class="nav-link {{ Request::url() == route('admin#order') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-shopping-bag"></i>
@@ -276,8 +276,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
         </li>
+        <li class="text-white nav-header text-uppercase">Report Orders</li>
+        <li class="nav-item">
+            <a href="{{ route('admin#report') }}" class="nav-link {{ Request::url() == route('admin#report') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-shopping-bag"></i>
+              <p>
+                Report Orders
+              </p>
+            </a>
+        </li>
 
-        <li class="nav-header text-white text-uppercase">Manage User</li>
+        <li class="text-white nav-header text-uppercase">Manage User</li>
           <li class="nav-item">
             <a href="{{ route('admin#userList') }}" class="nav-link {{ Request::url() == route('admin#userList') ? 'active' : '' }}">
               <i class="nav-icon fas fa-users"></i>
@@ -295,7 +304,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
 
-          <li class="nav-header text-white text-uppercase">Manage Profile</li>
+          <li class="text-white nav-header text-uppercase">Manage Profile</li>
           <li class="nav-item">
             <a href="{{ route('admin#editProfile') }}" class="nav-link {{ Request::url() == route('admin#editProfile') ? 'active' : '' }}">
               <i class="nav-icon fas fa-user-circle"></i>

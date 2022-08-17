@@ -8,9 +8,9 @@
         $pendingOrders = App\Models\Order::where('status','pending')->count();
 
     @endphp
-    <div class="row pt-4 mb-3">
+    <div class="pt-4 mb-3 row">
         <div class="col-3">
-            <div class="card shadow-none">
+            <div class="shadow-none card">
                 <div class="card-body d-flex align-items-center">
                     <div class="p-3 rounded">
                         <i class="fas fa-calendar-day text-primary" style="font-size: 40px"></i>
@@ -23,9 +23,9 @@
             </div>
         </div>
         <div class="col-3">
-            <div class="card shadow-none">
+            <div class="shadow-none card">
                 <div class="card-body d-flex align-items-center">
-                    <div class=" p-3 rounded">
+                    <div class="p-3 rounded ">
                         <i class="fas fa-th text-primary" style="font-size: 40px"></i>
                     </div>
                     <div class="ml-3">
@@ -36,9 +36,9 @@
             </div>
         </div>
         <div class="col-3">
-            <div class="card shadow-none">
+            <div class="shadow-none card">
                 <div class="card-body d-flex align-items-center">
-                    <div class=" p-3 rounded">
+                    <div class="p-3 rounded ">
                         <i class="fas fa-calendar-alt text-primary" style="font-size: 40px"></i>
                     </div>
                     <div class="ml-3">
@@ -49,9 +49,9 @@
             </div>
         </div>
         <div class="col-3">
-            <div class="card shadow-none">
+            <a href="{{ route('admin#pendingOrder') }}" class="shadow-none card">
                 <div class="card-body d-flex align-items-center">
-                    <div class=" p-3 rounded">
+                    <div class="p-3 rounded ">
                         <i class="fas fa-shopping-bag text-primary" style="font-size: 40px"></i>
 
                     </div>
@@ -60,12 +60,12 @@
                         <h4 class="mb-0 font-weight-bolder">{{ $pendingOrders }} Orders</h4>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
-    <div class="row mb-3">
+    <div class="mb-3 row">
         <div class="col-6">
-            <div class="card shadow-none rounded">
+            <div class="rounded shadow-none card">
                 <div class="card-header">
                     <h5 class="mb-0">Orders By Month ( {{ date('Y')}} )</h5>
                 </div>
@@ -75,7 +75,7 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="card shadow-none rounded">
+            <div class="rounded shadow-none card">
                 <div class="card-header">
                     <h5 class="mb-0">Sales By Month ( {{ date('Y')}} )</h5>
                 </div>
@@ -86,11 +86,11 @@
         </div>
     </div>
 
-<div class="row pb-4">
+<div class="pb-4 row">
     <div class="col-12">
-        <div class="card rounded" style="box-shadow: none !important">
+        <div class="rounded card" style="box-shadow: none !important">
             <div class="card-header">
-               <div class="d-flex align-items-center justify-content-between my-1">
+               <div class="my-1 d-flex align-items-center justify-content-between">
                     <h4 class="mb-0">Products less than 5 Stocks</h4>
                </div>
             </div>
@@ -129,9 +129,9 @@
                                         @endif
                                     </td>
                                     <td class="text-wrap">
-                                        <a href="{{ route('admin#showProduct',$item->product_id) }}" class="btn btn-info btn-sm mb-2"><i class="fas fa-eye "></i></a>
-                                        <a href="{{ route('admin#editVariant',$item->product_variant_id) }}" class="btn btn-success btn-sm mb-2"><i class="fas fa-edit "></i></a>
-                                        <a href="{{ route('admin#createVariant',$item->product_id) }}" class="btn btn-dark btn-sm mb-2"><i class="fas fa-plus-circle"></i></a>
+                                        <a href="{{ route('admin#showProduct',$item->product_id) }}" class="mb-2 btn btn-info btn-sm"><i class="fas fa-eye "></i></a>
+                                        <a href="{{ route('admin#editVariant',$item->product_variant_id) }}" class="mb-2 btn btn-success btn-sm"><i class="fas fa-edit "></i></a>
+                                        <a href="{{ route('admin#createVariant',$item->product_id) }}" class="mb-2 btn btn-dark btn-sm"><i class="fas fa-plus-circle"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

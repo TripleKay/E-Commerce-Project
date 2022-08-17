@@ -23,6 +23,7 @@ use App\Http\Controllers\FrontEnd\FrontEndController;
 use App\Http\Controllers\Admin\ProductColorController;
 use App\Http\Controllers\Admin\StateDivisionController;
 use App\Http\Controllers\Admin\ProductVariantController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\Admin\UserController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
@@ -184,6 +185,12 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('user/edit/{id}',[UserController::class,'editUser'])->name('admin#editUser');
     Route::post('user/edit/{id}',[UserController::class,'updateUser'])->name('admin#updateUser');
     Route::get('user/delete/{id}',[UserController::class,'deleteUser'])->name('admin#deleteUser');
+
+    //reports
+    Route::get('reports',[ReportController::class,'report'])->name('admin#report');
+    Route::get('reports/search/byDate',[ReportController::class,'searchByDate'])->name('admin#searchByDate');
+    Route::get('reports/search/byMonth',[ReportController::class,'searchByMonth'])->name('admin#searchByMonth');
+    Route::get('reports/search/byYear',[ReportController::class,'searchByYear'])->name('admin#searchByYear');
 
 });
 
