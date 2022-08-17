@@ -209,6 +209,9 @@ Route::group(['namespace' => 'FrontEnd'],function(){
     Route::get('product/detail/{id}',[FrontEndController::class,'showProduct'])->name('frontend#showProduct');
     Route::post('product/detail/size',[FrontEndController::class,'getProductSize'])->name('frontend#getProductSize');
 
+    //search product
+    Route::get('product/search',[FrontEndController::class,'searchProduct'])->name('frontend#searchProduct');
+
 });
 
 Route::group(['prefix' => 'user','namespace' => 'User','middleware' => 'auth'],function(){

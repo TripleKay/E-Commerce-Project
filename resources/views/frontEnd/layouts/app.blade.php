@@ -14,6 +14,24 @@
      {{-- custom css  --}}
     <link rel="stylesheet" href="{{ asset('frontEnd/resources/css/style.css')}}">
     <title>E-Market</title>
+
+    <style>
+        .autoCompleteSearch .searchOverlay{
+            display: none;
+        }
+       
+        .autoCompleteSearch .searchOverlay a{
+            background: #fff;
+
+            transition: .3s linear;
+        }
+        .autoCompleteSearch .searchOverlay a:hover{
+            background: var(--bs-primary);
+            color: #fff;
+            letter-spacing: 1.5px;
+            transition: .3s linear;
+        }
+    </style>
 </head>
 <body>
      <!-- -------------------------------PreLoader------------------------------------  -->
@@ -61,12 +79,20 @@
                                 <h3 class="mb-0 text-white logo">E-Market</h3>
                             </a>
 
-                            <form action="" class="">
-                                <div class="d-none d-sm-none d-md-flex bg-white rounded-pill p-1 header-search-bar">
-                                    <input type="text" class="form-control border-0" placeholder="search product....">
-                                    <button class="btn btn-primary text-white">Search</button>
+                            <div class="position-relative autoCompleteSearch">
+                                {{-- <form action="" class=""> --}}
+                                    <div class="d-none d-sm-none d-md-flex bg-white rounded-pill p-1 header-search-bar">
+                                        <input type="text" class="searchInput form-control border-0" placeholder="search product....">
+                                        <button class="btn btn-primary text-white">Search</button>
+                                    </div>
+                                {{-- </form> --}}
+                                {{-- search overlay box   --}}
+                                <div class="searchOverlay card border-0 mt-2 position-absolute shadow" style="left: 0; right: 0; z-index: 2000; border-radius: 15px; background-color: ##F8F7FF;">
+                                    <div class="card-body resultProduct">
+
+                                    </div>
                                 </div>
-                            </form>
+                            </div>
                             <div class="">
                                 <a href="{{ route('frontend#viewCarts') }}" class="btn btn-outline-light position-relative  p-0 d-flex justify-content-between align-items-center">
                                     <i class="fa-solid fa-cart-shopping py-2 px-2" style="border-right: 1px solid #fff"></i>
@@ -346,9 +372,47 @@
     <script src="{{ asset('frontEnd/resources/js/script.js')}}"></script>
     @yield('script')
     <script>
-        // DataTable
         $(document).ready(function () {
+        // DataTable
             $('#dataTable').DataTable();
+
+        // autocomplete search
+            $('.searchInput').on('keyup',function () {
+                let searchKey = $('.searchInput').val();
+                if(searchKey){
+                    $.ajax({
+                        url: "{{ route('frontend#searchProduct') }}",
+                        method: "get",
+                        dataType: "json",
+                        data: {
+                            searchKey: searchKey,
+                        },
+                        success:function(response){
+                            console.log(response.searchResult);
+                            $('.searchOverlay').show();
+                            if(response.searchResult.length != 0){
+                                let productHtml = '';
+                                for(let i=0; i < response.searchResult.length; i++){
+                                    productHtml += `<a href="{{ url('product/detail/') }}/${response.searchResult[i].product_id}" class="btn  w-100 mt-2 d-flex justify-content-between align-items-center" style="border: 1px solid #88888840">
+                                            <p class="mb-0">${response.searchResult[i].name.substring(0,80)}</p>
+                                            <i class="fas fa-arrow-right"></i>
+                                        </a>`;
+                                }
+                                $('.resultProduct').html(productHtml);
+                            }else{
+                                let productHtml = `<div class="text-center">
+                                            <h5 class="text-danger mb-0">Products Not Found</h5>
+                                        </div>`;
+                                $('.resultProduct').html(productHtml);
+
+                            }
+                        }
+                    })
+                }else{
+                    $('.searchOverlay').hide();
+                }
+
+            })
         });
         //sweet alert
         const Toast = Swal.mixin({
@@ -515,7 +579,7 @@
                         })
             }
 
-    }
+        }
     </script>
 </body>
 </html>

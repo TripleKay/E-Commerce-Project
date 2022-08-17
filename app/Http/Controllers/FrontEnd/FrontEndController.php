@@ -26,6 +26,15 @@ class FrontEndController extends Controller
         ]);
     }
 
+    //search product ( auto completet search )
+    public function searchProduct(Request $request){
+        $result = Product::where('name','like','%'.$request->searchKey.'%')->get();
+        return response()->json([
+            'searchResult' => $result
+        ]);
+    }
+
+
     //Products by category page
     public function categoryProduct($id){
         $products = Product::where('category_id',$id)->paginate(9);
