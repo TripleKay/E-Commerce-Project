@@ -26,9 +26,11 @@ class FrontEndController extends Controller
         ]);
     }
 
-    //search product ( auto completet search )
+    //search product ( auto complete search )
     public function searchProduct(Request $request){
-        $result = Product::where('name','like','%'.$request->searchKey.'%')->get();
+        $result = Product::when(isset($request->searchKey),function($query) use ($request){
+            return $query->where('name','like','%'.$request->searchKey.'%');
+        })->get();
         return response()->json([
             'searchResult' => $result
         ]);

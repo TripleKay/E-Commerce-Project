@@ -19,7 +19,7 @@
         .autoCompleteSearch .searchOverlay{
             display: none;
         }
-       
+
         .autoCompleteSearch .searchOverlay a{
             background: #fff;
 
@@ -82,7 +82,7 @@
                             <div class="position-relative autoCompleteSearch">
                                 {{-- <form action="" class=""> --}}
                                     <div class="d-none d-sm-none d-md-flex bg-white rounded-pill p-1 header-search-bar">
-                                        <input type="text" class="searchInput form-control border-0" placeholder="search product....">
+                                        <input type="search" class="searchInput form-control border-0" placeholder="search product....">
                                         <button class="btn btn-primary text-white">Search</button>
                                     </div>
                                 {{-- </form> --}}
@@ -159,13 +159,19 @@
                                 <div class="d-md-flex justify-content-between align-items-center">
                                     <ul class="nav d-flex align-items-center nav-bar">
                                         <!-- for mobile  -->
-                                        <li class="mobile-search-bar d-md-none">
-                                            <form action="" class="py-3 px-2">
+                                        <li class="mobile-search-bar d-md-none position-relative autoCompleteSearch">
+                                            {{-- <form action="" class="py-3 px-2"> --}}
                                                 <div class="d-flex p-1 rounded bg-primary" style="border: 1px solid #fff; ">
                                                     <button class="btn rounded-circle m-0 text-white"><i class="fas fa-search"></i></button>
-                                                    <input type="text" class="form-control text-white bg-transparent border-0 ms-0" placeholder="search .....">
+                                                    <input type="text"  class="mobileSearchInput form-control text-white bg-transparent border-0 ms-0" placeholder="search .....">
                                                 </div>
-                                            </form>
+                                            {{-- </form> --}}
+                                            {{-- search overlay box   --}}
+                                                <div class="searchOverlay card border-0 mt-2 position-relative shadow" style="left: 0; right: 0; z-index: 2000; border-radius: 15px; background-color: ##F8F7FF;">
+                                                    <div class="card-body resultProduct">
+
+                                                    </div>
+                                                </div>
                                         </li>
                                         <li class="nav-item cat-nav-item">
                                             <!-- all category btn  -->
@@ -378,8 +384,18 @@
 
         // autocomplete search
             $('.searchInput').on('keyup',function () {
-                let searchKey = $('.searchInput').val();
-                if(searchKey){
+                autoCompleteSearch('.searchInput');
+            })
+
+            $('.mobileSearchInput').on('keyup',function () {
+                autoCompleteSearch('.mobileSearchInput');
+            })
+        });
+
+        // autocomplete search
+        function autoCompleteSearch(className){
+            let searchKey = $(className).val();
+                if(searchKey != ''){
                     $.ajax({
                         url: "{{ route('frontend#searchProduct') }}",
                         method: "get",
@@ -388,7 +404,6 @@
                             searchKey: searchKey,
                         },
                         success:function(response){
-                            console.log(response.searchResult);
                             $('.searchOverlay').show();
                             if(response.searchResult.length != 0){
                                 let productHtml = '';
@@ -411,9 +426,8 @@
                 }else{
                     $('.searchOverlay').hide();
                 }
+        }
 
-            })
-        });
         //sweet alert
         const Toast = Swal.mixin({
                         toast: true,
