@@ -133,9 +133,9 @@ class FrontEndController extends Controller
 
     }
 
-    //detail
+    //product detail page
     public function showProduct($id){
-        $product = Product:: where('product_id',$id)->first();
+        $product = Product:: where('product_id',$id)->with('productReview','productReview.user')->first();
         $multiImages = MultiImage::where('product_id',$id)->get();
         $colors = ProductVariant::select('product_variants.*','product_colors.name as colorName')
                                 ->join('product_colors','product_colors.color_id','product_variants.color_id')

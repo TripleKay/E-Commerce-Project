@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\ProductReview;
 use App\Models\ProductVariant;
 use App\Models\SubSubCategory;
 use Illuminate\Database\Eloquent\Model;
@@ -44,8 +45,12 @@ class Product extends Model
     public function subsubcategory(){
         return $this->belongsTo(SubSubCategory::class,'subsubcategory_id','subsubcategory_id');
     }
-    
+
     public function productVariant(){
         return $this->hasMany(ProductVariant::class,'product_id','product_id');
+    }
+
+    public function productReview(){
+        return $this->hasMany(ProductReview::class,'product_id','product_id');
     }
 }

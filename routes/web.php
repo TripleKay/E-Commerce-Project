@@ -26,7 +26,10 @@ use App\Http\Controllers\Admin\ProductVariantController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\Admin\UserController;
-use Symfony\Component\HttpKernel\Profiler\Profile;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -192,6 +195,12 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('reports/search/byMonth',[ReportController::class,'searchByMonth'])->name('admin#searchByMonth');
     Route::get('reports/search/byYear',[ReportController::class,'searchByYear'])->name('admin#searchByYear');
 
+    //product review
+    Route::get('product/review',[AdminReviewController::class,'index'])->name('admin#productReview');
+    Route::get('product/review/pending',[AdminReviewController::class,'pendingReview'])->name('admin#pendingReview');
+    Route::get('product/review/{id}',[AdminReviewController::class,'showReview'])->name('admin#showReview');
+    Route::get('product/review/approve/{id}',[AdminReviewController::class,'approveReview'])->name('admin#approveReview');
+    Route::get('product/review/delete/{id}',[AdminReviewController::class,'deleteReview'])->name('admin#deleteReview');
 });
 
 Route::group(['namespace' => 'FrontEnd'],function(){
@@ -247,5 +256,9 @@ Route::group(['prefix' => 'user','namespace' => 'User','middleware' => 'auth'],f
     Route::get('orders',[ProfileController::class,'myOrder'])->name('user#myOrder');
     Route::get('orders/detail/{id}',[ProfileController::class,'orderDetail'])->name('user#orderDetail');
     Route::get('downloadInvoice/{id}',[ProfileController::class,'downloadInvoice'])->name('user#download#downloadInvoice');
+
+    //review
+    // Route::get('profile/review')
+    Route::post('product/review/{id}',[ReviewController::class,'storeReview'])->name('user#storeReview');
 
 });

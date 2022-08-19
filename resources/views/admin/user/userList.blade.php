@@ -1,9 +1,9 @@
 @extends('admin.layouts.app')
 @section('content')
-<div class="row pt-4">
+<div class="pt-4 row">
     <div class="col-12">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-white">
+            <ol class="bg-white breadcrumb">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">User Lists</li>
             </ol>
@@ -12,9 +12,9 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="card rounded" style="box-shadow: none !important">
+        <div class="rounded card" style="box-shadow: none !important">
             <div class="card-header">
-                <div class="d-flex align-items-center justify-content-between my-1">
+                <div class="my-1 d-flex align-items-center justify-content-between">
                     <h4 class="mb-0">All User Lists</h4>
                </div>
             </div>
@@ -28,7 +28,6 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th>Status</th>
                                 <th>Crated At</th>
                                 <th>Action</th>
                             </tr>
@@ -39,17 +38,14 @@
                                     <th>{{ $item->id }}</th>
                                     <th>
                                         @if (!empty($item->profile_photo_path))
-                                            <img src="{{ asset('/uploads/user/'.$item->profile_photo_path) }}" class="shadow rounded"  alt="" srcset="" style="width: 80px; height: 80px;">
+                                            <img src="{{ asset('/uploads/user/'.$item->profile_photo_path) }}" class="rounded shadow"  alt="" srcset="" style="width: 80px; height: 80px;">
                                         @else
-                                            <img src="{{ asset('frontEnd/resources/image/user-default.png') }}" class="bg-white shadow rounded"  alt="" srcset="" style="width: 80px; height: 80px;">
+                                            <img src="{{ asset('frontEnd/resources/image/user-default.png') }}" class="bg-white rounded shadow"  alt="" srcset="" style="width: 80px; height: 80px;">
                                         @endif
                                     </th>
                                     <th>{{ $item->name }}</th>
                                     <th>{{ $item->email }}</th>
                                     <th>{{ $item->role }}</th>
-                                    <th>
-                                        <div class="badge bg-success">Online</div>
-                                    </th>
                                     <th>{{ $item->created_at }}</th>
                                     <td>
                                         <a href="{{ route('admin#editUser',$item->id) }}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>

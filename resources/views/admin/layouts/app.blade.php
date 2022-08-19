@@ -197,14 +197,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          {{-- <li class="nav-item">
-            <a href="{{ route('admin#createVariant') }}" class="nav-link {{ Request::url() == route('admin#createVariant') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-th"></i>
-              <p>
-                Product Variants
-              </p>
-            </a>
-          </li> --}}
+
           <li class="nav-item">
             <a href="{{ route('admin#coupon') }}" class="nav-link {{ Request::url() == route('admin#coupon') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-percent"></i>
@@ -285,7 +278,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
         </li>
+        <li class="text-white nav-header text-uppercase">Manage Product Review</li>
+        <li class="nav-item">
+        <a href="{{ route('admin#productReview') }}" class="nav-link {{ Request::url() == route('admin#productReview') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-comment-alt"></i>
 
+            <p>
+              All Product Review
+            </p>
+          </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('admin#pendingReview') }}" class="nav-link {{ Request::url() == route('admin#pendingReview') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-comment-alt"></i>
+            <p>
+                Pending Review
+            </p>
+          </a>
+      </li>
         <li class="text-white nav-header text-uppercase">Manage User</li>
           <li class="nav-item">
             <a href="{{ route('admin#userList') }}" class="nav-link {{ Request::url() == route('admin#userList') ? 'active' : '' }}">
