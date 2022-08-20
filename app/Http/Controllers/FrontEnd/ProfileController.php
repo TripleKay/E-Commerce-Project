@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\ProductVariant;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
+use App\Models\ProductReview;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -59,6 +60,11 @@ class ProfileController extends Controller
         return back()->with(['success'=>'Your Profile updated successfully']);
     }
 
+    //edit password
+    public function editPassword(){
+        return view('frontEnd.profile.editPassword');
+    }
+
     //update password
     public function updatePassword(Request $request){
         $validation = Validator::make($request->all(),[
@@ -90,6 +96,12 @@ class ProfileController extends Controller
             return back()->with(['message' => 'your old password does not match']);
         }
 
+    }
+
+    //user review
+    public function myReview(){
+        $reviews = ProductReview::where('user_id',auth()->user()->id)->with('product')->get();
+        return view('frontEnd.profile.myReview')->with('reviews',$reviews);
     }
 
     //order lists

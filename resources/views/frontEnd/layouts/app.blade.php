@@ -41,11 +41,11 @@
     <!-- -------------------------------header-------------------------------------  -->
     <header class="">
         <!-- -------------------------------header1-------------------------------------  -->
-        <div class="header-1 d-none d-sm-block bg-primary py-3"  style="border-bottom: 1px solid #ffffff50 ;">
+        <div class="py-3 header-1 d-none d-sm-block bg-primary"  style="border-bottom: 1px solid #ffffff50 ;">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="d-flex align-items-center justify-content-between text-white ">
+                        <div class="text-white d-flex align-items-center justify-content-between ">
                             <div class="d-flex">
                                 <div class="d-flex me-3 align-items-center">
                                     <i class="fa-solid fa-envelope"></i>
@@ -67,37 +67,37 @@
             </div>
         </div>
         <!-- -------------------------------header2-------------------------------------  -->
-        <div class="header-2 py-3 bg-primary" style="border-bottom: 1px solid #ffffff50 ;">
+        <div class="py-3 header-2 bg-primary" style="border-bottom: 1px solid #ffffff50 ;">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="d-flex align-items-center justify-content-between flex-wrap header-2-container">
+                        <div class="flex-wrap d-flex align-items-center justify-content-between header-2-container">
                             <!-- mobile menu btn  -->
-                            <button class="btn d-block d-sm-block d-md-none text-white mobile-menu"><i class="fa-solid fa-bars" style="font-size: 25px ;"></i></button>
+                            <button class="text-white btn d-block d-sm-block d-md-none mobile-menu"><i class="fa-solid fa-bars" style="font-size: 25px ;"></i></button>
                             <!-- mobile menu btn  -->
-                            <a href="{{ route('frontend#index') }}" class="btn p-0">
+                            <a href="{{ route('frontend#index') }}" class="p-0 btn">
                                 <h3 class="mb-0 text-white logo">E-Market</h3>
                             </a>
 
                             <div class="position-relative autoCompleteSearch">
                                 {{-- <form action="" class=""> --}}
-                                    <div class="d-none d-sm-none d-md-flex bg-white rounded-pill p-1 header-search-bar">
-                                        <input type="search" class="searchInput form-control border-0" placeholder="search product....">
-                                        <button class="btn btn-primary text-white">Search</button>
+                                    <div class="p-1 bg-white d-none d-sm-none d-md-flex rounded-pill header-search-bar">
+                                        <input type="search" class="border-0 searchInput form-control" placeholder="search product....">
+                                        <button class="text-white btn btn-primary">Search</button>
                                     </div>
                                 {{-- </form> --}}
                                 {{-- search overlay box   --}}
-                                <div class="searchOverlay card border-0 mt-2 position-absolute shadow" style="left: 0; right: 0; z-index: 2000; border-radius: 15px; background-color: ##F8F7FF;">
+                                <div class="mt-2 border-0 shadow searchOverlay card position-absolute" style="left: 0; right: 0; z-index: 2000; border-radius: 15px; background-color: ##F8F7FF;">
                                     <div class="card-body resultProduct">
 
                                     </div>
                                 </div>
                             </div>
                             <div class="">
-                                <a href="{{ route('frontend#viewCarts') }}" class="btn btn-outline-light position-relative  p-0 d-flex justify-content-between align-items-center">
-                                    <i class="fa-solid fa-cart-shopping py-2 px-2" style="border-right: 1px solid #fff"></i>
+                                <a href="{{ route('frontend#viewCarts') }}" class="p-0 btn btn-outline-light position-relative d-flex justify-content-between align-items-center">
+                                    <i class="px-2 py-2 fa-solid fa-cart-shopping" style="border-right: 1px solid #fff"></i>
                                     <div class="headerCartBox">
-                                        <span class="badge bg-dark rounded-circle mb-0 position-absolute cart-badge">
+                                        <span class="mb-0 badge bg-dark rounded-circle position-absolute cart-badge">
                                             @if (Session::has('cart'))
                                                 {{ count(Session::get('cart')) }}
                                             @else
@@ -111,16 +111,16 @@
                                                         $total += $item['price'] * $item['quantity']
                                                      @endphp
                                             @endforeach
-                                            <p class="mb-0 py-2 px-2">CART - {{ $total}} Ks</p>
+                                            <p class="px-2 py-2 mb-0">CART - {{ $total}} Ks</p>
                                         @else
-                                            <p class="mb-0 py-2 px-2">CART - 0 Ks</p>
+                                            <p class="px-2 py-2 mb-0">CART - 0 Ks</p>
                                         @endif
                                     </div>
                                 </a>
-                                {{-- <div class="cart-overlay card shadow-lg border-0 bg-primary position-absolute" style="top: 100%; bottom: 0; right: 0; width: 300px; z-index: 2000;">
-                                    <div class="card-body p-1">
-                                        <div class="card cart-item mb-1">
-                                            <div class="card-body p-1 d-flex justify-content-between align-items-center">
+                                {{-- <div class="border-0 shadow-lg cart-overlay card bg-primary position-absolute" style="top: 100%; bottom: 0; right: 0; width: 300px; z-index: 2000;">
+                                    <div class="p-1 card-body">
+                                        <div class="mb-1 card cart-item">
+                                            <div class="p-1 card-body d-flex justify-content-between align-items-center">
                                                 <img src="{{ asset('frontEnd/resources/image/product1.jpg') }}" alt="" srcset="" style="width: 80px; height: 80px">
                                                 <div class="">
                                                     <p class="mb-0">Apple Watch</p>
@@ -128,8 +128,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card cart-item mb-1">
-                                            <div class="card-body p-1 d-flex justify-content-between align-items-center">
+                                        <div class="mb-1 card cart-item">
+                                            <div class="p-1 card-body d-flex justify-content-between align-items-center">
                                                 <img src="{{ asset('frontEnd/resources/image/product1.jpg') }}" alt="" srcset="" style="width: 80px; height: 80px">
                                                 <div class="">
                                                     <p class="mb-0">Apple Watch</p>
@@ -137,7 +137,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="" class="btn btn-primary text-white w-100">View All</a>
+                                        <a href="" class="text-white btn btn-primary w-100">View All</a>
                                     </div>
                                 </div> --}}
                             </div>
@@ -154,20 +154,20 @@
                         <div class="col-12">
                             <nav class="py-0">
                                 <!-- mobile close btn  -->
-                                <button class="btn btn-light shadow-lg d-block d-md-none mobile-close"><i class="fa-solid fa-xmark" style="font-size: 25px ;"></i></button>
+                                <button class="shadow-lg btn btn-light d-block d-md-none mobile-close"><i class="fa-solid fa-xmark" style="font-size: 25px ;"></i></button>
                                 <!-- mobile close btn  -->
                                 <div class="d-md-flex justify-content-between align-items-center">
                                     <ul class="nav d-flex align-items-center nav-bar">
                                         <!-- for mobile  -->
                                         <li class="mobile-search-bar d-md-none position-relative autoCompleteSearch">
-                                            {{-- <form action="" class="py-3 px-2"> --}}
-                                                <div class="d-flex p-1 rounded bg-primary" style="border: 1px solid #fff; ">
-                                                    <button class="btn rounded-circle m-0 text-white"><i class="fas fa-search"></i></button>
-                                                    <input type="text"  class="mobileSearchInput form-control text-white bg-transparent border-0 ms-0" placeholder="search .....">
+                                            {{-- <form action="" class="px-2 py-3"> --}}
+                                                <div class="p-1 rounded d-flex bg-primary" style="border: 1px solid #fff; ">
+                                                    <button class="m-0 text-white btn rounded-circle"><i class="fas fa-search"></i></button>
+                                                    <input type="text"  class="text-white bg-transparent border-0 mobileSearchInput form-control ms-0" placeholder="search .....">
                                                 </div>
                                             {{-- </form> --}}
                                             {{-- search overlay box   --}}
-                                                <div class="searchOverlay card border-0 mt-2 position-relative shadow" style="left: 0; right: 0; z-index: 2000; border-radius: 15px; background-color: ##F8F7FF;">
+                                                <div class="mt-2 border-0 shadow searchOverlay card position-relative" style="left: 0; right: 0; z-index: 2000; border-radius: 15px; background-color: ##F8F7FF;">
                                                     <div class="card-body resultProduct">
 
                                                     </div>
@@ -175,12 +175,12 @@
                                         </li>
                                         <li class="nav-item cat-nav-item">
                                             <!-- all category btn  -->
-                                            <div class="dropdown me-3 cat-dropdown shadow">
-                                                <button class="btn btn-info text-white dropdown-toggle py-3" style="border-radius: 0px;" type="button" id="category-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <div class="shadow dropdown me-3 cat-dropdown">
+                                                <button class="py-3 text-white btn btn-info dropdown-toggle" style="border-radius: 0px;" type="button" id="category-btn" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa-solid fa-list me-3 d-none d-sm-none d-md-inline-block"></i> ALL CATEGORIES
                                                 </button>
                                                 <!-- all category container  -->
-                                                <ul class="dropdown-menu shadow-lg" aria-labelledby="category-btn" style="width: 100%; border-radius: 0px 0px 10px 10px">
+                                                <ul class="shadow-lg dropdown-menu" aria-labelledby="category-btn" style="width: 100%; border-radius: 0px 0px 10px 10px">
                                                     <!-- -------------main cat item-----------------  -->
                                                     @php
                                                     $categories = App\Models\Category::get();
@@ -190,7 +190,7 @@
                                                             $subcategories = App\Models\SubCategory::where('category_id',$cat->category_id)->get();
                                                         @endphp
                                                         <li class="cat-item">
-                                                            <div class="d-flex align-items-center justify-content-between dropdown-item py-2 my-1">
+                                                            <div class="py-2 my-1 d-flex align-items-center justify-content-between dropdown-item">
                                                                 <a href="{{ route('frontend#catProduct',$cat->category_id) }}" class="" >{{ $cat->name }}</a>
                                                                 <i class="fa-solid fa-angle-right d-none {{ $subcategories->count() == 0 ? 'd-md-none' : 'd-md-inline-block' }}"></i>
                                                             </div>
@@ -203,7 +203,7 @@
                                                                         @foreach ($subcategories as $subcat)
                                                                         <div class="col-6">
                                                                                 <a href="{{ route('frontend#subcatProduct',$subcat->subcategory_id) }}" class="dropdown-item"><h6>{{$subcat->name}}</h6></a>
-                                                                                <div class="d-flex flex-column px-3 mb-3">
+                                                                                <div class="px-3 mb-3 d-flex flex-column">
                                                                                     @php
                                                                                         $subsubcategories = App\Models\SubSubCategory::where('subcategory_id',$subcat->subcategory_id)->get();
                                                                                     @endphp
@@ -228,16 +228,16 @@
                                         </li>
                                          <!-- nav menu -->
                                         <li class="nav-item">
-                                          <a class="nav-link text-white" href="{{ route('frontend#index') }}">HOME</a>
+                                          <a class="text-white nav-link" href="{{ route('frontend#index') }}">HOME</a>
                                         </li>
                                         <li class="nav-item">
-                                          <a class="nav-link text-white" href="#">BLOG</a>
+                                          <a class="text-white nav-link" href="#">BLOG</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-white" href="#">ABOUT US</a>
+                                            <a class="text-white nav-link" href="#">ABOUT US</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-white" href="#">CONTACT US</a>
+                                            <a class="text-white nav-link" href="#">CONTACT US</a>
                                         </li>
                                       </ul>
                                       <div class="d-flex">
@@ -247,42 +247,42 @@
                                         <div class="myAccount me-2 position-relative d-none d-md-block">
                                             <div class=" btn btn-outline-light"><i class="fas fa-user-alt"></i></div>
                                             @if (auth()->check())
-                                                <div class="myAccountOverlay card border-0 bg-primary position-absolute">
-                                                    <div class=" card-body p-1  d-flex flex-column">
-                                                        <a href="{{ route('user#profile') }}" class="btn btn-primary text-white  text-start">My Account</a>
-                                                        <a href="" class="btn  btn-primary text-white text-start">My Orders</a>
+                                                <div class="border-0 myAccountOverlay card bg-primary position-absolute">
+                                                    <div class="p-1 card-body d-flex flex-column">
+                                                        <a href="{{ route('user#profile') }}" class="text-white btn btn-primary text-start">My Account</a>
+                                                        <a href="{{ route('user#myOrder') }}" class="text-white btn btn-primary text-start">My Orders</a>
                                                         <hr class="my-1">
                                                         <form action="{{ route('logout') }}" method="post">
                                                             @csrf
-                                                            <button class="btn btn-primary text-white w-100 text-start">logout</button>
+                                                            <button class="text-white btn btn-primary w-100 text-start">logout</button>
                                                         </form>
                                                     </div>
                                                 </div>
                                             @else
-                                                <div class="myAccountOverlay card border-0 bg-primary position-absolute">
-                                                    <div class=" card-body p-1  d-flex flex-column">
-                                                        <a href="{{ route('login') }}" class="btn btn-primary text-white  text-start">Login</a>
-                                                        <a href="{{ route('register') }}" class="btn  btn-primary text-white text-start">Register</a>
+                                                <div class="border-0 myAccountOverlay card bg-primary position-absolute">
+                                                    <div class="p-1 card-body d-flex flex-column">
+                                                        <a href="{{ route('login') }}" class="text-white btn btn-primary text-start">Login</a>
+                                                        <a href="{{ route('register') }}" class="text-white btn btn-primary text-start">Register</a>
                                                     </div>
                                                 </div>
                                             @endif
                                         </div>
-                                        <div class="card border-0 bg-primary mt-2 mb-3 w-100 d-block d-md-none" style="border-radius: 15px">
+                                        <div class="mt-2 mb-3 border-0 card bg-primary w-100 d-block d-md-none" style="border-radius: 15px">
                                             <div class="card-body">
                                                 @if (auth()->check())
                                                     <h5 class="text-white">{{ auth()->user()->name }}</h5>
                                                     <hr class="bg-white">
-                                                    <a href="{{ route('user#wishlist') }}" class="btn px-0 text-white" title="My Wishlist"><i class="fas fa-heart"></i> My WishList</a>
-                                                    <a href="" class="btn w-100 px-0 text-start text-white"><i class="fas fa-shopping-bag"></i> My Orders</a>
-                                                    <a href="{{ route('user#profile') }}" class="btn w-100 px-0 text-start text-white"><i class="fas fa-user-alt"></i> My Account</a>
+                                                    <a href="{{ route('user#wishlist') }}" class="px-0 text-white btn" title="My Wishlist"><i class="fas fa-heart"></i> My WishList</a>
+                                                    <a href="" class="px-0 text-white btn w-100 text-start"><i class="fas fa-shopping-bag"></i> My Orders</a>
+                                                    <a href="{{ route('user#profile') }}" class="px-0 text-white btn w-100 text-start"><i class="fas fa-user-alt"></i> My Account</a>
                                                     <hr class="bg-white">
                                                     <form action="{{ route('logout') }}" method="post">
                                                         @csrf
-                                                        <button class="btn btn-danger text-white w-100 text-start">Logout</button>
+                                                        <button class="text-white btn btn-danger w-100 text-start">Logout</button>
                                                     </form>
                                                 @else
-                                                    <a href="{{ route('login') }}" class="btn text-start text-white">Login</a>
-                                                    <a href="{{ route('register') }}" class="btn btn-danger  text-white text-start">Register</a>
+                                                    <a href="{{ route('login') }}" class="text-white btn text-start">Login</a>
+                                                    <a href="{{ route('register') }}" class="text-white btn btn-danger text-start">Register</a>
                                                 @endif
                                             </div>
                                         </div>
@@ -306,16 +306,16 @@
                     <div class="footer-box">
                         <!-- <h5 class="mb-4">ABOUT US</h5> -->
                         <h3 class="mb-4 text-primary">E-Market</h3>
-                        <p class="text-black-50 me-2 mb-3">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates numquam ad consequunturesse.</p>
+                        <p class="mb-3 text-black-50 me-2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates numquam ad consequunturesse.</p>
                         <div class="d-flex">
                             <div class="me-3 d-flex align-items-center justify-content-center bg-dark rounded-circle " style="width: 40px ; height: 40px; ">
-                                <i class="fa-brands fa-facebook text-white"></i>
+                                <i class="text-white fa-brands fa-facebook"></i>
                             </div>
                             <div class="me-3 d-flex align-items-center justify-content-center bg-dark rounded-circle " style="width: 40px ; height: 40px; ">
-                                <i class="fa-brands fa-youtube text-white"></i>
+                                <i class="text-white fa-brands fa-youtube"></i>
                             </div>
                             <div class="d-flex align-items-center justify-content-center bg-dark rounded-circle " style="width: 40px ; height: 40px; ">
-                                <i class="fa-brands fa-instagram text-white"></i>
+                                <i class="text-white fa-brands fa-instagram"></i>
                             </div>
                         </div>
                     </div>
@@ -334,19 +334,19 @@
                 <div class="col-4">
                     <div class="footer-box">
                         <h5 class="mb-4">CONTACT US</h5>
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="fa-solid fa-map-location-dot bg-dark text-white" style="font-size: 20px; padding: 10px;"></i>
+                        <div class="mb-3 d-flex align-items-center">
+                            <i class="text-white fa-solid fa-map-location-dot bg-dark" style="font-size: 20px; padding: 10px;"></i>
                             <p class="mb-0 ms-3">Yangon,Myanmar</p>
                         </div>
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="fa-solid fa-phone bg-dark text-white" style="font-size: 20px; padding: 10px;"></i>
+                        <div class="mb-3 d-flex align-items-center">
+                            <i class="text-white fa-solid fa-phone bg-dark" style="font-size: 20px; padding: 10px;"></i>
                             <div class="">
                                 <p class="mb-0 ms-3">+95 9123 4567 89</p>
                                 <p class="mb-0 ms-3">+95 9123 4567 89</p>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="fa-solid fa-envelope bg-dark text-white" style="font-size: 20px; padding: 10px;"></i>
+                        <div class="mb-3 d-flex align-items-center">
+                            <i class="text-white fa-solid fa-envelope bg-dark" style="font-size: 20px; padding: 10px;"></i>
                             <p class="mb-0 ms-3">example@gmail.com</p>
                         </div>
                     </div>
@@ -358,7 +358,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12 ">
-                            <p class="text-white-50 mb-0 py-3 text-center">www.e-market.com</p>
+                            <p class="py-3 mb-0 text-center text-white-50">www.e-market.com</p>
                         </div>
                     </div>
                 </div>
@@ -408,7 +408,7 @@
                             if(response.searchResult.length != 0){
                                 let productHtml = '';
                                 for(let i=0; i < response.searchResult.length; i++){
-                                    productHtml += `<a href="{{ url('product/detail/') }}/${response.searchResult[i].product_id}" class="btn  w-100 mt-2 d-flex justify-content-between align-items-center" style="border: 1px solid #88888840">
+                                    productHtml += `<a href="{{ url('product/detail/') }}/${response.searchResult[i].product_id}" class="mt-2 btn w-100 d-flex justify-content-between align-items-center" style="border: 1px solid #88888840">
                                             <p class="mb-0">${response.searchResult[i].name.substring(0,80)}</p>
                                             <i class="fas fa-arrow-right"></i>
                                         </a>`;
@@ -416,7 +416,7 @@
                                 $('.resultProduct').html(productHtml);
                             }else{
                                 let productHtml = `<div class="text-center">
-                                            <h5 class="text-danger mb-0">Products Not Found</h5>
+                                            <h5 class="mb-0 text-danger">Products Not Found</h5>
                                         </div>`;
                                 $('.resultProduct').html(productHtml);
 
@@ -521,8 +521,8 @@
                             });
                         }else{
                             let headerCartBoxHtml = `
-                                <span class="badge bg-dark rounded-circle mb-0 position-absolute cart-badge">${response.count}</span>
-                                <p class="mb-0 py-2 px-2">CART - ${response.totalPrice} Ks</p>
+                                <span class="mb-0 badge bg-dark rounded-circle position-absolute cart-badge">${response.count}</span>
+                                <p class="px-2 py-2 mb-0">CART - ${response.totalPrice} Ks</p>
                             `;
                             $('.headerCartBox').html(headerCartBoxHtml);
                             Toast.fire({

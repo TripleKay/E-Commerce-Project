@@ -28,8 +28,7 @@ use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
-
-
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -251,7 +250,10 @@ Route::group(['prefix' => 'user','namespace' => 'User','middleware' => 'auth'],f
     //profile
     Route::get('profile',[ProfileController::class,'index'])->name('user#profile');
     Route::post('profile/update',[ProfileController::class,'updateProfile'])->name('user#updateProfile');
+    Route::get('profile/password/edit',[ProfileController::class,'editPassword'])->name('user#editPassword');
     Route::post('profile/password/update',[ProfileController::class,'updatePassword'])->name('user#updatePassword');
+
+    Route::get('profile/review',[ProfileController::class,'myReview'])->name('user#myReview');
 
     Route::get('orders',[ProfileController::class,'myOrder'])->name('user#myOrder');
     Route::get('orders/detail/{id}',[ProfileController::class,'orderDetail'])->name('user#orderDetail');
