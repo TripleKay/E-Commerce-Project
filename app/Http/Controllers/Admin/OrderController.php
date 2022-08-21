@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\OrderItem;
 use App\Models\ProductVariant;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -37,21 +38,21 @@ class OrderController extends Controller
 
     //change order status
     public function confirmOrder($id){
-        $this->changeOrderStatus($id,'confirmed');
+        $this->changeOrderStatus($id,'confirmed','confirmed_date');
         return back()->with(['success'=>'Order Status Updated Successfully']);
     }
 
     public function processOrder($id){
-        $this->changeOrderStatus($id,'processing');
+        $this->changeOrderStatus($id,'processing','processing_date');
         return back()->with(['success'=>'Order Status Updated Successfully']);
     }
 
     public function pickOrder($id){
-        $this->changeOrderStatus($id,'picked');
+        $this->changeOrderStatus($id,'picked','picked_date');
         return back()->with(['success'=>'Order Status Updated Successfully']);
     }
     public function shipOrder($id){
-        $this->changeOrderStatus($id,'shipped');
+        $this->changeOrderStatus($id,'shipped','shipped_date');
         return back()->with(['success'=>'Order Status Updated Successfully']);
     }
     public function deliverOrder($id){
@@ -65,16 +66,14 @@ class OrderController extends Controller
             $productVariant = ProductVariant::where('product_variant_id',$orderItem->product_variant_id)->update($stock);
         }
         //update order status
-        $this->changeOrderStatus($id,'delivered');
+        $this->changeOrderStatus($id,'delivered','delivered_date');
         return back()->with(['success'=>'Order Status Updated Successfully']);
     }
 
-    public function completeOrder($id){
-        $this->changeOrderStatus($id,'complete');
-        return back()->with(['success'=>'Order Status Updated Successfully']);
-    }
-
-    private function changeOrderStatus($id,$status){
-        Order::where('order_id',$id)->update(['status'=>$status]);
+    private function changeOrderStatus($id,$status,$statusDate){
+        Order::where('order_id',$id)->update([
+            'status'=>$status,
+            $statusDate => Carbon::now(),
+        ]);
     }
 }

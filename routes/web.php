@@ -179,7 +179,6 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('order/pick/{id}',[AdminOrderController::class,'pickOrder'])->name('admin#pickOrder');
     Route::get('order/ship/{id}',[AdminOrderController::class,'shipOrder'])->name('admin#shipOrder');
     Route::get('order/deliver/{id}',[AdminOrderController::class,'deliverOrder'])->name('admin#deliverOrder');
-    Route::get('order/complete/{id}',[AdminOrderController::class,'completeOrder'])->name('admin#completeOrder');
 
     //user list
     Route::get('userList',[UserController::class,'userList'])->name('admin#userList');
@@ -246,6 +245,9 @@ Route::group(['prefix' => 'user','namespace' => 'User','middleware' => 'auth'],f
 
     //order
     Route::post('createOrder',[OrderController::class,'createOrder'])->name('user#createOrder');
+
+    //my order track
+    Route::get('track/myOrder',[OrderController::class,'trackOrder'])->name('user#trackOrder');
 
     //profile
     Route::get('profile',[ProfileController::class,'index'])->name('user#profile');

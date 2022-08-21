@@ -31,7 +31,11 @@
             letter-spacing: 1.5px;
             transition: .3s linear;
         }
+        .orderTrack:hover{
+            color: var(--bs-dark) !important;
+        }
     </style>
+    @yield('style')
 </head>
 <body>
      <!-- -------------------------------PreLoader------------------------------------  -->
@@ -240,7 +244,32 @@
                                             <a class="text-white nav-link" href="#">CONTACT US</a>
                                         </li>
                                       </ul>
-                                      <div class="d-flex">
+                                      <div class="d-flex align-items-center">
+                                        <div class="me-2 d-none d-md-block">
+                                            <button type="button" class="py-3 text-white btn rounded-0 orderTrack" data-bs-toggle="modal" data-bs-target="#orderTrackModal" style="border-left: 1px solid #ffffff50;border-right: 1px solid #ffffff50;">Order Tracking</button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="orderTrackModal" tabindex="-1" aria-labelledby="orderTrackModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title" id="orderTrackModalLabel">Track Your Order</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="{{ route('user#trackOrder') }}" method="GET">
+                                                            @csrf
+                                                            <div class="">
+                                                                <label for="" class="form-label">Invoice Number</label>
+                                                                <input name="invoiceNumber" type="text" class="form-control" placeholder="">
+                                                            </div>
+                                                            <hr>
+                                                            <button class="text-white btn btn-primary float-end">Track Order</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                                                                    </div>
                                         <div class="me-2 d-none d-md-block">
                                             <a href="{{ route('user#wishlist') }}" class="btn btn-outline-light" title="My Wishlist"><i class="fas fa-heart"></i></a>
                                         </div>

@@ -12,6 +12,24 @@ use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
+    //track order by invoice
+    public function trackOrder(Request $request){
+
+        $validation = Validator::make($request->all(),[
+            'invoiceNumber'=> 'required',
+        ]);
+        if($validation->fails()){
+            return back()->with(['error'=>'Invoice code must be requird']);
+        }
+
+        $order = Order::select('*')->where('invoice_number',$request->invoiceNumber)->withCount('orderItem')->first();
+        if($order){
+            return view('frontEnd.orderTracking')->with(['order'=>$order]);
+        }else{
+            return back()->with(['error'=>'Your invoice code is Invalid']);
+        }
+    }
+
     //create
     public function createOrder(Request $request){
         //empty cart checking

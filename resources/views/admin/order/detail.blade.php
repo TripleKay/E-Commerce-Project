@@ -1,19 +1,98 @@
 @extends('admin.layouts.app')
+@section('style')
+<style>
+    .track {
+        position: relative;
+        background-color: #ddd;
+        height: 7px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        margin-bottom: 60px;
+        margin-top: 50px
+    }
+
+    .track .step {
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        width: 25%;
+        margin-top: -18px;
+        text-align: center;
+        position: relative
+    }
+
+    .track .step.active:before {
+        background: #FF5722
+    }
+
+    .track .step::before {
+        height: 7px;
+        position: absolute;
+        content: "";
+        width: 100%;
+        left: 0;
+        top: 18px
+    }
+
+    .track .step.active .icon {
+        background: #ee5435;
+        color: #fff
+    }
+
+    .track .icon {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        position: relative;
+        border-radius: 100%;
+        background: #ddd
+    }
+
+    .track .step.active .text {
+        font-weight: 400;
+        color: #000
+    }
+
+    .track .text {
+        display: block;
+        margin-top: 7px
+    }
+
+</style>
+@endsection
 @section('content')
-<div class="row pt-4">
+<div class="pt-4 row">
     <div class="col-12">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-white">
+            <ol class="bg-white breadcrumb">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">Products</li>
             </ol>
           </nav>
     </div>
 </div>
-<div class="row pb-4">
+<div class="row">
+    <div class="col-12">
+        <div class="my-2 shadow-none card">
+            <div class="card-body">
+                <div class="track">
+                    <div class="step active"> <span class="icon"> <i class="fas fa-ellipsis-h"></i> </span> <span class="text">Pending</span> </div>
+                    <div class="step {{ $order->confirmed_date != null ? 'active' : ''}}"> <span class="icon"> <i class="fas fa-check-circle"></i></span> <span class="text">Confirmed</span> </div>
+                    <div class="step {{ $order->processing_date != null ? 'active' : ''}}"> <span class="icon"> <i class="fas fa-spinner"></i> </span> <span class="text">Processing</span> </div>
+                    <div class="step {{ $order->picked_date != null ? 'active' : ''}}"> <span class="icon"> <i class="fas fa-box"></i> </span> <span class="text">Picked</span> </div>
+                    <div class="step {{ $order->shipped_date != null ? 'active' : ''}}"> <span class="icon"> <i class="fas fa-truck"></i> </span> <span class="text">Shipped</span> </div>
+                    <div class="step {{ $order->delivered_date != null ? 'active' : ''}}"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Delivered</span> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pb-4 row">
     <div class="col-6">
-        <div class="card shadow-none my-3">
-            <div class="card-header bg-transparent">
+        <div class="my-3 shadow-none card">
+            <div class="bg-transparent card-header">
                 <div class="">
                     <div class="h5">Order Detail</div>
                 </div>
@@ -55,30 +134,26 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="mt-3 py-3 float-right">
+                <div class="float-right py-3 mt-3">
                     @if ($order->status == 'pending')
 
-                        <a href="{{ route('admin#confirmOrder',$order->order_id) }}" class="orderStatusBtn btn btn-primary shadow-lg">Confirm Order</a>
+                        <a href="{{ route('admin#confirmOrder',$order->order_id) }}" class="shadow-lg orderStatusBtn btn btn-primary">Confirm Order</a>
 
                     @elseif ($order->status == 'confirmed')
 
-                        <a href="{{ route('admin#processOrder',$order->order_id) }}" class="orderStatusBtn btn btn-primary shadow-lg">Process Order</a>
+                        <a href="{{ route('admin#processOrder',$order->order_id) }}" class="shadow-lg orderStatusBtn btn btn-primary">Process Order</a>
 
                     @elseif ($order->status == 'processing')
 
-                        <a href="{{ route('admin#pickOrder',$order->order_id) }}" class="orderStatusBtn btn btn-primary shadow-lg">Pick Order</a>
+                        <a href="{{ route('admin#pickOrder',$order->order_id) }}" class="shadow-lg orderStatusBtn btn btn-primary">Pick Order</a>
 
                     @elseif ($order->status == 'picked')
 
-                        <a href="{{ route('admin#shipOrder',$order->order_id) }}" class="orderStatusBtn btn btn-primary shadow-lg">Ship Order</a>
+                        <a href="{{ route('admin#shipOrder',$order->order_id) }}" class="shadow-lg orderStatusBtn btn btn-primary">Ship Order</a>
 
                     @elseif ($order->status == 'shipped')
 
-                        <a href="{{ route('admin#deliverOrder',$order->order_id) }}" class="orderStatusBtn btn btn-primary shadow-lg">Deliver Order</a>
-
-                    @elseif ($order->status == 'delivered')
-
-                        <a href="{{ route('admin#completeOrder',$order->order_id) }}" class="orderStatusBtn btn btn-primary shadow-lg">Complete Order</a>
+                        <a href="{{ route('admin#deliverOrder',$order->order_id) }}" class="shadow-lg orderStatusBtn btn btn-primary">Deliver Order</a>
 
                     @endif
 
@@ -87,8 +162,8 @@
         </div>
     </div>
     <div class="col-6">
-        <div class="card shadow-none my-3">
-            <div class="card-header bg-transparent">
+        <div class="my-3 shadow-none card">
+            <div class="bg-transparent card-header">
                 <div class="">
                     <div class="h5">Delivery Detail</div>
                 </div>
@@ -132,9 +207,9 @@
 
 
     <div class="col-12">
-        <div class="card shadow-none">
-            <div class="card-header bg-transparent">
-                <div class="d-flex justify-content-between my-1 align-items-center">
+        <div class="shadow-none card">
+            <div class="bg-transparent card-header">
+                <div class="my-1 d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Order Items</h4>
                     {{-- <button class="btn btn-dark">Download Invoice</button> --}}
                 </div>

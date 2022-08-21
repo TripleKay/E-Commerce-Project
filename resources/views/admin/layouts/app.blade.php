@@ -36,6 +36,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         border: 1px solid #fff !important;
     }
   </style>
+  @yield('style')
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">

@@ -98,7 +98,7 @@
                 @php
                     $products = App\Models\ProductVariant::query()->with(['product' => function($query){
                                     $query->select('product_id','name','publish_status');
-                                },'color','size'])->where('available_stock','<=','5')->get();
+                                },'color','size'])->where('available_stock','<=',5)->get();
                 @endphp
                 <div class="table-responsive">
                     <table class="table table-hover" id="dataTable">

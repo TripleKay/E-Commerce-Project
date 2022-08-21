@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\City;
 use App\Models\Township;
+use App\Models\OrderItem;
 use App\Models\StateDivision;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -50,5 +51,9 @@ class Order extends Model
     }
     public function township(){
         return $this->belongsTo(Township::class,'township_id','township_id');
+    }
+
+    public function orderItem(){
+        return $this->hasMany(OrderItem::class,'order_id','order_id');
     }
 }
