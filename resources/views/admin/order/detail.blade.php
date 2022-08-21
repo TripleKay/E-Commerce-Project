@@ -66,9 +66,11 @@
 <div class="pt-4 row">
     <div class="col-12">
         <nav aria-label="breadcrumb">
-            <ol class="bg-white breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Products</li>
+            <ol class="breadcrumb bg-white d-flex align-items-center">
+                <li class="breadcrumb-item"><a href="{{ URL::previous() }}" class="btn btn-dark btn-sm"><i class="fa fa-chevron-left"></i>  Back</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin#dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin#order') }}" class="">Orders</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Details</li>
             </ol>
           </nav>
     </div>

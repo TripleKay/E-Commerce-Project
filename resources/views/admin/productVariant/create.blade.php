@@ -3,8 +3,9 @@
 <div class="row pt-4">
     <div class="col-12">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-white">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <ol class="breadcrumb bg-white d-flex align-items-center">
+                <li class="breadcrumb-item"><a href="{{ URL::previous() }}" class="btn btn-dark btn-sm"><i class="fa fa-chevron-left"></i>  Back</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin#dashboard') }}">Dashboard</a></li>
               <li class="breadcrumb-item"><a href="{{ route('admin#product')}}">Products</a></li>
               <li class="breadcrumb-item"><a href="{{ route('admin#product')}}">Product Variant</a></li>
               <li class="breadcrumb-item active" aria-current="page">add</li>

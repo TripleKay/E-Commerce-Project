@@ -5,10 +5,12 @@
             <div class="row">
                 <div class="col-12">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href="#">Home</a></li>
-                          <li class="breadcrumb-item"><a href="#">Library</a></li>
-                          <li class="breadcrumb-item active" aria-current="page">Data</li>
+                        <ol class="breadcrumb d-flex align-items-center ">
+                            <li class="breadcrumb-item"><a href="{{ URL::previous() }}" class="btn btn-dark btn-sm"><i class="fa fa-chevron-left"></i> Back</a></li>
+                          <li class="breadcrumb-item"><a href="{{ route('frontend#index') }}">Home</a></li>
+                          <li class="breadcrumb-item"><a href="#">Profile</a></li>
+                          <li class="breadcrumb-item"><a href="{{ route('user#myOrder') }}">My Order</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">Details</li>
                         </ol>
                     </nav>
                 </div>

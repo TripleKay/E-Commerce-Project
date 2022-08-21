@@ -3,10 +3,11 @@
 <div class="row pt-4">
     <div class="col-12">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-white">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <ol class="breadcrumb bg-white d-flex align-items-center">
+                <li class="breadcrumb-item"><a href="{{ URL::previous() }}" class="btn btn-dark btn-sm"><i class="fa fa-chevron-left"></i>  Back</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin#dashboard') }}">Dashboard</a></li>
               <li class="breadcrumb-item"><a href="{{route('admin#product')}}">Products</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Detail</li>
+              <li class="breadcrumb-item active" aria-current="page">Details</li>
             </ol>
           </nav>
     </div>
@@ -131,7 +132,7 @@
                             </tr>
                             <tr>
                                 <th class="text-nowrap" style="width: 15%">Long Description</th>
-                                <td>{{ $product->long_description }}</td>
+                                <td><textarea class="form-control bg-transparent border-0" id="" rows="10" disabled>{{ $product->long_description }}</textarea></td>
                             </tr>
 
                         </tbody>
