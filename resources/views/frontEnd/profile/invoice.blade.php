@@ -22,22 +22,15 @@
     .font{
       font-size: 15px;
     }
-    .authority {
-        /*text-align: center;*/
-        float: right
-    }
-    .authority h5 {
-        margin-top: -10px;
-        color: green;
-        /*text-align: center;*/
-        margin-left: 35px;
-    }
     .thanks p {
-        color: green;;
+        color: #9381FF;;;
         font-size: 16px;
         font-weight: normal;
         font-family: serif;
         margin-top: 20px;
+    }
+    strong{
+        margin-bottom: 5px;
     }
 </style>
 
@@ -48,17 +41,16 @@
     <tr>
         <td valign="top">
           <!-- {{-- <img src="" alt="" width="150"/> --}} -->
-          <h2 style="color: 9381FF; font-size: 26px;"><strong>E-Market</strong></h2>
+          <h2 style="color: #9381FF; font-size: 26px;"><strong>E-Market</strong></h2>
         </td>
         <td align="right">
-            <pre class="font" >
-               EasyShop Head Office
-               Email:support@easylearningbd.com <br>
-               Mob: 1245454545 <br>
-               Dhaka 1207,Dhanmondi:#4 <br>
-
-            </pre>
-        </td>
+            <div class="font" style="margin-top: 10px">
+              <p>Website: www.example.com </p>
+              <p>Email: example@gmail.com</p>
+              <p>Phone: 09123456789</p>
+              <p>Address: Yangon,Myanmar</p>
+          </div>
+          </td>
     </tr>
 
   </table>
@@ -66,24 +58,23 @@
 
   <table width="100%" style="background:white; padding:2px;""></table>
 
-  <table width="100%" style="background: #F7F7F7; padding:0 5 0 5px;" class="font">
+  <table width="100%" style="background: #F7F7F7; padding:0 20 0 20px;" class="font">
     <tr>
         <td>
-          <p class="font" style="margin-left: 20px;">
-           <strong>Name:</strong> {{$order->name}} <br>
-           <strong>Email:</strong> {{$order->email}} <br>
-           <strong>Phone:</strong> {{$order->phone}} <br>
-
-           <strong>Address:</strong> {{$order->stateDivision->name}},{{ $order->city->name }},{{ $order->township->name }},{{$order->address}} <br>
-         </p>
+          <div class="font" style="">
+            <p><strong>Name:</strong> {{$order->name}}</p>
+            <p><strong>Email:</strong> {{$order->email}}</p>
+            <p><strong>Phone:</strong> {{$order->phone}}</p>
+            <p><strong>Address:</strong>{{$order->address}}</p>
+         </div>
         </td>
         <td>
-          <p class="font">
-            <h3><span style="color: #9381FF;">Invoice:</span> {{ $order->invoice_number }}</h3>
-            Order Date: {{ $order->order_date }}<br>
-             Delivery Date: ##### <br>
-            Payment Type : {{ $order->payment_method }} </span>
-         </p>
+          <div class="font" align="right">
+            <p><strong>Invoice:</strong>{{ $order->invoice_number }}</p>
+            <p><strong>Order Date:</strong>{{ $order->order_date }}</p>
+            <p><strong>Payment Type:</strong>{{ $order->payment_method }}</p>
+            <p><strong>Payment Type:</strong>Paid</p>
+         </div>
         </td>
     </tr>
   </table>
@@ -142,9 +133,5 @@
   <div class="thanks mt-3">
     <p>Thanks For Buying Products..!!</p>
   </div>
-  <div class="authority float-right mt-5">
-      <p>-----------------------------------</p>
-      <h5>Authority Signature:</h5>
-    </div>
 </body>
 </html>

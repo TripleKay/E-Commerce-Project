@@ -103,7 +103,7 @@ class OrderController extends Controller
         Session::forget('coupon');
         Session::forget('subTotal');
 
-        return redirect()->route('frontend#index')->with(['success'=>'Order successfully']);
+        return redirect()->route('user#myOrder')->with(['success'=>'Order successfully']);
 
 
     }

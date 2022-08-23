@@ -29,17 +29,28 @@ class FrontEndController extends Controller
     //search product ( auto complete search )
     public function searchProduct(Request $request){
         $result = Product::when(isset($request->searchKey),function($query) use ($request){
-            return $query->where('name','like','%'.$request->searchKey.'%');
+            return $query->where('publish_status',1)->where('name','like','%'.$request->searchKey.'%');
         })->get();
         return response()->json([
             'searchResult' => $result
         ]);
     }
 
+    //all Products page
+    public function showAllProduct(){
+        $products = Product::where('publish_status',1)->paginate(9);
+        $categories = Category::get();
+        $brands = Brand::get();
+        return view('frontEnd.allproduct')->with([
+            'products' => $products,
+            'categories' => $categories,
+            'brands' => $brands,
+        ]);;
+    }
 
     //Products by category page
     public function categoryProduct($id){
-        $products = Product::where('category_id',$id)->paginate(9);
+        $products = Product::where('publish_status',1)->where('category_id',$id)->paginate(9);
         $categories = Category::get();
         $brands = Brand::get();
         return view('frontEnd.categoryProduct')->with([
@@ -75,7 +86,7 @@ class FrontEndController extends Controller
 
     //Products by brands
     public function brandProduct($id){
-        $products = Product::where('brand_id',$id)->get();
+        $products = Product::where('brand_id',$id)->paginate(9);
         $categories = Category::get();
         $brands = Brand::get();
         return view('frontEnd.categoryProduct')->with([
@@ -122,7 +133,8 @@ class FrontEndController extends Controller
                     ->where('selling_price','<=',$maxPrice);
         }
 
-        $query = $query->get();
+        $query = $query->paginate(9);
+        $query->appends($request->all());
         $categories = Category::get();
         $brands = Brand::get();
         return view('frontEnd.categoryProduct')->with([

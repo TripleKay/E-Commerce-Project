@@ -243,16 +243,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
 
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-
           <li class="text-white nav-header text-uppercase">Manage Orders</li>
           <li class="nav-item">
             <a href="{{ route('admin#order') }}" class="nav-link {{ Request::url() == route('admin#order') ? 'active' : '' }}">

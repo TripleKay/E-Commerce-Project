@@ -205,6 +205,9 @@ Route::group(['namespace' => 'FrontEnd'],function(){
     //index
     Route::get('/',[FrontEndController::class,'index'])->name('frontend#index');
 
+    //all product
+    Route::get('product/all',[FrontEndController::class,'showAllProduct'])->name('frontend#allProduct');
+
     //category product
     Route::get('product/category/{id}',[FrontEndController::class,'categoryProduct'])->name('frontend#catProduct');
     Route::get('product/subcategory/{id}',[FrontEndController::class,'subcategoryProduct'])->name('frontend#subcatProduct');
@@ -262,7 +265,6 @@ Route::group(['prefix' => 'user','namespace' => 'User','middleware' => 'auth'],f
     Route::get('downloadInvoice/{id}',[ProfileController::class,'downloadInvoice'])->name('user#download#downloadInvoice');
 
     //review
-    // Route::get('profile/review')
     Route::post('product/review/{id}',[ReviewController::class,'storeReview'])->name('user#storeReview');
 
 });

@@ -97,7 +97,6 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-baseline">
                     <h4 class="mb-0 product-section-title">New Arrivals</h4>
-                    <a href="" class="btn btn-light shadow-sm text-primary">View All</a>
                 </div>
             </div>
         </div>
@@ -156,7 +155,7 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-baseline mb-5">
                     <h4 class="mb-0 product-section-title">Just For You</h4>
-                    <a href="" class="btn btn-light shadow-sm text-primary">View All</a>
+                    <a href="{{ route('frontend#allProduct') }}" class="btn btn-primary shadow-sm text-white">View All</a>
                 </div>
             </div>
         </div>
