@@ -27,10 +27,10 @@ class DashboardController extends Controller
                             ->pluck('month');
         $data = [0,0,0,0,0,0,0,0,0,0,0,0];
         $salesByMonth = [0,0,0,0,0,0,0,0,0,0,0,0];
-
+        // dd($orders,$data,$months);//0=>6 , 0 , 0=>8
         foreach($months as $index=>$month){
-            $data[$month] = $orders[$index];
-            $salesByMonth[$month] = $totalSales[$index];
+            $data[$month-1] = $orders[$index]; // $data[8] = $orders[0] //  8->6 // index(8) => 6 orders // index 8 is not 8 th value; array start at zero
+            $salesByMonth[$month-1] = $totalSales[$index];
         }
 
         return view('admin.dashboard')->with(['data'=>$data,'salesByMonth'=>$salesByMonth]);
