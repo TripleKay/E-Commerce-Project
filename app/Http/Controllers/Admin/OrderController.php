@@ -30,14 +30,28 @@ class OrderController extends Controller
     }
 
     //order detail page
-    public function showOrder($id){
+    public function showOrder($id,$notiId = null){
         $order = Order::where('order_id',$id)->with(['stateDivision','city','township','user'])->first();
         $orderItems = OrderItem::where('order_id',$id)->with(['product','color','size'])->get();
+        if($notiId){
+            if($notiId){
+                auth()->user()->notifications->where('id',$notiId)->markAsRead();
+            }
+        }
         return view('admin.order.detail')->with(['order'=>$order,'orderItems'=>$orderItems]);
     }
 
     //change order status
     public function confirmOrder($id){
+        //decrease product stock
+        $orderItems = OrderItem::where('order_id',$id)->get();
+        foreach($orderItems as $orderItem){
+            $productVariant = ProductVariant::where('product_variant_id',$orderItem->product_variant_id)->first();
+            $stock = [
+                'available_stock' => $productVariant->available_stock - $orderItem->quantity,
+            ];
+            $productVariant = ProductVariant::where('product_variant_id',$orderItem->product_variant_id)->update($stock);
+        }
         $this->changeOrderStatus($id,'confirmed','confirmed_date');
         return back()->with(['success'=>'Order Status Updated Successfully']);
     }
@@ -56,15 +70,6 @@ class OrderController extends Controller
         return back()->with(['success'=>'Order Status Updated Successfully']);
     }
     public function deliverOrder($id){
-        //update product stock
-        $orderItems = OrderItem::where('order_id',$id)->get();
-        foreach($orderItems as $orderItem){
-            $productVariant = ProductVariant::where('product_variant_id',$orderItem->product_variant_id)->first();
-            $stock = [
-                'available_stock' => $productVariant->available_stock - $orderItem->quantity,
-            ];
-            $productVariant = ProductVariant::where('product_variant_id',$orderItem->product_variant_id)->update($stock);
-        }
         //update order status
         $this->changeOrderStatus($id,'delivered','delivered_date');
         return back()->with(['success'=>'Order Status Updated Successfully']);

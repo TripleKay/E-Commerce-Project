@@ -250,7 +250,7 @@ class ProductController extends Controller
     //product stock filter
     public function productStockFilter(Request $request){
         $data = Product::select('product_id','name','preview_image','publish_status')
-                        ->where('product_id','like','%'.$request->productId.'%')
+                        ->where('product_id',$request->productId)
                         ->with('productVariant','productVariant.color','productVariant.size')
                         ->get();
         $products = Product::select('product_id','name')->get();
@@ -287,10 +287,10 @@ class ProductController extends Controller
             'available_stock' => $request->avaiStock,
         ];
         if(isset($request->colorId)){
-            $data['colorId'] = $request->colorId;
+            $data['color_id'] = $request->colorId;
         }
         if(isset($request->sizeId)){
-            $data['sizeId'] = $request->sizeId;
+            $data['size_id'] = $request->sizeId;
         }
         return $data;
     }

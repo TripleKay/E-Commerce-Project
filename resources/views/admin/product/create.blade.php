@@ -1,9 +1,9 @@
 @extends('admin.layouts.app')
 @section('content')
-<div class="row pt-4">
+<div class="pt-4 row">
     <div class="col-12">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-white d-flex align-items-center">
+            <ol class="bg-white breadcrumb d-flex align-items-center">
                 <li class="breadcrumb-item"><a href="{{ URL::previous() }}" class="btn btn-dark btn-sm"><i class="fa fa-chevron-left"></i>  Back</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin#dashboard') }}">Dashboard</a></li>
               <li class="breadcrumb-item"><a href="{{route('admin#product')}}">Products</a></li>
@@ -12,9 +12,9 @@
           </nav>
     </div>
 </div>
-<div class="row pb-4">
+<div class="pb-4 row">
     <div class="col-12">
-        <div class="card shadow-none rounded">
+        <div class="rounded shadow-none card">
             <div class="card-header">
                 <h4>Create Product</h4>
             </div>
@@ -23,7 +23,7 @@
                     @csrf
                     <div class="row">
                         <div class="col-4">
-                            <div class="card shadow-none">
+                            <div class="shadow-none card">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="">Brand</label>
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="card shadow-none">
+                            <div class="shadow-none card">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="">Product Name</label>
@@ -112,6 +112,7 @@
                                         <label for="">Color</label>
                                         <select name="colorId" class="form-control" id="">
                                             <option value="">----- select colors ------</option>
+                                            <option value="">----- no colors ------</option>
                                             @foreach ($colors as $item)
                                                 <option value="{{ $item->color_id }}" {{ old('color_id') == $item->color_id ? 'selected' : '' }}>{{ $item->name }}</option>
                                             @endforeach
@@ -124,6 +125,7 @@
                                         <label for="">Size</label>
                                         <select name="sizeId" class="form-control" id="">
                                             <option value="">----- select size ------</option>
+                                            <option value="">----- no size ------</option>
                                             @foreach ($sizes as $item)
                                                 <option value="{{ $item->size_id }}" {{ old('size_id') == $item->size_id ? 'selected' : '' }}>{{ $item->name }}</option>
                                             @endforeach
@@ -143,11 +145,11 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="card shadow-none">
+                            <div class="shadow-none card">
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="">Original Price</label>
-                                        <input name="originalPrice" type="text" class="form-control" placeholder="enter orginal price ..." value="{{ old('originalPrice') }}">
+                                        <label for="">Buy Price</label>
+                                        <input name="originalPrice" type="text" class="form-control" placeholder="enter buy price ..." value="{{ old('originalPrice') }}">
                                         @error('originalPrice')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -167,7 +169,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label class=" mb-0">Publish Status</label>
+                                        <label class="mb-0 ">Publish Status</label>
                                         <select name="publishStatus" id="" class="form-control">
                                             <option value="1" {{ old('publishStatus') == 1 ? 'selected' : '' }}>Publish</option>
                                             <option value="0" {{ old('publishStatus') == 0 ? 'selected' : '' }}>Unpublish</option>
@@ -177,7 +179,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label class=" mb-0">Special Offer</label>
+                                        <label class="mb-0 ">Special Offer</label>
                                         <select name="specialOffer" id="" class="form-control">
                                             <option value="">-----select-----</option>
                                             <option value="1" {{ old('specialOffer') == 1 ? 'selected' : '' }}>Active</option>
@@ -188,7 +190,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label class=" mb-0">Featured</label>
+                                        <label class="mb-0 ">Featured</label>
                                         <select name="featured" id="" class="form-control">
                                             <option value="">-----select-----</option>
                                             <option value="1" {{ old('featured') == 1 ? 'selected' : '' }}>Active</option>

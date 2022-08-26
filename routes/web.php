@@ -173,7 +173,7 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('order',[AdminOrderController::class,'index'])->name('admin#order');
     Route::get('order/filter',[AdminOrderController::class,"filterOrder"])->name('admin#filterOrder');
     Route::get('order/pending',[AdminOrderController::class,'pendingOrder'])->name('admin#pendingOrder');
-    Route::get('order/detail/{id}',[AdminOrderController::class,'showOrder'])->name('admin#showOrder');
+    Route::get('order/detail/{id}/{notiId?}',[AdminOrderController::class,'showOrder'])->name('admin#showOrder');
     Route::get('order/confirm/{id}',[AdminOrderController::class,'confirmOrder'])->name('admin#confirmOrder');
     Route::get('order/process/{id}',[AdminOrderController::class,'processOrder'])->name('admin#processOrder');
     Route::get('order/pick/{id}',[AdminOrderController::class,'pickOrder'])->name('admin#pickOrder');

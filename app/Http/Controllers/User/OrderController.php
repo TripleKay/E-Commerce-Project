@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\User;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\OrderItem;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\UserOrderNotification;
+use Illuminate\Support\Facades\Notification;
 
 class OrderController extends Controller
 {
@@ -103,8 +106,20 @@ class OrderController extends Controller
         Session::forget('coupon');
         Session::forget('subTotal');
 
+        $this->notifyToAdmin($orderId,'placed a new order');
+
         return redirect()->route('user#myOrder')->with(['success'=>'Order successfully']);
 
 
+    }
+
+    private function notifyToAdmin($orderId,$message){
+        //notification
+        $data = Order::where('order_id',$orderId)->with('user')->first();
+        $data->message = $message;
+
+        //notify to all admin
+        $admin = User::where('role','admin')->get();
+        Notification::send($admin, new UserOrderNotification($data));
     }
 }
