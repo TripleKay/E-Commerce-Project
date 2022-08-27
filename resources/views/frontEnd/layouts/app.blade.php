@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{{ asset('frontEnd/scss/custom.css')}}">
     <!-- data tables -->
      <link rel="stylesheet" href="{{ asset('admin/plugins/data_table/dataTables.bootstrap4.min.css') }}">
+    {{-- animated css  --}}
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
      {{-- custom css  --}}
     <link rel="stylesheet" href="{{ asset('frontEnd/resources/css/style.css')}}">
     <title>E-Market</title>
@@ -481,6 +483,19 @@
                         icon: 'error',
                         title: "{{ Session::get('error') }}",
                     })
+        @endif
+        @if (Session::has('orderSuccess'))
+            Swal.fire({
+                icon: 'success',
+                title: "{{ Session::get('orderSuccess') }}",
+                text: 'Admin will confirm your order,soon.Thank you!',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
         @endif
         //auth check
         var authStatus = @if (auth()->check())

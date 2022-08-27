@@ -3,7 +3,7 @@
 @php
     $paymentInfo = App\Models\PaymentInfo::where('status','1')->where('type',$data['paymentMethod'])->first();
 @endphp
-<section class="min-vh-100 py-4">
+<section class="py-4 min-vh-100">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -27,26 +27,26 @@
                 $discountAmount = round($subTotal * $couponDiscount/100);
                 $GrandTotal = $subTotal - $discountAmount;
             @endphp
-            <div class="card border-0 mb-3 bg-white">
+            <div class="mb-3 bg-white border-0 card">
                 <div class="card-body">
                     <p class="mb-0">Your purchase cost is <strong>{{ $GrandTotal }} Ks</strong>.You can pay {{$GrandTotal }} Ks to our account <p class="mb-0 d-inline-block"><strong class="text-uppercase">" {{ $paymentInfo->type }}</strong> Number - <strong>{{ $paymentInfo->account_number }}</strong> </p> " </p>
                 </div>
             </div>
-            <div class="card border-0 bg-white">
-                <div class="card-header bg-transparent ">
+            <div class="bg-white border-0 card">
+                <div class="bg-transparent card-header ">
                     <h5 class="my-2">Your Shopping Amount</h5>
                 </div>
                 <div class="card-body">
-                    <div class="d-flex justify-content-between mb-3">
+                    <div class="mb-3 d-flex justify-content-between">
                         <h6 class="mb-0">Sub Total :</h6>
                         <h5 class="mb-0">{{$subTotal}} Ks</h5>
                     </div>
                     <div class="d-flex justify-content-between">
                         <h6 class="mb-0">Coupon Discount :</h6>
-                        <h5 class="couponDiscount mb-0">-{{ $discountAmount }} Ks</h5>
+                        <h5 class="mb-0 couponDiscount">-{{ $discountAmount }} Ks</h5>
                     </div>
                     <hr>
-                    <div class="d-flex justify-content-between mb-3">
+                    <div class="mb-3 d-flex justify-content-between">
                         <h6 class="mb-0">Grand Total :</h6>
                         <h5 class="mb-0">{{ $GrandTotal }} Ks</h5>
                     </div>
@@ -54,11 +54,11 @@
             </div>
             </div>
             <div class="col-6">
-                <div class="card border-0">
+                <div class="border-0 card">
 
                     <div class="card-body">
                         <div class="card">
-                            <div class="card-header bg-transparent ">
+                            <div class="bg-transparent card-header ">
                                 <div class="d-flex">
                                     @if ($data['paymentMethod'] == 'kpay')
                                         <img src="{{ asset('frontEnd/resources/image/kpay.png') }}" alt="" srcset="" class="rounded" style="width: 100px">
@@ -79,7 +79,7 @@
                                         <img src="{{ asset('uploads/QRCode/'.$paymentInfo->qr_code) }}" class="" alt="" srcset="" style="width: 100px">
 
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn my-0 btn-sm btn-outline-dark w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button type="button" class="my-0 btn btn-sm btn-outline-dark w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             View
                                         </button>
 
@@ -105,8 +105,8 @@
 
                             </div>
                         </div>
-                        <div class="card mt-3" style="border: 1px solid var(--bs-primary)">
-                            <div class="card-header bg-transparent">
+                        <div class="mt-3 card" style="border: 1px solid var(--bs-primary)">
+                            <div class="bg-transparent card-header">
                                 <h5 class="my-2">Your Payment</h5>
                             </div>
                             <div class="card-body">
@@ -126,9 +126,12 @@
                                     </div>
                                     <div class="my-3">
                                         <label for="" class="form-label">Your Payment Screenshots</label>
-                                        <input name="paymentScreenshot" type="file" class="form-control">
+                                        <input name="paymentScreenshot" type="file" class="form-control" required>
+                                        @error('paymentScreenshot')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                     </div>
-                                    <button class="btn btn-primary shadow mb-2 mt-4 float-end text-white">Confirm Payment</button>
+                                    <button class="mt-4 mb-2 text-white shadow btn btn-primary float-end">Confirm Payment</button>
                                 </form>
                             </div>
                         </div>

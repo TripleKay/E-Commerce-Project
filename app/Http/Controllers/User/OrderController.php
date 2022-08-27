@@ -157,7 +157,7 @@ class OrderController extends Controller
         //new order notify to admin
         $this->notifyToAdmin($orderId,'placed a new order');
 
-        return redirect()->route('user#myOrder')->with(['success'=>'Order successfully']);
+        return redirect()->route('user#myOrder')->with(['orderSuccess'=>'Order successfully']);
     }
 
 

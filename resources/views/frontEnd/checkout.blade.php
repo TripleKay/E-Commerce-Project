@@ -1,6 +1,6 @@
 @extends('frontEnd.layouts.app')
 @section('content')
-<section class="min-vh-100 py-4">
+<section class="py-4 min-vh-100">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -18,8 +18,8 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="card border-0">
-                    <div class="card-header bg-transparent ">
+                <div class="border-0 card">
+                    <div class="bg-transparent card-header ">
                         <h5 class="my-2">Delivery Information</h5>
                     </div>
                     <div class="card-body">
@@ -27,25 +27,25 @@
                             @csrf
                             <div class="row">
                                 <div class="col-4">
-                                    <div class="card border-0">
+                                    <div class="border-0 card">
                                         <div class="card-body">
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Full Name</label>
-                                                <input name="name" type="text" class="form-control" value="{{ old('name') }}" placeholder="enter your name">
+                                                <input name="name" type="text" class="form-control" value="{{ old('name') }}" placeholder="enter your name" required>
                                                 @error('name')
                                                     <small class="text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Email</label>
-                                                <input name="email" type="email" class="form-control" value="{{ old('email') }}" placeholder="enter your name">
+                                                <input name="email" type="email" class="form-control" value="{{ old('email') }}" placeholder="enter your email" required >
                                                 @error('email')
                                                     <small class="text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Phone Number</label>
-                                                <input name="phone" type="number" class="form-control" value="{{ old('phone') }}" placeholder="enter your name">
+                                                <input name="phone" type="number" class="form-control" value="{{ old('phone') }}" placeholder="enter your phone number" required>
                                                 @error('phone')
                                                     <small class="text-danger">{{ $message }}</small>
                                                 @enderror
@@ -61,11 +61,11 @@
                                     </div>
                                 </div>
                                 <div class="col-4">
-                                    <div class="card border-0">
+                                    <div class="border-0 card">
                                         <div class="card-body">
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Region</label>
-                                                <select name="stateDivisionId" id="" class="stateDivisionsOption form-control">
+                                                <select name="stateDivisionId" id="" class="stateDivisionsOption form-control" required>
                                                     <option value="">----Select Region----</option>
                                                     @foreach ($stateDivisions as $item)
                                                         <option value="{{ $item->state_division_id }}">{{ $item->name }}</option>
@@ -94,14 +94,14 @@
                                                 @enderror
                                             </div>
                                             <div class="mb-4">
-                                                <label for="" class="form-label">Address</label>
-                                                <input name="address" type="text" class="form-control" value="{{ old('address') }}" placeholder="enter your name">
+                                                <label for="" class="form-label">Full Address</label>
+                                                <input name="address" type="text" class="form-control" value="{{ old('address') }}" placeholder="enter your full address" required>
                                                 @error('address')
                                                     <small class="text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
                                             <div class="mb-3 card">
-                                                <div class="card-header bg-transparent">
+                                                <div class="bg-transparent card-header">
                                                     <h5>Select Payment Method</h5>
                                                 </div>
                                                 <div class="card-body">
@@ -133,12 +133,12 @@
                                     </div>
                                 </div>
                                 <div class="col-4">
-                                    <div class="card border-0">
+                                    <div class="border-0 card">
                                         <div class="card-body">
 
                                             @if (Session::has('coupon'))
-                                                <div class="applyCouponBox card border-0 rounded mb-3 bg-light p-3">
-                                                    <div class="d-flex justify-content-between mb-3">
+                                                <div class="p-3 mb-3 border-0 rounded applyCouponBox card bg-light">
+                                                    <div class="mb-3 d-flex justify-content-between">
                                                         <p class="mb-0">Your Coupon :</p>
                                                         <h6 class="mb-0">{{ Session::get('coupon')['couponCode'] }}</h6>
                                                     </div>
@@ -148,7 +148,7 @@
                                                     </div>
                                                 </div>
                                             @else
-                                                <div class="applyCouponBox card border-0 rounded mb-3">
+                                                <div class="mb-3 border-0 rounded applyCouponBox card">
                                                     <div class="">
                                                         <h5>Discount Code</h5>
                                                         <p class="text-black-50">Enter your coupon code if you have one.....</p>
@@ -168,23 +168,23 @@
                                                 $discountAmount = round($subTotal * $couponDiscount/100);
                                                 $GrandTotal = $subTotal - $discountAmount;
                                             @endphp
-                                            <div class="card border-0 bg-light py-3">
+                                            <div class="py-3 border-0 card bg-light">
                                                 <div class="card-body">
-                                                    <div class="d-flex justify-content-between mb-3">
+                                                    <div class="mb-3 d-flex justify-content-between">
                                                         <h6 class="mb-0">Sub Total :</h6>
                                                         <h5 class="mb-0">{{$subTotal}} Ks</h5>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <h6 class="mb-0">Coupon Discount :</h6>
-                                                        <h5 class="couponDiscount mb-0">-{{ $discountAmount }} Ks</h5>
+                                                        <h5 class="mb-0 couponDiscount">-{{ $discountAmount }} Ks</h5>
                                                     </div>
                                                     <hr>
-                                                    <div class="d-flex justify-content-between mb-3">
+                                                    <div class="mb-3 d-flex justify-content-between">
                                                         <h6 class="mb-0">Grand Total :</h6>
                                                         <h5 class="mb-0">{{ $GrandTotal }} Ks</h5>
                                                     </div>
                                                     <hr>
-                                                    <button type="submit"  class="btn btn-primary mt-3 float-end text-white shadow btn-lg">Place Order</button>
+                                                    <button type="submit"  class="mt-3 text-white shadow btn btn-primary float-end btn-lg">Place Order</button>
                                                 </div>
                                             </div>
 
@@ -197,10 +197,10 @@
                 </div>
             </div>
         </div>
-        <div class="row my-4">
+        <div class="my-4 row">
             <div class="col-12">
-                <div class="card border-0">
-                    <div class="card-header bg-white">
+                <div class="border-0 card">
+                    <div class="bg-white card-header">
                         <h5 class="my-2">Your Orders</h5>
                     </div>
                     <div class="card-body">
@@ -234,7 +234,7 @@
                                                 <td class="align-middle">
                                                     <img src="{{ asset('uploads/products/'.$item['productImage']) }}" alt="" srcset="" style="width: 100px; heigth: 100px">
                                                 </td>
-                                                <td class="text-start align-middle">{{ $item['productName'] }}</td>
+                                                <td class="align-middle text-start">{{ $item['productName'] }}</td>
                                                 <td class="align-middle">{{ empty($item['color']) ? '.....' : $item['color'] }}</td>
                                                 <td class="align-middle">{{ empty($item['size']) ? '.....' : $item['size'] }}</td>
                                                 <td class="align-middle">{{ $item['price'] }} Ks</td>
@@ -243,7 +243,7 @@
                                                 </td>
                                                 <td class="align-middle">{{ $item['price'] * $item['quantity'] }} Ks</td>
                                                 <td class="align-middle">
-                                                    <a href="{{ route('frontend#deleteCart',$key) }}" class="btn btn-danger btn-sm text-white"><i class="fas fa-trash"></i></a>
+                                                    <a href="{{ route('frontend#deleteCart',$key) }}" class="text-white btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                                 </td>
                                             </tr>
 
@@ -259,16 +259,16 @@
                                 @else
                                     <tbody>
                                         <tr class="text-center text-danger">
-                                            <td colspan="9" class=" py-3">
+                                            <td colspan="9" class="py-3 ">
                                                 There is No Carts
                                             </td>
                                         </tr>
                                     </tbody>
                                 @endif
                             </table>
-                            <div class="float-end my-2">
+                            <div class="my-2 float-end">
                                 <a href="{{ route('frontend#allProduct') }}" class=" btn btn-dark"><i class="fa fa-chevron-left"></i> Continous Shopping</a>
-                                {{-- <a href="{{ route('user#checkout') }}" class="ms-3 btn btn-primary text-white">Proceed To Checkout</a> --}}
+                                {{-- <a href="{{ route('user#checkout') }}" class="text-white ms-3 btn btn-primary">Proceed To Checkout</a> --}}
                             </div>
                         </div>
                     </div>

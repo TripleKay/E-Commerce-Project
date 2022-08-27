@@ -261,7 +261,7 @@ Route::group(['prefix' => 'user','namespace' => 'User','middleware' => 'auth'],f
     Route::get('deleteCoupon',[CartController::class,'deleteCoupon'])->name('user#deleteCoupon');
 
     //order
-    Route::post('createOrder',[OrderController::class,'createOrder'])->name('user#createOrder');
+    Route::post('checkout',[OrderController::class,'createOrder'])->name('user#createOrder');
 
     //user payment
     Route::post('confirmPayment',[OrderController::class,'confirmPayment'])->name('user#confirmPayment');
