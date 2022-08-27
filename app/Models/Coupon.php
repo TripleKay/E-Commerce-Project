@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Coupon extends Model
 {
@@ -16,4 +17,9 @@ class Coupon extends Model
         'end_date',
         'created_at'
     ];
+
+    public function order()
+    {
+        return $this->hasMany(Order::class,'coupon_id','coupon_id');
+    }
 }

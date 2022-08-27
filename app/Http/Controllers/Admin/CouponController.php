@@ -13,7 +13,7 @@ class CouponController extends Controller
 {
     //index
     public function index(){
-        $data = Coupon::get();
+        $data = Coupon::withCount('order')->get();
         return view('admin.coupon.index')->with(['data'=>$data]);
     }
 

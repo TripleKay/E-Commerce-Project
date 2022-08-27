@@ -1,9 +1,9 @@
 @extends('admin.layouts.app')
 @section('content')
-<div class="row pt-4">
+<div class="pt-4 row">
     <div class="col-12">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-white d-flex align-items-center    ">
+            <ol class="bg-white breadcrumb d-flex align-items-center ">
                 <li class="breadcrumb-item"><a href="{{ URL::previous() }}" class="btn btn-dark btn-sm"><i class="fa fa-chevron-left"></i>  Back</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin#dashboard') }}">Dashboard</a></li>
               <li class="breadcrumb-item active" aria-current="page">Coupon</li>
@@ -13,11 +13,11 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="card rounded" style="box-shadow: none !important">
+        <div class="rounded card" style="box-shadow: none !important">
             <div class="card-header">
-                <div class="d-flex align-items-center justify-content-between my-1">
+                <div class="my-1 d-flex align-items-center justify-content-between">
                     <h4 class="mb-0">All Coupons</h4>
-                    <a href="{{ route('admin#createCoupon') }}" class="btn btn-primary mb-0 shadow btn"><i class="fas fa-plus-circle text-white mr-2"></i>Create Coupon</a>
+                    <a href="{{ route('admin#createCoupon') }}" class="mb-0 shadow btn btn-primary"><i class="mr-2 text-white fas fa-plus-circle"></i>Create Coupon</a>
                </div>
             </div>
             <div class="card-body">
@@ -30,6 +30,7 @@
                             <th>Coupon Discount</th>
                             <th>Start Date</th>
                             <th>End Date</th>
+                            <th>Order Count</th>
                             <th>Status</th>
                             <th>Action</th>
                             </tr>
@@ -42,6 +43,7 @@
                                     <td>{{ $item->coupon_discount }} %</td>
                                     <td>{{ Carbon\Carbon::parse($item->start_date)->format('d F Y') }}</td>
                                     <td>{{ Carbon\Carbon::parse($item->end_date)->format('d F Y') }}</td>
+                                    <td>{{ $item->order_count }}</td>
                                     <td>
                                         @if ($item->start_date <= Carbon\Carbon::now() && $item->end_date >= Carbon\Carbon::now())
                                             <div class="badge bg-success">active</div>

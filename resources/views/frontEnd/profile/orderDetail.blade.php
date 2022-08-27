@@ -23,10 +23,11 @@
                 <div class="col-9">
                     <div class="row">
                         <div class="col-12">
-                            <div class="card border-0 my-3">
-                                <div class="card-header bg-transparent">
-                                    <div class="">
+                            <div class="my-3 border-0 card">
+                                <div class="bg-transparent card-header">
+                                    <div class="d-flex justify-content-between">
                                         <div class="h5">Order Detail</div>
+                                        <a href="{{ route('user#download#downloadInvoice',$order->order_id) }}" class="text-white btn btn-sm btn-dark"><i class="me-2 fas fa-download"></i> Download Invoice</a>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -70,9 +71,9 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="card bg-white border-0">
-                                <div class="card-header bg-transparent">
-                                    <div class="d-flex justify-content-between my-1 align-items-center">
+                            <div class="bg-white border-0 card">
+                                <div class="bg-transparent card-header">
+                                    <div class="my-1 d-flex justify-content-between align-items-center">
                                         <h4 class="mb-0">Order Items</h4>
                                         {{-- <button class="btn btn-dark">Download Invoice</button> --}}
                                     </div>
@@ -115,8 +116,8 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="card border-0 my-3">
-                                <div class="card-header bg-transparent">
+                            <div class="my-3 border-0 card">
+                                <div class="bg-transparent card-header">
                                     <div class="">
                                         <div class="h5">Shipping Detail</div>
                                     </div>

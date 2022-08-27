@@ -66,7 +66,7 @@
 <div class="pt-4 row">
     <div class="col-12">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-white d-flex align-items-center">
+            <ol class="bg-white breadcrumb d-flex align-items-center">
                 <li class="breadcrumb-item"><a href="{{ URL::previous() }}" class="btn btn-dark btn-sm"><i class="fa fa-chevron-left"></i>  Back</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin#dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin#order') }}" class="">Orders</a></li>
@@ -96,8 +96,9 @@
 
         <div class="my-3 shadow-none card">
             <div class="bg-transparent card-header">
-                <div class="">
+                <div class="d-flex justify-content-between">
                     <div class="h5">Order Detail</div>
+                    <a href="{{ route('user#download#downloadInvoice',$order->order_id) }}" class="text-white btn btn-sm btn-dark"><i class="mr-2 fas fa-download"></i> Download Invoice</a>
                 </div>
             </div>
             <div class="card-body">

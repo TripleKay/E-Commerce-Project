@@ -70,16 +70,16 @@
         </td>
         <td>
           <div class="font" align="right">
-            <p><strong>Invoice:</strong>{{ $order->invoice_number }}</p>
+            <p><strong>Invoice Number:</strong>{{ $order->invoice_number }}</p>
             <p><strong>Order Date:</strong>{{ $order->order_date }}</p>
-            <p><strong>Payment Type:</strong>{{ $order->payment_method }}</p>
-            <p><strong>Payment Type:</strong>Paid</p>
+            <p><strong>Payment Method:</strong>{{ $order->payment_method }}</p>
+            <p><strong>Payment Status:</strong>{{ $order->confirmed_date == null ? '-----' : 'Paid' }}</p>
          </div>
         </td>
     </tr>
   </table>
   <br/>
-<h3>Products</h3>
+<h3>Ordered Items</h3>
 
 
   <table width="100%">
@@ -125,12 +125,12 @@
                 <h2><span style="color: #9381FF;">Coupon Discount:</span> {{ $order->coupon_discount }} Ks</h2>
             @endif
             <hr>
-            <h2><span style="color: #9381FF;">Total:</span> {{ $order->grand_total }} Ks</h2>
+            <h2><span style="color: #9381FF;">Grand Total:</span> {{ $order->grand_total }} Ks</h2>
             {{-- <h2><span style="color: green;">Full Payment PAID</h2> --}}
         </td>
     </tr>
   </table>
-  <div class="thanks mt-3">
+  <div class="mt-3 thanks">
     <p>Thanks For Buying Products..!!</p>
   </div>
 </body>

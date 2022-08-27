@@ -1,9 +1,9 @@
 @extends('admin.layouts.app')
 @section('content')
-<div class="row pt-4">
+<div class="pt-4 row">
     <div class="col-12">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-white d-flex align-items-center">
+            <ol class="bg-white breadcrumb d-flex align-items-center">
                 <li class="breadcrumb-item"><a href="{{ URL::previous() }}" class="btn btn-dark btn-sm"><i class="fa fa-chevron-left"></i>  Back</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin#dashboard') }}">Dashboard</a></li>
               <li class="breadcrumb-item active" aria-current="page">Orders</li>
@@ -11,16 +11,16 @@
           </nav>
     </div>
 </div>
-<div class="row pb-4">
+<div class="pb-4 row">
     <div class="col-12">
-        <div class="card rounded" style="box-shadow: none !important">
+        <div class="rounded card" style="box-shadow: none !important">
             <div class="card-header">
-               <div class="d-flex align-items-center justify-content-between my-1">
-                    <h4 class="mb-0">All Orders</h4>
+               <div class="my-1 d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0">All Orders - <div class="badge bg-dark">{{ $data->count() }}</div></h4>
                     <form class="d-flex align-items-center" action="{{ route('admin#filterOrder') }}" method="GET">
                         @csrf
-                        <p class="mb-0 text-nowrap mr-2">Order Status :</p>
-                        <select name="orderStatus" id="" class="custom-select mb-0 mr-2">
+                        <p class="mb-0 mr-2 text-nowrap">Order Status :</p>
+                        <select name="orderStatus" id="" class="mb-0 mr-2 custom-select">
                             <option value="">All</option>
                             <option value="pending" {{ request()->orderStatus == 'pending' ? 'selected' : ''}}>Pending</option>
                             <option value="confirmed" {{ request()->orderStatus == 'confirmed' ? 'selected' : ''}}>confirmed</option>
@@ -62,8 +62,8 @@
                                     <div class="badge bg-success">{{ $item->status }}</div>
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin#showOrder',$item->order_id) }}" class="btn btn-sm btn-info text-white "><i class="fas fa-eye me-2"></i>View</a>
-                                    <a href="{{ route('user#download#downloadInvoice',$item->order_id) }}" class="btn btn-sm btn-dark text-white"><i class="fas fa-download me-2"></i>Invoice</a>
+                                    <a href="{{ route('admin#showOrder',$item->order_id) }}" class="text-white btn btn-sm btn-info "><i class="fas fa-eye me-2"></i>View</a>
+                                    <a href="{{ route('user#download#downloadInvoice',$item->order_id) }}" class="text-white btn btn-sm btn-dark"><i class="fas fa-download me-2"></i>Invoice</a>
                                 </td>
                             </tr>
                             @endforeach

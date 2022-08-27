@@ -25,7 +25,7 @@ class PaymentInfoController extends Controller
     public function storePaymentInfo(Request $request){
         $this->validatePaymentInfo($request);
         if(!$this->checkPaymentStatus($request)){
-            return back()->with(['error'=>'Payment status can not be active.If you want to change active,another active (same type payment) must be change to unactive']);
+            return back()->with(['error'=>'Payment status can not be active.If you want to change active status,another active (same type payment) status must be change to unactive status']);
         }
         $data = $this->requestPaymentData($request);
         $data['created_at'] = Carbon::now();
