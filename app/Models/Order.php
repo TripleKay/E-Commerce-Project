@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\Township;
 use App\Models\OrderItem;
 use App\Models\StateDivision;
+use App\Models\PaymentTransition;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -55,5 +56,9 @@ class Order extends Model
 
     public function orderItem(){
         return $this->hasMany(OrderItem::class,'order_id','order_id');
+    }
+
+    public function paymentTransition(){
+        return $this->hasOne(PaymentTransition::class,'order_id','order_id');
     }
 }

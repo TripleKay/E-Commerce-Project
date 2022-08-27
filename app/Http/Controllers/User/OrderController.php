@@ -8,6 +8,8 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\PaymentInfo;
+use App\Models\PaymentTransition;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\UserOrderNotification;
@@ -58,6 +60,37 @@ class OrderController extends Controller
             return back()->withErrors($validation)->withInput();
         }
 
+        //payment method check
+        $checkPaymentMethod = PaymentInfo::where('status','1')->where('type',$request->paymentMethod)->exists();
+        if(!$checkPaymentMethod){
+            return back()->with(['error'=>'This payment method is currently not available.Please choose another one!']);
+        }
+
+        $data = $request->all();
+
+        return view('frontEnd.payment')->with(['data'=>$data]);
+    }
+
+
+    //confirm payment
+    public function confirmPayment(Request $request){
+        $validation = Validator::make($request->all(),[
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'stateDivisionId' => 'required',
+            'cityId' => 'required',
+            'townshipId' => 'required',
+            'address' => 'required',
+            'paymentMethod' => 'required',
+            'paymentScreenshot' => 'required',
+            'paymentInfoId' => 'required',
+        ]);
+        if($validation->fails()){
+            return back()->withErrors($validation)->withInput();
+        }
+
+         //insert data to order table
         $data = [
           'user_id' => auth()->user()->id,
           'name' => $request->name,
@@ -77,6 +110,7 @@ class OrderController extends Controller
            'status' => 'pending',
            'created_at' => Carbon::now(),
         ];
+
         if(Session::has('coupon')){
             $coupon = Session::get('coupon');
             $data['coupon_id'] = $coupon['couponId'];
@@ -88,6 +122,7 @@ class OrderController extends Controller
 
         $orderId = Order::insertGetId($data);
 
+        //insert data to order items
         $carts = Session::get('cart');
         foreach($carts as $key => $cart){
             OrderItem::create([
@@ -102,17 +137,31 @@ class OrderController extends Controller
             ]);
         }
 
+        //insert data to payment_transitions
+        $paymentData = [
+            'order_id' => $orderId,
+            'payment_info_id' => $request->paymentInfoId,
+            'created_at' => Carbon::now(),
+        ];
+        $ssFile = $request->file('paymentScreenshot');
+        $ssFileName = uniqid().'-'.$ssFile->getClientOriginalName();
+        $ssFile->move(public_path().'/uploads/payment/',$ssFileName);
+        $paymentData['payment_screenshot'] = $ssFileName;
+        PaymentTransition::create($paymentData);
+
+        //all session destroy
         Session::forget('cart');
         Session::forget('coupon');
         Session::forget('subTotal');
 
+        //new order notify to admin
         $this->notifyToAdmin($orderId,'placed a new order');
 
         return redirect()->route('user#myOrder')->with(['success'=>'Order successfully']);
-
-
     }
 
+
+    //order notify to admin
     private function notifyToAdmin($orderId,$message){
         //notification
         $data = Order::where('order_id',$orderId)->with('user')->first();

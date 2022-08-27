@@ -15,6 +15,8 @@ use App\Http\Controllers\User\WishListController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TownshipController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PaymentInfoController;
+use App\Http\Controllers\Admin\PaymentTransitionController;
 use App\Http\Controllers\FrontEnd\ProfileController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\ProductSizeController;
@@ -28,8 +30,6 @@ use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
-use Symfony\Component\HttpKernel\Profiler\Profile;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -199,6 +199,20 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('product/review/{id}',[AdminReviewController::class,'showReview'])->name('admin#showReview');
     Route::get('product/review/approve/{id}',[AdminReviewController::class,'approveReview'])->name('admin#approveReview');
     Route::get('product/review/delete/{id}',[AdminReviewController::class,'deleteReview'])->name('admin#deleteReview');
+
+    //payment info
+    Route::get('paymentInfo',[PaymentInfoController::class,'index'])->name('admin#paymentInfo');
+    Route::get('paymentInfo/create',[PaymentInfoController::class,'createPaymentInfo'])->name('admin#createPaymentInfo');
+    Route::post('paymentInfo/create',[PaymentInfoController::class,'storePaymentInfo'])->name('admin#storePaymentInfo');
+    Route::get('paymentInfo/edit/{id}',[PaymentInfoController::class,'editPaymentInfo'])->name('admin#editPaymentInfo');
+    Route::post('paymentInfo/edit/{id}',[PaymentInfoController::class,'updatePaymentInfo'])->name('admin#updatePaymentInfo');
+    Route::get('paymentInfo/delete/{id}',[PaymentInfoController::class,'deletePaymentInfo'])->name('admin#deletePaymentInfo');
+
+    //payment transition
+    Route::get('paymentTransition',[PaymentTransitionController::class,'index'])->name('admin#paymentTransition');
+    Route::get('paymentTransition/{id}',[PaymentTransitionController::class,'showPaymentTransition'])->name('admin#showPaymentTransition');
+
+
 });
 
 Route::group(['namespace' => 'FrontEnd'],function(){
@@ -249,6 +263,9 @@ Route::group(['prefix' => 'user','namespace' => 'User','middleware' => 'auth'],f
     //order
     Route::post('createOrder',[OrderController::class,'createOrder'])->name('user#createOrder');
 
+    //user payment
+    Route::post('confirmPayment',[OrderController::class,'confirmPayment'])->name('user#confirmPayment');
+
     //my order track
     Route::get('track/myOrder',[OrderController::class,'trackOrder'])->name('user#trackOrder');
 
@@ -266,5 +283,6 @@ Route::group(['prefix' => 'user','namespace' => 'User','middleware' => 'auth'],f
 
     //review
     Route::post('product/review/{id}',[ReviewController::class,'storeReview'])->name('user#storeReview');
+
 
 });

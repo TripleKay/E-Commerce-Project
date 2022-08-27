@@ -93,6 +93,7 @@
 </div>
 <div class="pb-4 row">
     <div class="col-6">
+
         <div class="my-3 shadow-none card">
             <div class="bg-transparent card-header">
                 <div class="">
@@ -250,6 +251,46 @@
                         </tbody>
                        </table>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="my-3 shadow-none card">
+            <div class="bg-transparent card-header">
+                <div class="d-flex justify-content-between">
+                    <div class="h5">Payment Transition</div>
+                    <a href="{{ route('admin#showPaymentTransition',$order->paymentTransition->id) }}" class="btn btn-primary ">View Payment Transition</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tbody class="">
+                        <tr>
+                            <th>Transfer To:</th>
+                            <td class="font-weight-bold">{{ $order->paymentTransition->paymentInfo->name }}-{{ $order->paymentTransition->paymentInfo->account_number }}</td>
+                        </tr>
+                        <tr>
+                            <th>Payment Method</th>
+                            <td class="font-weight-bold text-uppercase">{{ $order->paymentTransition->order->payment_method }}</td>
+                        </tr>
+                        <tr>
+                            <th>Amount</th>
+                            <td>{{ $order->paymentTransition->order->grand_total }} Ks</td>
+                        </tr>
+                        <tr>
+                            <th>Payment Photo</th>
+                            <td>
+                                <div class="">
+
+                                        <a href="{{ asset('uploads/payment/'.$order->paymentTransition->payment_screenshot) }}" data-lightbox="image-1" data-title="Payment Photo">
+                                            <img src="{{ asset('uploads/payment/'.$order->paymentTransition->payment_screenshot) }}" alt="" srcset="" style="width: 200px;">
+                                        </a>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

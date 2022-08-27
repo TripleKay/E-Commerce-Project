@@ -17,6 +17,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <!-- data tables -->
   <link rel="stylesheet" href="{{ asset('admin/plugins/data_table/dataTables.bootstrap4.min.css') }}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.css" integrity="sha512-Woz+DqWYJ51bpVk5Fv0yES/edIMXjj3Ynda+KWTIkGoynAMHrqTcDUQltbipuiaD5ymEo9520lyoVOo9jCQOCA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.css') }}">
   <style>
@@ -287,6 +289,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </p>
           </a>
       </li>
+      <li class="text-white nav-header text-uppercase">Manage Payment</li>
+        <li class="nav-item">
+        <a href="{{ route('admin#paymentInfo') }}" class="nav-link {{ Request::url() == route('admin#paymentInfo') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-credit-card"></i>
+
+            <p>
+              Payment Info
+            </p>
+          </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('admin#paymentTransition') }}" class="nav-link {{ Request::url() == route('admin#paymentTransition') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-credit-card"></i>
+
+            <p>
+              Payment Transitions
+            </p>
+          </a>
+      </li>
         <li class="text-white nav-header text-uppercase">Manage User</li>
           <li class="nav-item">
             <a href="{{ route('admin#userList') }}" class="nav-link {{ Request::url() == route('admin#userList') ? 'active' : '' }}">
@@ -377,6 +398,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('admin/plugins/data_table/dataTables.bootstrap4.min.js')}}"></script>
 {{-- sweet alert  --}}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js" integrity="sha512-k2GFCTbp9rQU412BStrcD/rlwv1PYec9SNrkbQlo6RZCf75l6KcC3UwDY8H5n5hl4v77IDtIPwOk9Dqjs/mMBQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
 @yield('script')
@@ -401,6 +424,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     icon: 'success',
                     title: "{{ Session::get('success') }}",
                 })
+    @endif
+
+    @if (Session::has('error'))
+    Swal.fire({
+                icon: 'error',
+                text: '{{ Session::get('error') }}',
+            })
+
     @endif
 </script>
 

@@ -20,7 +20,7 @@
             <div class="col-12">
                 <div class="card border-0">
                     <div class="card-header bg-transparent ">
-                        <h5 class="my-2">Billing Details</h5>
+                        <h5 class="my-2">Delivery Information</h5>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('user#createOrder') }}" method="POST">
@@ -105,17 +105,24 @@
                                                     <h5>Select Payment Method</h5>
                                                 </div>
                                                 <div class="card-body">
-                                                    <div class="form-check mb-2">
-                                                        <input class="form-check-input" name="paymentMethod" value="stripe" type="radio" id="flexRadioDefault1">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            Stripe Payment
+                                                    <div class="form-check" style="">
+                                                        <div class="p-1">
+                                                            <input class="form-check-input" name="paymentMethod" value="kpay" type="radio" id="flexRadioDefault1">
+                                                            <label class="form-check-label d-flex" for="flexRadioDefault1">
+                                                            <img src="{{ asset('frontEnd/resources/image/kpay.png') }}" alt="" srcset="" class="rounded" style="width: 60px">
+                                                            <span class="ms-2">KPay</span>
                                                         </label>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="paymentMethod" value="cos" type="radio" id="flexRadioDefault2">
-                                                        <label class="form-check-label" for="flexRadioDefault2">
-                                                            Cash On Delivery
-                                                        </label>
+                                                    <hr>
+                                                    <div class="form-check" style="">
+                                                        <div class="p-1">
+                                                            <input class="form-check-input" name="paymentMethod" value="wave" type="radio" id="flexRadioDefault2">
+                                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                                <img src="{{ asset('frontEnd/resources/image/warvemoney.png') }}" alt="" srcset="" class="rounded" style="width: 60px">
+                                                                <span class="ms-2">Wave Money</span>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 @error('paymentMethod')
@@ -260,7 +267,7 @@
                                 @endif
                             </table>
                             <div class="float-end my-2">
-                                <a href="#" class=" btn btn-outline-primary">Continous Shopping</a>
+                                <a href="{{ route('frontend#allProduct') }}" class=" btn btn-dark"><i class="fa fa-chevron-left"></i> Continous Shopping</a>
                                 {{-- <a href="{{ route('user#checkout') }}" class="ms-3 btn btn-primary text-white">Proceed To Checkout</a> --}}
                             </div>
                         </div>

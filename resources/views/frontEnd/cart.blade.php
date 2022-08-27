@@ -135,7 +135,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="my-2 mt-5 float-end">
-                                        <a href="{{ URL::previous() }}" class=" btn btn-dark"><i class="fa fa-chevron-left"></i> Continous Shopping</a>
+                                        <a href="{{ route('frontend#allProduct') }}" class=" btn btn-dark"><i class="fa fa-chevron-left"></i> Continous Shopping</a>
                                         <a href="{{ route('user#checkout') }}" class="text-white ms-3 btn btn-primary">Proceed To Checkout</a>
                                     </div>
                                 </div>
