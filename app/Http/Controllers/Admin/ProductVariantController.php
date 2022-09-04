@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\Product;
-use App\Models\ProductColor;
 use App\Models\ProductSize;
-use App\Models\ProductVariant;
+use App\Models\ProductColor;
+use App\Models\StockHistory;
 use Illuminate\Http\Request;
+use App\Models\ProductVariant;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class ProductVariantController extends Controller
@@ -37,7 +39,18 @@ class ProductVariantController extends Controller
 
         $data = $this->requestVariantData($request);
 
-        ProductVariant::create($data);
+        $productVariantId = ProductVariant::insertGetId($data);
+        $productVariant = ProductVariant::select('product_id')->where('product_variant_id',$productVariantId)->first();
+
+         //for stock history
+        StockHistory::create([
+            'product_id'=>$productVariant->product_id,
+            'product_variant_id' => $productVariantId,
+            'quantity' => $request->avaiStock,
+            'note' => 'new product variant added',
+            'type' => 'in',
+            'created_at' => Carbon::now(),
+        ]);
 
         return back()->with(['success'=>'variant create successfully...']);
     }
@@ -69,11 +82,38 @@ class ProductVariantController extends Controller
             return back()->withErrors($validation)->withInput();
         }
 
+        //for stock history
+        $this->addedStockHistory($request,$id);
+
         $data = $this->requestVariantData($request);
 
         ProductVariant::where('product_variant_id',$id)->update($data);
 
         return back()->with(['success'=>'variant create successfully...']);
+    }
+
+    //stock history check
+    private function addedStockHistory($request,$id){
+        $productVariant = ProductVariant::where('product_variant_id',$id)->first();
+        $data = [
+            'product_id'=>$productVariant->product_id,
+            'product_variant_id' => $id,
+            'note' => 'update product variant added',
+            'created_at' => Carbon::now(),
+        ];
+        if($request->avaiStock != $productVariant->available_stock){
+            //check stock greater or less
+            if($request->avaiStock > $productVariant->available_stock){
+                //stock in
+                $data['quantity'] = $request->avaiStock - $productVariant->available_stock;
+                $data['type'] = 'in';
+            }else{
+                //stock out
+                $data['quantity'] = $productVariant->available_stock - $request->avaiStock;
+                $data['type'] = 'out';
+            }
+            StockHistory::create($data);
+        }
     }
 
     //delete variant

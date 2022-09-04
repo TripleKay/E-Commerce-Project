@@ -15,6 +15,7 @@ use App\Models\ProductVariant;
 use App\Models\SubSubCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\StockHistory;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
@@ -99,7 +100,17 @@ class ProductController extends Controller
 
         //for variant
         $variantData = $this->requestProductVariantData($request,$productId);
-        ProductVariant::create($variantData);
+        $productVariantId = ProductVariant::insertGetId($variantData);
+
+        //for stock history
+        StockHistory::create([
+            'product_id'=>$productId,
+            'product_variant_id' => $productVariantId,
+            'quantity' => $variantData['avaiStock'],
+            'note' => 'new product added',
+            'type' => 'in',
+            'created_at' => Carbon::now(),
+        ]);
 
         return redirect()->route('admin#product')->with(['success'=>'Product created successfully']);
 

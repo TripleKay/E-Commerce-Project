@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\OrderItem;
 use App\Models\ProductVariant;
+use App\Models\StockHistory;
 use Carbon\Carbon;
 
 class OrderController extends Controller
@@ -50,7 +51,17 @@ class OrderController extends Controller
             $stock = [
                 'available_stock' => $productVariant->available_stock - $orderItem->quantity,
             ];
-            $productVariant = ProductVariant::where('product_variant_id',$orderItem->product_variant_id)->update($stock);
+            ProductVariant::where('product_variant_id',$orderItem->product_variant_id)->update($stock);
+
+            //stock history
+            StockHistory::create([
+                'product_id' => $productVariant->product_id,
+                'product_variant_id' => $productVariant->product_variant_id,
+                'quantity' => $orderItem->quantity,
+                'note' => 'user order',
+                'type' => 'out',
+                'created_at' => Carbon::now(),
+            ]);
         }
         $this->changeOrderStatus($id,'confirmed','confirmed_date');
         return back()->with(['success'=>'Order Status Updated Successfully']);

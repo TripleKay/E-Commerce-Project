@@ -52,3 +52,13 @@ when user placed order,
 to check coupon is expired,
 to check stock .
 
+--------------------------------------------------------------------------------------
+stock out
+order confirm
+
+stock in
+product add
+variant add
+
+stock in and out check status
+variant update
