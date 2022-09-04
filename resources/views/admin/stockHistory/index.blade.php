@@ -6,7 +6,7 @@
             <ol class="bg-white breadcrumb d-flex align-items-center">
                 <li class="breadcrumb-item"><a href="{{ URL::previous() }}" class="btn btn-dark btn-sm"><i class="fa fa-chevron-left"></i>  Back</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin#dashboard') }}">Dashboard</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Products</li>
+              <li class="breadcrumb-item active" aria-current="page">Stock History</li>
             </ol>
           </nav>
     </div>
@@ -16,8 +16,7 @@
         <div class="rounded card" style="box-shadow: none !important">
             <div class="card-header">
                <div class="my-1 d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0">All Products- <div class="badge bg-dark">{{ $data->count() }}</div></h4>
-                    <a href="{{ route('admin#createProduct') }}" class="mb-0 shadow btn btn-primary"><i class="mr-2 text-white fas fa-plus-circle"></i> Add Product</a>
+                    <h4 class="mb-0">Stock History- <div class="badge bg-dark">{{ $data->count() }}</div></h4>
                </div>
             </div>
             <div class="card-body">
@@ -26,25 +25,48 @@
                         <thead class="bg-primary text-nowrap">
                           <tr>
                             <th>#</th>
-                            <th>Preview Image</th>
+                            <th>Product Image</th>
                             <th>Name</th>
+                            <th>Color</th>
+                            <th>Size</th>
                             <th>Note</th>
                             <th>Quantity</th>
                             <th>Type</th>
-                            <th>Action</th>
+                            <th>Created At</th>
                           </tr>
                         </thead>
                         <tbody>
                             @foreach ($data as $item)
                                 <tr>
-                                    <th>{{ $item->product_id}}</th>
-                                    
-                                    <td class="text-wrap">
-                                        <a href="{{ route('admin#showProduct',$item->product_id) }}" class="mb-2 btn btn-info btn-sm"><i class="fas fa-eye "></i></a>
-                                        <a href="{{ route('admin#editProduct',$item->product_id) }}" class="mb-2 btn btn-success btn-sm"><i class="fas fa-edit "></i></a>
-                                        <a href="{{ route('admin#deleteProduct',$item->product_id) }}" class="mb-2 btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete?')"><i class="fas fa-trash "></i></a>
-                                        <a href="{{ route('admin#createVariant',$item->product_id) }}" class="mb-2 btn btn-dark btn-sm"><i class="fas fa-plus-circle"></i></a>
+                                    <td>{{ $item->id}}</td>
+                                    <td>
+                                        <img src="{{ asset('uploads/products/'.$item->product->preview_image) }}" width="100px" alt="" srcset="">
                                     </td>
+                                    <td>{{ $item->product->name }}</td>
+                                    <td>
+                                        @if ($item->productVariant->color_id != null)
+                                            {{ $item->productVariant->color->name }}
+                                        @else
+                                            ---
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->productVariant->size_id != null)
+                                            {{ $item->productVariant->size->name }}
+                                        @else
+                                            ---
+                                        @endif
+                                    </td>
+                                    <td>{{ $item->note }}</td>
+                                    <td class="font-weight-bold">{{ $item->quantity }}</td>
+                                    <td>
+                                        @if ($item->type == 'in')
+                                            <h5><div class="badge bg-success">{{ $item->type }}</div></h5>
+                                        @else
+                                            <h5><div class="badge bg-danger">{{ $item->type }}</div></h5>
+                                        @endif
+                                    </td>
+                                    <td>{{ $item->created_at->diffForHumans() }}</td>
                                 </tr>
                             @endforeach
 

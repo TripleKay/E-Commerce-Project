@@ -27,6 +27,7 @@ class ProductController extends Controller
                         ->leftJoin('product_variants','product_variants.product_id','products.product_id')
                         ->groupBy('products.product_id')
                         ->with('brand','category','subcategory','subsubcategory')
+                        ->orderBy('product_id','desc')
                         ->get();
         return view('admin.product.index')->with([
             'data'=> $data,

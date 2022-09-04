@@ -98,7 +98,7 @@ class ProductVariantController extends Controller
         $data = [
             'product_id'=>$productVariant->product_id,
             'product_variant_id' => $id,
-            'note' => 'update product variant added',
+            'note' => 'update product variant',
             'created_at' => Carbon::now(),
         ];
         if($request->avaiStock != $productVariant->available_stock){

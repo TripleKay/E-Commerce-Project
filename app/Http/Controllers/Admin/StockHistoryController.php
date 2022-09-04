@@ -10,7 +10,7 @@ class StockHistoryController extends Controller
 {
     //index
     public function index(){
-        $data = StockHistory::orderBy('created_at','desc')->get();
+        $data = StockHistory::with('product','productVariant','productVariant.color','productVariant.size')->orderBy('created_at','desc')->get();
         return view('admin.stockHistory.index')->with(['data'=>$data]);
     }
 }

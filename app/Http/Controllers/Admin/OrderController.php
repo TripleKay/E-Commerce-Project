@@ -44,6 +44,8 @@ class OrderController extends Controller
 
     //change order status
     public function confirmOrder($id){
+        //confirm order status
+        $this->changeOrderStatus($id,'confirmed','confirmed_date');
         //decrease product stock
         $orderItems = OrderItem::where('order_id',$id)->get();
         foreach($orderItems as $orderItem){
@@ -63,7 +65,6 @@ class OrderController extends Controller
                 'created_at' => Carbon::now(),
             ]);
         }
-        $this->changeOrderStatus($id,'confirmed','confirmed_date');
         return back()->with(['success'=>'Order Status Updated Successfully']);
     }
 

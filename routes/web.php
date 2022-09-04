@@ -30,6 +30,8 @@ use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
+use App\Http\Controllers\Admin\StockHistoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -124,6 +126,8 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('product/stock',[ProductController::class,'productStock'])->name('admin#productStock');
     Route::get('product/stock/filter',[ProductController::class,'productStockFilter'])->name('admin#productStockFilter');
 
+    //stock history
+    Route::get('product/stockHistory',[StockHistoryController::class,'index'])->name('admin#stockHistory');
 
     //products variant
     Route::get('product/variant',[ProductVariantController::class,'index'])->name('admin#productVariant');

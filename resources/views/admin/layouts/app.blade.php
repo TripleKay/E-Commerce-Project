@@ -218,6 +218,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('admin#stockHistory') }}" class="nav-link {{ Request::url() == route('admin#stockHistory') ? 'active' : '' }}">
+                <i class="nav-icon fab fa-product-hunt"></i>
+              <p>
+                Stock History
+              </p>
+            </a>
+          </li>
 
           <li class="text-white nav-header text-uppercase">Manage Delivery Locations</li>
           <li class="nav-item">
@@ -405,7 +413,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 @yield('script')
 <script>
     $(document).ready(function () {
-         $('#dataTable').DataTable();
+         $('#dataTable').DataTable({
+            order: [[1, 'desc']]
+        } );
     });
 
     const Toast = Swal.mixin({
