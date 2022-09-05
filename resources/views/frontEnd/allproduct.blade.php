@@ -87,10 +87,7 @@
                                                 <div class="product-discount bg-danger">
                                                     <p class="mb-0 text-white">-{{ $percentage }}%</p>
                                                 </div>
-                                            @else
-                                                <div class="product-discount bg-dark">
-                                                    <p class="mb-0 text-white">New</p>
-                                                </div>
+                                            
                                             @endif
                                             <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
                                                 <a href="{{ route('frontend#showProduct',$item->product_id) }}" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>

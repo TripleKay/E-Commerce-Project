@@ -1,4 +1,18 @@
 @extends('frontEnd.layouts.app')
+@section('style')
+ <style>
+    .moreProductLoader{
+        display: none;
+    }
+    /* .loadMoreBtn::before{
+        content: '';
+        display: inline-block;
+        width: 100%;
+        height: 3px;
+        background-color: var(--bs-dark);
+    } */
+ </style>
+@endsection
 @section('content')
 <!-- -------------------------------banner------------------------------------  -->
 <section class=" py-4">
@@ -6,43 +20,15 @@
         <div class="row banner-container bg-white p-3 rounded mx-auto owl-carousel owl-theme">
             <a href="#" class="banner-slider position-relative item">
                 <img src="{{ asset('frontEnd/resources/image/banner2.png')}}"  class="banner-img" alt="" srcset="">
-                <!-- <div class="card bg-white p-3 border-0 banner-content position-absolute">
-                    <div class="card-body">
-                        <h3>Hello banner</h3>
-                        <p class="text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae rem possimus deserunt omnis reprehenderit.</p>
-                        <a href="" class="btn btn-dark btn-lg shadow-lg">Shop Now</a>
-                    </div>
-                </div> -->
             </a>
             <a href="#footer-section" class="banner-slider position-relative item">
                 <img src="{{ asset('frontEnd/resources/image/banner4.png')}}"  class="banner-img" class="banner-img" alt="" srcset="">
-                <!-- <div class="card bg-white p-3 border-0 banner-content position-absolute">
-                    <div class="card-body">
-                        <h3>Hello banner</h3>
-                        <p class="text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae rem possimus deserunt omnis reprehenderit.</p>
-                        <a href="" class="btn btn-dark btn-lg shadow-lg">Shop Now</a>
-                    </div>
-                </div> -->
             </a>
             <a href="#" class="banner-slider position-relative item">
                 <img src="{{ asset('frontEnd/resources/image/banner2.png')}}"  class="banner-img" class="banner-img" alt="" srcset="">
-                <!-- <div class="card bg-white p-3 border-0 banner-content position-absolute">
-                    <div class="card-body">
-                        <h3>Hello banner</h3>
-                        <p class="text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae rem possimus deserunt omnis reprehenderit.</p>
-                        <a href="" class="btn btn-dark btn-lg shadow-lg">Shop Now</a>
-                    </div>
-                </div> -->
             </a>
             <a href="#" class="banner-slider position-relative item">
                 <img src="{{ asset('frontEnd/resources/image/banner3.png')}}"  class="banner-img" class="banner-img" alt="" srcset="">
-                <!-- <div class="card bg-white p-3 border-0 banner-content position-absolute">
-                    <div class="card-body">
-                        <h3>Hello banner</h3>
-                        <p class="text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae rem possimus deserunt omnis reprehenderit.</p>
-                        <a href="" class="btn btn-dark btn-lg shadow-lg">Shop Now</a>
-                    </div>
-                </div> -->
             </a>
         </div>
     </div>
@@ -95,8 +81,12 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="d-flex justify-content-between align-items-baseline">
-                    <h4 class="mb-0 product-section-title">New Arrivals</h4>
+                <div class="mb-5">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                        <h4 class="mb-0 product-section-title bg-dark px-3 py-2 text-white rounded-top">New Product</h4>
+                        {{-- <a href="{{ route('frontend#allProduct') }}" class="btn">View All <i class="fas fa-chevron-right"></i></a> --}}
+                    </div>
+                    <div class="bg-dark" style="width: 100%;height: 2px;"></div>
                 </div>
             </div>
         </div>
@@ -124,7 +114,6 @@
                             <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
                                 <a href="{{ route('frontend#showProduct',$item->product_id) }}" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
                                 <button onclick="addToWishList({{ $item->product_id }})" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></button>
-                                {{-- <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to cart" style="width: 40px; height: 40px;"><i class="mx-auto fa fa-shopping-cart text-primary" style="font-size: 25px;"></i></a> --}}
                             </div>
                         </div>
                     <div class="card-body px-0 pb-0">
@@ -153,20 +142,23 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="d-flex justify-content-between align-items-baseline mb-5">
-                    <h4 class="mb-0 product-section-title">Just For You</h4>
-                    <a href="{{ route('frontend#allProduct') }}" class="btn btn-primary shadow-sm text-white">View All</a>
+                <div class="mb-5">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                        <h4 class="mb-0 product-section-title bg-dark px-3 py-2 text-white rounded-top">Just For You</h4>
+                        <a href="{{ route('frontend#allProduct') }}" class="btn">View All <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                    <div class="bg-dark" style="width: 100%;height: 2px;"></div>
                 </div>
             </div>
         </div>
-        <div class="row product-container mx-auto owl-carousel owl-theme">
+        <div class="row productContainer">
             <!-- -----------------------product item ------------------------------- -->
             @foreach ($products as $item)
 
-            <div class="item me-3 my-5">
-                <div class="card bg-white product-card p-3">
+            <div class="col-3">
+                <div class="card bg-white product-card p-3 mb-3">
                         <div class="product-img-container">
-                            <img src="{{ asset('uploads/products/'.$item->preview_image) }}" alt="" srcset="">
+                            <img src="{{ asset('uploads/products/'.$item->preview_image) }}" alt="" srcset="" class="d-block w-100">
                             @if (!empty($item->discount_price))
                             @php
                                 $amount = $item->discount_price / $item->selling_price;
@@ -183,7 +175,7 @@
                             <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
                                 <a href="{{ route('frontend#showProduct',$item->product_id) }}" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
                                 <button onclick="addToWishList({{ $item->product_id }})" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></button>
-                                {{-- <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to cart" style="width: 40px; height: 40px;"><i class="mx-auto fa fa-shopping-cart text-primary" style="font-size: 25px;"></i></a> --}}
+                {{-- <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to cart" style="width: 40px; height: 40px;"><i class="mx-auto fa fa-shopping-cart text-primary" style="font-size: 25px;"></i></a> --}}
                             </div>
                         </div>
                     <div class="card-body px-0 pb-0">
@@ -205,6 +197,35 @@
             <!-- -----------------------product item ------------------------------- -->
 
         </div>
+        <div class="row moreProductLoader">
+            <div class="col-12 d-flex justify-content-center align-items-center" style="min-height: 400px">
+                <div class="spinner-grow ms-2 text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow ms-2 text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <div class="spinner-grow ms-2 text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <div class="spinner-grow ms-2 text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <div class="spinner-grow ms-2 text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="mt-4 d-flex justify-content-between w-100 align-items-center">
+                    <div class="bg-dark" style="width: 100%; height: 2px;"></div>
+                    <button class="btn btn-primary text-nowrap text-white loadMoreBtn" onclick="loadMore()">Load More</button>
+                    <div class="bg-dark" style="width: 100%; height: 2px;"></div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </section>
 <!-- -------------------------------brand slider-------------------------------------  -->
@@ -222,4 +243,86 @@
     </div>
 </section>
 @endsection
+@section('script')
+<script>
+    function showDiscountBadge(discountPrice,sellingPrice){
+        let discountBadgeHtml = '';
+        if(discountPrice && discountPrice != 0){
+            //has discount
+            let amount = discountPrice / sellingPrice;
+            let percentage = parseInt(amount*100);
+            discountBadgeHtml = ` <div class="product-discount bg-danger">
+                                    <p class="mb-0 text-white">-${percentage} %</p>
+                                </div>`;
+        }
+        return discountBadgeHtml;
+    }
 
+    function showProductPrice(discountPrice,sellingPrice){
+        let productPriceHtml = '';
+        if(discountPrice && discountPrice != 0){
+            productPriceHtml = `
+                <h6 class="mb-0 text-danger">${sellingPrice - discountPrice} Ks</h6>
+                <p class="h6 mb-0 ms-2 text-black-50 text-decoration-line-through">${sellingPrice} Ks</p>
+            `;
+        }else{
+            productPriceHtml = `
+            <h6 class="mb-0 text-danger">${sellingPrice} Ks</h6>
+            `;
+        }
+        return productPriceHtml;
+    }
+
+    function loadMoreProducts(page){
+        $.ajax({
+            url: "{{ url('/') }}"+"/?page="+page,
+            method: "GET",
+            dataType: "json",
+            beforeSend:function(){
+                //show loading
+                $('.moreProductLoader').show();
+            },
+            success:function(response){
+                if(response.products.data.length){
+                    let productsHtml = '';
+                    for(let i=0; i < response.products.data.length ; i++){
+                        productsHtml += `
+                        <div class="col-3">
+                            <div class="card bg-white product-card p-3 mb-3">
+                                    <div class="product-img-container">
+                                        <img src="{{ asset('uploads/products/') }}/${response.products.data[i].preview_image}" alt="" srcset="" class="d-block w-100">
+                                        ${showDiscountBadge(response.products.data[i].discount_price,response.products.data[i].selling_price)}
+                                        <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
+                                            <a href="{{ route('frontend#showProduct','') }}/${response.products.data[i].product_id}" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
+                                            <button onclick="addToWishList(${response.products.data[i].product_id})" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></button>
+
+                                        </div>
+                                    </div>
+                                <div class="card-body px-0 pb-0">
+                                    <h5>${response.products.data[i].name}</h5>
+                                    <div class="d-flex align-items-baseline">
+                                        ${showProductPrice(response.products.data[i].discount_price,response.products.data[i].selling_price)}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    }
+                    $('.productContainer').append(productsHtml);
+                    $('.moreProductLoader').hide();
+                }else{
+                    $('.moreProductLoader').hide();
+                    $('.loadMoreBtn').hide();
+                }
+            }
+
+        });
+    }
+
+    let pageNumber = 1;
+    function loadMore(){
+        pageNumber++;
+        loadMoreProducts(pageNumber);
+    }
+</script>
+@endsection

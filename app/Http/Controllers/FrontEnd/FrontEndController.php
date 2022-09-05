@@ -13,9 +13,15 @@ use Illuminate\Http\Request;
 class FrontEndController extends Controller
 {
     //index
-    public function index(){
+    public function index(Request $request){
         $newProduct = Product::where('publish_status','1')->orderBy('product_id','desc')->limit(6)->get();
-        $products = Product::where('publish_status',1)->orderBy('product_id','desc')->get();
+        $products = Product::where('publish_status',1)->orderBy('product_id','asc')->paginate(4);
+        if($request->ajax()){
+
+            return response()->json([
+                'products' => $products
+            ]);
+        }
         $brands = Brand::get();
         $categories = Category::get();
         return view('frontEnd.index')->with([
