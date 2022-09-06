@@ -62,3 +62,13 @@ variant add
 
 stock in and out check status
 variant update
+--------------------------------------------------------------------------------------
+return product (from order delivered date within 7 days )
+
+within 7 days (show order return btn on user page)
+
+return view
+ reason , status , return request data,
+
+return
+

@@ -333,7 +333,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-
+          <li class="text-white nav-header text-uppercase">Manage Company Info</li>
+          <li class="nav-item">
+            <a href="{{ route('admin#companySetting') }}" class="nav-link {{ Request::url() == route('admin#companySetting') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Company Info
+              </p>
+            </a>
+          </li>
           <li class="text-white nav-header text-uppercase">Manage Profile</li>
           <li class="nav-item">
             <a href="{{ route('admin#editProfile') }}" class="nav-link {{ Request::url() == route('admin#editProfile') ? 'active' : '' }}">

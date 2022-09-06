@@ -13,6 +13,7 @@ use App\Http\Controllers\FrontEnd\CartController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\WishListController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CompanySettingController;
 use App\Http\Controllers\Admin\TownshipController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PaymentInfoController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\Admin\StockHistoryController;
+use App\Models\CompanySetting;
 
 /*
 |--------------------------------------------------------------------------
@@ -216,6 +218,13 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('paymentTransition',[PaymentTransitionController::class,'index'])->name('admin#paymentTransition');
     Route::get('paymentTransition/{id}',[PaymentTransitionController::class,'showPaymentTransition'])->name('admin#showPaymentTransition');
 
+    //company setting
+    Route::get('companySetting',[CompanySettingController::class,'index'])->name('admin#companySetting');
+    Route::get('companySetting/create',[CompanySettingController::class,'createCompanySetting'])->name('admin#createCompanySetting');
+    Route::post('companySetting/store',[CompanySettingController::class,'storeCompanySetting'])->name('admin#storeCompanySetting');
+    Route::get('companySetting/edit/{id}',[CompanySettingController::class,'editCompanySetting'])->name('admin#editCompanySetting');
+    Route::post('companySetting/edit/{id}',[CompanySettingController::class,'updateCompanySetting'])->name('admin#updateCompanySetting');
+    Route::get('companySetting/delete/{id}',[CompanySettingController::class,'deleteCompanySetting'])->name('admin#deleteCompanySetting');
 
 });
 
