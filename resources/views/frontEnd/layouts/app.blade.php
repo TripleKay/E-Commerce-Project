@@ -15,7 +15,10 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
      {{-- custom css  --}}
     <link rel="stylesheet" href="{{ asset('frontEnd/resources/css/style.css')}}">
-    <title>E-Market</title>
+    @php
+        $companyInfo = App\Models\CompanySetting::orderBy('id','desc')->first();
+    @endphp
+    <title>{{ $companyInfo->company_name}}</title>
 
     <style>
         .autoCompleteSearch .searchOverlay{
@@ -39,6 +42,7 @@
     </style>
     @yield('style')
 </head>
+
 <body>
      <!-- -------------------------------PreLoader------------------------------------  -->
      <!-- <div class="d-flex justify-content-center align-items-center bg-primary vw-100 vh-100 position-fixed loader-container">
@@ -55,11 +59,11 @@
                             <div class="d-flex">
                                 <div class="d-flex me-3 align-items-center">
                                     <i class="fa-solid fa-envelope"></i>
-                                    <p class="mb-0 ms-2">example@gmail.com</p>
+                                    <p class="mb-0 ms-2">{{ $companyInfo->email}}</p>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <i class="fa-solid fa-phone"></i>
-                                    <p class="mb-0 ms-2">+95 9912 3456 789</p>
+                                    <p class="mb-0 ms-2">{{ $companyInfo->phone_one }}</p>
                                 </div>
                             </div>
                             <div class="d-flex">
@@ -82,7 +86,7 @@
                             <button class="text-white btn d-block d-sm-block d-md-none mobile-menu"><i class="fa-solid fa-bars" style="font-size: 25px ;"></i></button>
                             <!-- mobile menu btn  -->
                             <a href="{{ route('frontend#index') }}" class="p-0 btn">
-                                <h3 class="mb-0 text-white logo">E-Market</h3>
+                                <h3 class="mb-0 text-white logo">{{ $companyInfo->company_name }}</h3>
                             </a>
 
                             <div class="position-relative autoCompleteSearch">
@@ -335,19 +339,24 @@
             <div class="row">
                 <div class="col-4">
                     <div class="footer-box">
-                        <!-- <h5 class="mb-4">ABOUT US</h5> -->
-                        <h3 class="mb-4 text-primary">E-Market</h3>
+                        <h3 class="mb-4 text-primary">{{ $companyInfo->company_name }}</h3>
                         <p class="mb-3 text-black-50 me-2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates numquam ad consequunturesse.</p>
                         <div class="d-flex">
-                            <div class="me-3 d-flex align-items-center justify-content-center bg-dark rounded-circle " style="width: 40px ; height: 40px; ">
+                            @if ($companyInfo->facebook)
+                            <a href="{{ $companyInfo->facebook }}" class="text-decoration-none me-3 d-flex align-items-center justify-content-center bg-dark rounded-circle " style="width: 40px ; height: 40px; ">
                                 <i class="text-white fa-brands fa-facebook"></i>
-                            </div>
-                            <div class="me-3 d-flex align-items-center justify-content-center bg-dark rounded-circle " style="width: 40px ; height: 40px; ">
+                            </a>
+                            @endif
+                            @if ($companyInfo->youtube)
+                            <a href="{{ $companyInfo->youtube }}" class=" text-decoration-none me-3 d-flex align-items-center justify-content-center bg-dark rounded-circle" style="width: 40px ; height: 40px; ">
                                 <i class="text-white fa-brands fa-youtube"></i>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-center bg-dark rounded-circle " style="width: 40px ; height: 40px; ">
-                                <i class="text-white fa-brands fa-instagram"></i>
-                            </div>
+                            </a>
+                            @endif
+                            @if ($companyInfo->linkedin)
+                            <a href="{{ $companyInfo->linkedin }}" class=" text-decoration-none d-flex align-items-center justify-content-center bg-dark rounded-circle" style="width: 40px ; height: 40px; ">
+                                <i class="text-white fa-brands fa-linkedin"></i>
+                            </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -367,18 +376,18 @@
                         <h5 class="mb-4">CONTACT US</h5>
                         <div class="mb-3 d-flex align-items-center">
                             <i class="text-white fa-solid fa-map-location-dot bg-dark" style="font-size: 20px; padding: 10px;"></i>
-                            <p class="mb-0 ms-3">Yangon,Myanmar</p>
+                            <p class="mb-0 ms-3">{{ $companyInfo->address}}</p>
                         </div>
                         <div class="mb-3 d-flex align-items-center">
                             <i class="text-white fa-solid fa-phone bg-dark" style="font-size: 20px; padding: 10px;"></i>
                             <div class="">
-                                <p class="mb-0 ms-3">+95 9123 4567 89</p>
-                                <p class="mb-0 ms-3">+95 9123 4567 89</p>
+                                <p class="mb-0 ms-3">{{ $companyInfo->phone_one }}</p>
+                                <p class="mb-0 ms-3">{{ $companyInfo->phone_two }}</p>
                             </div>
                         </div>
                         <div class="mb-3 d-flex align-items-center">
                             <i class="text-white fa-solid fa-envelope bg-dark" style="font-size: 20px; padding: 10px;"></i>
-                            <p class="mb-0 ms-3">example@gmail.com</p>
+                            <p class="mb-0 ms-3">{{ $companyInfo->email }}</p>
                         </div>
                     </div>
                 </div>

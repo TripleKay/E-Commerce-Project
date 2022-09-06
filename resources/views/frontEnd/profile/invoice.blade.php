@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Invoice</title>
+<title>Invoice : {{ $order->invoice_number }}</title>
 
 <style type="text/css">
     * {
@@ -36,19 +36,21 @@
 
 </head>
 <body>
-
+@php
+    $companyInfo = App\Models\CompanySetting::orderBy('id','desc')->first();
+@endphp
   <table width="100%" style="background: #F7F7F7; padding:0 20px 0 20px;">
     <tr>
         <td valign="top">
           <!-- {{-- <img src="" alt="" width="150"/> --}} -->
-          <h2 style="color: #9381FF; font-size: 26px;"><strong>E-Market</strong></h2>
+          <h2 style="color: #9381FF; font-size: 26px;"><strong>{{ $companyInfo->company_name }}</strong></h2>
         </td>
         <td align="right">
             <div class="font" style="margin-top: 10px">
-              <p>Website: www.example.com </p>
-              <p>Email: example@gmail.com</p>
-              <p>Phone: 09123456789</p>
-              <p>Address: Yangon,Myanmar</p>
+              <p>Website: www.{{$companyInfo->company_name}}.com </p>
+              <p>Email: {{ $companyInfo->email }}</p>
+              <p>Phone: {{ $companyInfo->phone_one }}</p>
+              <p>Address: {{ $companyInfo->address }}</p>
           </div>
           </td>
     </tr>

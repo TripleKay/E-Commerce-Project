@@ -7,7 +7,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>E-Commerce</title>
+  @php
+      $companyInfo = App\Models\CompanySetting::orderBy('id','desc')->first();
+  @endphp
+  <title>{{$companyInfo->company_name}}</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -121,8 +124,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <aside class="main-sidebar sidebar-light-white elevation-4">
     <!-- Brand Logo -->
     <a href="{{route('frontend#index')}}" class="brand-link">
-      {{-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-      <span class="text-white brand-text font-weight-bold">E-Market</span>
+      <img src="{{ asset('uploads/logo/'.$companyInfo->logo) }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-1" style="opacity: 1;">
+      <span class="text-white brand-text font-weight-bold">{{$companyInfo->company_name}}</span>
     </a>
 
     <!-- Sidebar -->

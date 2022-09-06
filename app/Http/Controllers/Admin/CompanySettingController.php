@@ -14,7 +14,7 @@ class   CompanySettingController extends Controller
 {
     //index
     public function index(){
-        $data = CompanySetting::get();
+        $data = CompanySetting::orderBy('id','desc')->get();
         return view('admin.companySetting.index')->with(['data'=>$data]);
     }
 
