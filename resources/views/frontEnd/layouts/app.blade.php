@@ -44,10 +44,7 @@
 </head>
 
 <body>
-     <!-- -------------------------------PreLoader------------------------------------  -->
-     <!-- <div class="d-flex justify-content-center align-items-center bg-primary vw-100 vh-100 position-fixed loader-container">
-        <div class="loader">Loading...</div>
-    </div> -->
+    @yield('preLoader')
     <!-- -------------------------------header-------------------------------------  -->
     <header class="">
         <!-- -------------------------------header1-------------------------------------  -->
@@ -90,12 +87,10 @@
                             </a>
 
                             <div class="position-relative autoCompleteSearch">
-                                {{-- <form action="" class=""> --}}
                                     <div class="p-1 bg-white d-none d-sm-none d-md-flex rounded-pill header-search-bar">
                                         <input type="search" class="border-0 searchInput form-control" placeholder="search product....">
                                         <button class="text-white btn btn-primary">Search</button>
                                     </div>
-                                {{-- </form> --}}
                                 {{-- search overlay box   --}}
                                 <div class="mt-2 border-0 shadow searchOverlay card position-absolute" style="left: 0; right: 0; z-index: 2000; border-radius: 15px; background-color: ##F8F7FF;">
                                     <div class="card-body resultProduct">
@@ -127,29 +122,6 @@
                                         @endif
                                     </div>
                                 </a>
-                                {{-- <div class="border-0 shadow-lg cart-overlay card bg-primary position-absolute" style="top: 100%; bottom: 0; right: 0; width: 300px; z-index: 2000;">
-                                    <div class="p-1 card-body">
-                                        <div class="mb-1 card cart-item">
-                                            <div class="p-1 card-body d-flex justify-content-between align-items-center">
-                                                <img src="{{ asset('frontEnd/resources/image/product1.jpg') }}" alt="" srcset="" style="width: 80px; height: 80px">
-                                                <div class="">
-                                                    <p class="mb-0">Apple Watch</p>
-                                                    <span>8 items</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-1 card cart-item">
-                                            <div class="p-1 card-body d-flex justify-content-between align-items-center">
-                                                <img src="{{ asset('frontEnd/resources/image/product1.jpg') }}" alt="" srcset="" style="width: 80px; height: 80px">
-                                                <div class="">
-                                                    <p class="mb-0">Apple Watch</p>
-                                                    <span>8 items</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a href="" class="text-white btn btn-primary w-100">View All</a>
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -170,12 +142,10 @@
                                     <ul class="nav d-flex align-items-center nav-bar">
                                         <!-- for mobile  -->
                                         <li class="mobile-search-bar d-md-none position-relative autoCompleteSearch">
-                                            {{-- <form action="" class="px-2 py-3"> --}}
                                                 <div class="p-1 rounded d-flex bg-primary" style="border: 1px solid #fff; ">
                                                     <button class="m-0 text-white btn rounded-circle"><i class="fas fa-search"></i></button>
                                                     <input type="text"  class="text-white bg-transparent border-0 mobileSearchInput form-control ms-0" placeholder="search .....">
                                                 </div>
-                                            {{-- </form> --}}
                                             {{-- search overlay box   --}}
                                                 <div class="mt-2 border-0 shadow searchOverlay card position-relative" style="left: 0; right: 0; z-index: 2000; border-radius: 15px; background-color: ##F8F7FF;">
                                                     <div class="card-body resultProduct">
@@ -183,6 +153,9 @@
                                                     </div>
                                                 </div>
                                         </li>
+                                        @php
+                                            $categories = App\Models\Category::with('subCategory','subCategory.subsubCategory')->get()->toArray();
+                                        @endphp
                                         <li class="nav-item cat-nav-item">
                                             <!-- all category btn  -->
                                             <div class="shadow dropdown me-3 cat-dropdown">
@@ -192,35 +165,26 @@
                                                 <!-- all category container  -->
                                                 <ul class="shadow-lg dropdown-menu" aria-labelledby="category-btn" style="width: 100%; border-radius: 0px 0px 10px 10px">
                                                     <!-- -------------main cat item-----------------  -->
-                                                    @php
-                                                    $categories = App\Models\Category::get();
-                                                    @endphp
                                                     @foreach ($categories as $cat)
-                                                        @php
-                                                            $subcategories = App\Models\SubCategory::where('category_id',$cat->category_id)->get();
-                                                        @endphp
                                                         <li class="cat-item">
                                                             <div class="py-2 my-1 d-flex align-items-center justify-content-between dropdown-item">
-                                                                <a href="{{ route('frontend#catProduct',$cat->category_id) }}" class="" >{{ $cat->name }}</a>
-                                                                <i class="fa-solid fa-angle-right d-none {{ $subcategories->count() == 0 ? 'd-md-none' : 'd-md-inline-block' }}"></i>
+                                                                <a href="{{ route('frontend#catProduct',$cat['category_id']) }}" class="" >{{ $cat['name'] }}</a>
+                                                                <i class="fa-solid fa-angle-right d-none {{ !$cat['sub_category'] ? 'd-md-none' : 'd-md-inline-block' }}"></i>
                                                             </div>
                                                             <!-- sub cat container  -->
-                                                            @if (!$subcategories->count() == 0)
+                                                            @if ($cat['sub_category'])
                                                                 <div class="card subcat-container " >
                                                                     <div class="card-body">
                                                                     <!-- sub cat item  -->
                                                                     <div class="row">
-                                                                        @foreach ($subcategories as $subcat)
+                                                                        @foreach ($cat['sub_category'] as $subcat)
                                                                         <div class="col-6">
-                                                                                <a href="{{ route('frontend#subcatProduct',$subcat->subcategory_id) }}" class="dropdown-item"><h6>{{$subcat->name}}</h6></a>
+                                                                                <a href="{{ route('frontend#subcatProduct',$subcat['subcategory_id']) }}" class="dropdown-item"><h6>{{$subcat['name']}}</h6></a>
                                                                                 <div class="px-3 mb-3 d-flex flex-column">
-                                                                                    @php
-                                                                                        $subsubcategories = App\Models\SubSubCategory::where('subcategory_id',$subcat->subcategory_id)->get();
-                                                                                    @endphp
-                                                                                    @foreach ($subsubcategories as $subsubcat)
+                                                                                    @foreach ($subcat['subsub_category'] as $subsubcat)
                                                                                         <div class="d-flex align-items-center">
                                                                                             <div class="bg-black rounded-circle" style="width:5px ; height: 5px;"></div>
-                                                                                            <a href="{{ route('frontend#subsubcatProduct',$subsubcat->subsubcategory_id) }}" class="btn text-start dropdown-item">{{ $subsubcat->name}}</a>
+                                                                                            <a href="{{ route('frontend#subsubcatProduct',$subsubcat['subsubcategory_id']) }}" class="btn text-start dropdown-item">{{ $subsubcat['name']}}</a>
                                                                                         </div>
                                                                                     @endforeach
                                                                                 </div>

@@ -4,20 +4,19 @@
     .moreProductLoader{
         display: none;
     }
-    /* .loadMoreBtn::before{
-        content: '';
-        display: inline-block;
-        width: 100%;
-        height: 3px;
-        background-color: var(--bs-dark);
-    } */
  </style>
+@endsection
+@section('preLoader')
+<!-- -------------------------------PreLoader------------------------------------  -->
+<div class="d-flex justify-content-center align-items-center bg-primary vw-100 vh-100 position-fixed loader-container">
+    <div class="loader">Loading...</div>
+</div>
 @endsection
 @section('content')
 <!-- -------------------------------banner------------------------------------  -->
-<section class=" py-4">
+<section class="py-4 ">
     <div class="container">
-        <div class="row banner-container bg-white p-3 rounded mx-auto owl-carousel owl-theme">
+        <div class="p-3 mx-auto bg-white rounded row banner-container owl-carousel owl-theme">
             <a href="#" class="banner-slider position-relative item">
                 <img src="{{ asset('frontEnd/resources/image/banner2.png')}}"  class="banner-img" alt="" srcset="">
             </a>
@@ -39,36 +38,36 @@
         <div class="row">
             <!-- category box  -->
             <div class="col-4 col-md-3">
-                <div class="card cat-box mb-3 mb-sm-3 mb-md-0">
+                <div class="mb-3 card cat-box mb-sm-3 mb-md-0">
                     <img src="resources/image/cat1.png" class="cat-img" alt="" srcset="">
-                    <div class="cat-title p-3">
+                    <div class="p-3 cat-title">
                         <h5 class="text-white">Electronics</h5>
                     </div>
                 </div>
             </div>
             <!-- category box  -->
             <div class="col-4 col-md-3">
-                <div class="card cat-box mb-3 mb-sm-3 mb-md-0">
+                <div class="mb-3 card cat-box mb-sm-3 mb-md-0">
                     <img src="resources/image/cat2.png" class="cat-img" alt="" srcset="">
-                    <div class="cat-title p-3">
+                    <div class="p-3 cat-title">
                         <h5 class="text-white">Home & Lifestyle</h5>
                     </div>
                 </div>
             </div>
             <!-- category box  -->
             <div class="col-4 col-md-3">
-                <div class="card cat-box mb-3 mb-sm-3 mb-md-0">
+                <div class="mb-3 card cat-box mb-sm-3 mb-md-0">
                     <img src="resources/image/home-banner1.jpg" class="cat-img" alt="" srcset="">
-                    <div class="cat-title p-3">
+                    <div class="p-3 cat-title">
                         <h5 class="text-white">Fashion</h5>
                     </div>
                 </div>
             </div>
             <!-- category box  -->
             <div class="col-4 col-md-3">
-                <div class="card cat-box mb-3 mb-sm-3 mb-md-0">
+                <div class="mb-3 card cat-box mb-sm-3 mb-md-0">
                     <img src="resources/image/home-2-banner-3.jpg" class="cat-img" alt="" srcset="">
-                    <div class="cat-title p-3">
+                    <div class="p-3 cat-title">
                         <h5 class="text-white">Organics</h5>
                     </div>
                 </div>
@@ -83,19 +82,19 @@
             <div class="col-12">
                 <div class="mb-5">
                     <div class="d-flex justify-content-between align-items-baseline">
-                        <h4 class="mb-0 product-section-title bg-dark px-3 py-2 text-white rounded-top">New Product</h4>
+                        <h4 class="px-3 py-2 mb-0 text-white product-section-title bg-dark rounded-top">New Product</h4>
                         {{-- <a href="{{ route('frontend#allProduct') }}" class="btn">View All <i class="fas fa-chevron-right"></i></a> --}}
                     </div>
                     <div class="bg-dark" style="width: 100%;height: 2px;"></div>
                 </div>
             </div>
         </div>
-        <div class="row product-container mx-auto owl-carousel owl-theme">
+        <div class="mx-auto row product-container owl-carousel owl-theme">
             <!-- -----------------------product item ------------------------------- -->
             @foreach ($newProduct as $item)
 
-            <div class="item me-3 my-5">
-                <div class="card bg-white product-card p-3">
+            <div class="my-5 item me-3">
+                <div class="p-3 bg-white card product-card">
                         <div class="product-img-container">
                             <img src="{{ asset('uploads/products/'.$item->preview_image) }}" alt="" srcset="">
                             @if (!empty($item->discount_price))
@@ -111,12 +110,12 @@
                                     <p class="mb-0 text-white">New</p>
                                 </div>
                             @endif
-                            <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
-                                <a href="{{ route('frontend#showProduct',$item->product_id) }}" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
-                                <button onclick="addToWishList({{ $item->product_id }})" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></button>
+                            <div class="py-2 d-flex product-overlay justify-content-center align-items-center">
+                                <a href="{{ route('frontend#showProduct',$item->product_id) }}" class="px-1 mx-3 shadow btn btn-light" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
+                                <button onclick="addToWishList({{ $item->product_id }})" class="px-1 mx-3 shadow btn btn-light" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></button>
                             </div>
                         </div>
-                    <div class="card-body px-0 pb-0">
+                    <div class="px-0 pb-0 card-body">
                         <h5>{{ $item->name }}</h5>
                         <div class="d-flex align-items-baseline">
                             @if (!empty($item->discount_price))
@@ -125,7 +124,7 @@
                                 <h6 class="mb-0 text-danger">{{ $item->selling_price }} Ks</h6>
                             @endif
                             @if (!empty($item->discount_price))
-                                <p class="h6 mb-0 ms-2 text-black-50 text-decoration-line-through">{{ $item->selling_price }} Ks</p>
+                                <p class="mb-0 h6 ms-2 text-black-50 text-decoration-line-through">{{ $item->selling_price }} Ks</p>
                             @endif
                         </div>
                     </div>
@@ -144,7 +143,7 @@
             <div class="col-12">
                 <div class="mb-5">
                     <div class="d-flex justify-content-between align-items-baseline">
-                        <h4 class="mb-0 product-section-title bg-dark px-3 py-2 text-white rounded-top">Just For You</h4>
+                        <h4 class="px-3 py-2 mb-0 text-white product-section-title bg-dark rounded-top">Just For You</h4>
                         <a href="{{ route('frontend#allProduct') }}" class="btn">View All <i class="fas fa-chevron-right"></i></a>
                     </div>
                     <div class="bg-dark" style="width: 100%;height: 2px;"></div>
@@ -156,7 +155,7 @@
             @foreach ($products as $item)
 
             <div class="col-3">
-                <div class="card bg-white product-card p-3 mb-3">
+                <div class="p-3 mb-3 bg-white card product-card">
                         <div class="product-img-container">
                             <img src="{{ asset('uploads/products/'.$item->preview_image) }}" alt="" srcset="" class="d-block w-100">
                             @if (!empty($item->discount_price))
@@ -172,13 +171,13 @@
                                     <p class="mb-0 text-white">New</p>
                                 </div>
                             @endif
-                            <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
-                                <a href="{{ route('frontend#showProduct',$item->product_id) }}" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
-                                <button onclick="addToWishList({{ $item->product_id }})" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></button>
-                {{-- <a href="" class="btn btn-light mx-3 px-1 shadow" title="add to cart" style="width: 40px; height: 40px;"><i class="mx-auto fa fa-shopping-cart text-primary" style="font-size: 25px;"></i></a> --}}
+                            <div class="py-2 d-flex product-overlay justify-content-center align-items-center">
+                                <a href="{{ route('frontend#showProduct',$item->product_id) }}" class="px-1 mx-3 shadow btn btn-light" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
+                                <button onclick="addToWishList({{ $item->product_id }})" class="px-1 mx-3 shadow btn btn-light" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></button>
+                {{-- <a href="" class="px-1 mx-3 shadow btn btn-light" title="add to cart" style="width: 40px; height: 40px;"><i class="mx-auto fa fa-shopping-cart text-primary" style="font-size: 25px;"></i></a> --}}
                             </div>
                         </div>
-                    <div class="card-body px-0 pb-0">
+                    <div class="px-0 pb-0 card-body">
                         <h5>{{ $item->name }}</h5>
                         <div class="d-flex align-items-baseline">
                             @if (!empty($item->discount_price))
@@ -187,7 +186,7 @@
                                 <h6 class="mb-0 text-danger">{{ $item->selling_price }} Ks</h6>
                             @endif
                             @if (!empty($item->discount_price))
-                                <p class="h6 mb-0 ms-2 text-black-50 text-decoration-line-through">{{ $item->selling_price }} Ks</p>
+                                <p class="mb-0 h6 ms-2 text-black-50 text-decoration-line-through">{{ $item->selling_price }} Ks</p>
                             @endif
                         </div>
                     </div>
@@ -220,7 +219,7 @@
             <div class="col-12">
                 <div class="mt-4 d-flex justify-content-between w-100 align-items-center">
                     <div class="bg-dark" style="width: 100%; height: 2px;"></div>
-                    <button class="btn btn-primary text-nowrap text-white loadMoreBtn" onclick="loadMore()">Load More</button>
+                    <button class="text-white btn btn-primary text-nowrap loadMoreBtn" onclick="loadMore()">Load More</button>
                     <div class="bg-dark" style="width: 100%; height: 2px;"></div>
                 </div>
 
@@ -232,10 +231,10 @@
 <section class="">
     <div class="container">
         <div class="row">
-            <div class="row brand-container bg-white my-5 mx-auto owl-carousel owl-theme py-3" style="border-radius: 10px">
+            <div class="py-3 mx-auto my-5 bg-white row brand-container owl-carousel owl-theme" style="border-radius: 10px">
                 @foreach ($brands as $item)
                     <div class="item">
-                        <img src="{{ asset('uploads/brands/'.$item->image) }}" class="brand-img mx-auto" alt="" srcset="">
+                        <img src="{{ asset('uploads/brands/'.$item->image) }}" class="mx-auto brand-img" alt="" srcset="">
                     </div>
                 @endforeach
             </div>
@@ -263,7 +262,7 @@
         if(discountPrice && discountPrice != 0){
             productPriceHtml = `
                 <h6 class="mb-0 text-danger">${sellingPrice - discountPrice} Ks</h6>
-                <p class="h6 mb-0 ms-2 text-black-50 text-decoration-line-through">${sellingPrice} Ks</p>
+                <p class="mb-0 h6 ms-2 text-black-50 text-decoration-line-through">${sellingPrice} Ks</p>
             `;
         }else{
             productPriceHtml = `
@@ -288,17 +287,17 @@
                     for(let i=0; i < response.products.data.length ; i++){
                         productsHtml += `
                         <div class="col-3">
-                            <div class="card bg-white product-card p-3 mb-3">
+                            <div class="p-3 mb-3 bg-white card product-card">
                                     <div class="product-img-container">
                                         <img src="{{ asset('uploads/products/') }}/${response.products.data[i].preview_image}" alt="" srcset="" class="d-block w-100">
                                         ${showDiscountBadge(response.products.data[i].discount_price,response.products.data[i].selling_price)}
-                                        <div class="d-flex product-overlay py-2 justify-content-center align-items-center">
-                                            <a href="{{ route('frontend#showProduct','') }}/${response.products.data[i].product_id}" class="btn btn-light mx-3 px-1 shadow" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
-                                            <button onclick="addToWishList(${response.products.data[i].product_id})" class="btn btn-light mx-3 px-1 shadow" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></button>
+                                        <div class="py-2 d-flex product-overlay justify-content-center align-items-center">
+                                            <a href="{{ route('frontend#showProduct','') }}/${response.products.data[i].product_id}" class="px-1 mx-3 shadow btn btn-light" title="view details" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-eye text-info" style="font-size: 25px;"></i></a>
+                                            <button onclick="addToWishList(${response.products.data[i].product_id})" class="px-1 mx-3 shadow btn btn-light" title="add to wishlists" style="width: 40px; height: 40px;"><i class="mx-auto fas fa-heart text-danger" style="font-size: 25px;"></i></button>
 
                                         </div>
                                     </div>
-                                <div class="card-body px-0 pb-0">
+                                <div class="px-0 pb-0 card-body">
                                     <h5>${response.products.data[i].name}</h5>
                                     <div class="d-flex align-items-baseline">
                                         ${showProductPrice(response.products.data[i].discount_price,response.products.data[i].selling_price)}
@@ -312,7 +311,8 @@
                     $('.moreProductLoader').hide();
                 }else{
                     $('.moreProductLoader').hide();
-                    $('.loadMoreBtn').hide();
+                    $('.loadMoreBtn').text('No More Products To Show!');
+                    $('.loadMoreBtn').prop('disabled', true);
                 }
             }
 

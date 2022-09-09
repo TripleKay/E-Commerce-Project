@@ -23,12 +23,10 @@ class FrontEndController extends Controller
             ]);
         }
         $brands = Brand::get();
-        $categories = Category::get();
         return view('frontEnd.index')->with([
             'products'=>$products,
             'newProduct'=>$newProduct,
             'brands'=>$brands,
-            'categories' => $categories,
         ]);
     }
 
