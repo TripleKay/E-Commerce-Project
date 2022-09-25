@@ -85,13 +85,90 @@
             </div>
         </div>
     </div>
-
+    <div class="pb-4 row">
+        <div class="col-6">
+            <div class="rounded card" style="box-shadow: none !important">
+                <div class="card-header">
+                   <div class="my-1 d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0">Best Sale Products</h5>
+                   </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="bg-primary text-nowrap">
+                              <tr>
+                                <th>#</th>
+                                <th>Product Image</th>
+                                <th>Name</th>
+                                <th>Total Sales</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($topProducts as $item)
+                                    <tr>
+                                        <td>{{ $item->product_id }}</td>
+                                        <td>
+                                            <img src="{{ asset('uploads/products').'/'.$item->preview_image }}" class="rounded shadow-sm" alt="" srcset="" style="width: 50px; height: 50px;">
+                                        </td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->total_sales }} Ks</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="rounded card" style="box-shadow: none !important">
+                <div class="card-header">
+                   <div class="my-1 d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0">Top Customers</h5>
+                   </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="bg-primary text-nowrap">
+                              <tr>
+                                <th>#</th>
+                                <th>Customer Image</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Total Sales</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($topCustomers as $item)
+                                    <tr>
+                                        <td>{{ $item->id }}</td>
+                                        <th>
+                                            @if (!empty($item->profile_photo_path))
+                                                <img src="{{ asset('/uploads/user/'.$item->profile_photo_path) }}" class="rounded shadow"  alt="" srcset="" style="width: 40px; height: 40px;">
+                                            @else
+                                                <img src="{{ asset('frontEnd/resources/image/user-default.png') }}" class="bg-white rounded shadow"  alt="" srcset="" style="width: 40px; height: 40px;">
+                                            @endif
+                                        </th>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->total_sales }} Ks</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <div class="pb-4 row">
     <div class="col-12">
         <div class="rounded card" style="box-shadow: none !important">
             <div class="card-header">
                <div class="my-1 d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0">Products less than 5 Stocks</h4>
+                    <h5 class="mb-0">Products less than 5 Stocks</h5>
                </div>
             </div>
             <div class="card-body">

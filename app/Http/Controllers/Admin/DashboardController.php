@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\ProductVariant;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\ProductVariant;
 
 class DashboardController extends Controller
 {
@@ -33,6 +34,21 @@ class DashboardController extends Controller
             $salesByMonth[$month-1] = $totalSales[$index];
         }
 
-        return view('admin.dashboard')->with(['data'=>$data,'salesByMonth'=>$salesByMonth]);
+        $topProducts = Product::
+                        select('products.*', DB::raw('SUM(order_items.total_price) as total_sales'))
+                        ->join('order_items','products.product_id','order_items.product_id')
+                        ->groupBy('order_items.product_id')
+                        ->orderBy('total_sales','desc')
+                        ->limit(5)
+                        ->get();
+        $topCustomers = User::select('users.*',DB::raw('SUM(orders.grand_total) as total_sales'))
+                        ->join('orders','orders.user_id','users.id')
+                        ->groupBy('users.id')
+                        ->orderBy('total_sales','desc')
+                        ->limit(5)
+                        ->get();
+                        // dd($topUsers->toArray());
+
+        return view('admin.dashboard')->with(['data'=>$data,'salesByMonth'=>$salesByMonth,'topProducts'=> $topProducts,'topCustomers'=>$topCustomers]);
     }
 }
