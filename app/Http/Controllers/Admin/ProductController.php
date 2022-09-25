@@ -107,7 +107,7 @@ class ProductController extends Controller
         StockHistory::create([
             'product_id'=>$productId,
             'product_variant_id' => $productVariantId,
-            'quantity' => $variantData['avaiStock'],
+            'quantity' => $variantData['available_stock'],
             'note' => 'new product added',
             'type' => 'in',
             'created_at' => Carbon::now(),

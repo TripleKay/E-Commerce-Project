@@ -10,6 +10,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   @php
       $companyInfo = App\Models\CompanySetting::orderBy('id','desc')->first();
   @endphp
+  <!-- App favicon -->
+  <link rel="shortcut icon" href="{{ asset('uploads/logo/'.$companyInfo->logo) }}">
+  
   <title>{{$companyInfo->company_name}}</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -124,7 +127,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <aside class="main-sidebar sidebar-light-white elevation-4">
     <!-- Brand Logo -->
     <a href="{{route('frontend#index')}}" class="brand-link">
-      <img src="{{ asset('uploads/logo/'.$companyInfo->logo) }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-1" style="opacity: 1;">
+      <img src="{{ asset('uploads/logo/'.$companyInfo->logo) }}" alt="AdminLTE Logo" class="bg-white brand-image img-circle elevation-1" style="opacity: 1;">
       <span class="text-white brand-text font-weight-bold">{{$companyInfo->company_name}}</span>
     </a>
 

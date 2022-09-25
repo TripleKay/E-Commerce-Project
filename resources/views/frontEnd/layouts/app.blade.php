@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    @php
+        $companyInfo = App\Models\CompanySetting::orderBy('id','desc')->first();
+    @endphp
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{{ asset('uploads/logo/'.$companyInfo->logo) }}">
+
     <link rel="stylesheet" href="{{ asset('frontEnd/node_modules/@fortawesome/fontawesome-free/css/all.min.css')}}" >
     <!-- <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="{{ asset('frontEnd/node_modules/owl.carousel/dist/assets/owl.carousel.min.css')}}" >
@@ -15,9 +21,7 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
      {{-- custom css  --}}
     <link rel="stylesheet" href="{{ asset('frontEnd/resources/css/style.css')}}">
-    @php
-        $companyInfo = App\Models\CompanySetting::orderBy('id','desc')->first();
-    @endphp
+
     <title>{{ $companyInfo->company_name}}</title>
 
     <style>
@@ -82,7 +86,8 @@
                             <!-- mobile menu btn  -->
                             <button class="text-white btn d-block d-sm-block d-md-none mobile-menu"><i class="fa-solid fa-bars" style="font-size: 25px ;"></i></button>
                             <!-- mobile menu btn  -->
-                            <a href="{{ route('frontend#index') }}" class="p-0 btn">
+                            <a href="{{ route('frontend#index') }}" class="p-0 btn d-flex">
+                                <img src="{{ asset('uploads/logo/'.$companyInfo->logo) }}" alt="{{ $companyInfo->logo }}" class="bg-white rounded-circle me-2" style="width: 40px ;">
                                 <h3 class="mb-0 text-white logo">{{ $companyInfo->company_name }}</h3>
                             </a>
 
