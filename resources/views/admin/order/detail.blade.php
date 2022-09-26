@@ -255,6 +255,7 @@
             </div>
         </div>
     </div>
+    @if ($order->payment_method != 'cos')
     <div class="col-12">
         <div class="my-3 shadow-none card">
             <div class="bg-transparent card-header">
@@ -295,6 +296,7 @@
             </div>
         </div>
     </div>
+    @endif
 
 </div>
 @endsection

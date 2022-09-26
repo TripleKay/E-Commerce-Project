@@ -6,6 +6,7 @@ use App\Http\Middleware\AdminCheckMiddleware;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CashOnDeliveryController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductController;
@@ -225,6 +226,14 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('companySetting/edit/{id}',[CompanySettingController::class,'editCompanySetting'])->name('admin#editCompanySetting');
     Route::post('companySetting/edit/{id}',[CompanySettingController::class,'updateCompanySetting'])->name('admin#updateCompanySetting');
     Route::get('companySetting/delete/{id}',[CompanySettingController::class,'deleteCompanySetting'])->name('admin#deleteCompanySetting');
+
+    //cash on delivery
+    Route::get('cashOnDelivery',[CashOnDeliveryController::class,'index'])->name('admin#cos');
+    Route::post('cashOnDelivery/create',[CashOnDeliveryController::class,'store'])->name('admin#storeCos');
+    Route::get('cashOnDelivery/edit/{id}',[CashOnDeliveryController::class,'edit'])->name('admin#editCos');
+    Route::post('cashOnDelivery/edit/{id}',[CashOnDeliveryController::class,'update'])->name('admin#updateCos');
+    Route::get('cashOnDelivery/delete/{id}',[CashOnDeliveryController::class,'delete'])->name('admin#deleteCos');
+    Route::post('cashOnDelivery/getTownship',[CashOnDeliveryController::class,'getTownship'])->name('admin#getTownship');
 
 });
 

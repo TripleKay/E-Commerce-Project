@@ -12,7 +12,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   @endphp
   <!-- App favicon -->
   <link rel="shortcut icon" href="{{ asset('uploads/logo/'.$companyInfo->logo) }}">
-  
+
   <title>{{$companyInfo->company_name}}</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -255,6 +255,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <i class="nav-icon fas fa-map-marker-alt"></i>
               <p>
                 Township
+              </p>
+            </a>
+          </li>
+          <li class="text-white nav-header text-uppercase">Manage COS Locations</li>
+          <li class="nav-item">
+            <a href="{{ route('admin#cos') }}" class="nav-link {{ Request::url() == route('admin#cos') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-map-marker-alt"></i>
+              <p>
+                Cash on Delivery
               </p>
             </a>
           </li>

@@ -77,7 +77,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">City</label>
-                                                <select name="cityId" id="" class="cityOption form-control" disabled>
+                                                <select name="cityId" id="" class="cityOption form-control" disabled required>
                                                     <option value="">----Select City----</option>
                                                 </select>
                                                 @error('cityId')
@@ -86,7 +86,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Township</label>
-                                                <select name="townshipId" id="" class="townshipOption form-control" disabled>
+                                                <select name="townshipId" id="" class="townshipOption form-control" disabled required>
                                                     <option value="">----Select Township----</option>
                                                 </select>
                                                 @error('townshipId')
@@ -121,6 +121,16 @@
                                                             <label class="form-check-label" for="flexRadioDefault2">
                                                                 <img src="{{ asset('frontEnd/resources/image/warvemoney.png') }}" alt="" srcset="" class="rounded" style="width: 60px">
                                                                 <span class="ms-2">Wave Money</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="form-check" style="">
+                                                        <div class="p-1">
+                                                            <input class="form-check-input" name="paymentMethod" value="cos" type="radio" id="flexRadioDefault3">
+                                                            <label class="form-check-label" for="flexRadioDefault3">
+                                                                <img src="https://e7.pngegg.com/pngimages/510/354/png-clipart-food-indian-cuisine-bangladeshi-cuisine-devops-dubai-cash-on-delivery-text-logo.png" alt="" srcset="" class="rounded" style="width: 60px">
+                                                                <span class="ms-2">Cash on Delivery</span>
                                                             </label>
                                                         </div>
                                                     </div>
@@ -299,7 +309,7 @@
                     $('.cityOpiton').html('<option>-----Loading-----</option>');
                 },
                 success:function(response){
-                    let cityHtml = "<option>-----Select City-----</option>";
+                    let cityHtml = '<option  value="">-----Select City-----</option>';
                     for(let i= 0; i < response.cities.length; i++){
                         cityHtml += `<option value="${response.cities[i].city_id}">${response.cities[i].name}</option>`;
                     };
@@ -324,7 +334,7 @@
                     $('.townshipOpiton').html('<option>-----Loading-----</option>');
                 },
                 success:function(response){
-                    let townshipHtml = "<option>-----Select Township-----</option>";
+                    let townshipHtml = '<option value="">-----Select Township-----</option>';
                     for(let i= 0; i < response.townships.length; i++){
                         townshipHtml += `<option value="${response.townships[i].township_id}">${response.townships[i].name}</option>`;
                     };

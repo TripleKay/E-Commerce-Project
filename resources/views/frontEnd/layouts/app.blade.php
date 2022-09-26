@@ -458,8 +458,9 @@
         @endif
         @if (Session::has('error'))
             Swal.fire({
-                        icon: 'error',
-                        title: "{{ Session::get('error') }}",
+                        icon: 'info',
+                        // title: "{{ Session::get('error') }}",
+                        text: '{{ Session::get('error') }}',
                     })
         @endif
         @if (Session::has('orderSuccess'))
@@ -538,8 +539,8 @@
                     success:function(response){
                         if(response.error){
                             Swal.fire({
-                                icon: 'error',
-                                title: response.error,
+                                icon: 'info',
+                                text: response.error,
                             });
                         }else{
                             let headerCartBoxHtml = `
@@ -586,13 +587,13 @@
                     success:function(response){
                         if(response.error){
                             Swal.fire({
-                                icon: 'error',
-                                title: response.error,
+                                icon: 'info',
+                                text: response.error,
                             });
                         }else{
                             Toast.fire({
                                 icon: 'success',
-                                title: response.success,
+                                text: response.success,
                             });
                         }
                     }

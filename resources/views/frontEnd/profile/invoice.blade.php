@@ -75,7 +75,11 @@
             <p><strong>Invoice Number:</strong>{{ $order->invoice_number }}</p>
             <p><strong>Order Date:</strong>{{ $order->order_date }}</p>
             <p><strong>Payment Method:</strong>{{ $order->payment_method }}</p>
-            <p><strong>Payment Status:</strong>{{ $order->confirmed_date == null ? '-----' : 'Paid' }}</p>
+            @if ($order->payment_method == 'cos')
+                <p><strong>Payment Status:</strong>{{ $order->confirmed_date == null ? 'pending' : 'No Paid' }}</p>
+            @else
+                <p><strong>Payment Status:</strong>{{ $order->confirmed_date == null ? 'pending' : 'Paid' }}</p>
+            @endif
          </div>
         </td>
     </tr>
