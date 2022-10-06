@@ -2,63 +2,41 @@
 
 namespace App\Http\Controllers\User;
 
+use Exception;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\OrderItem;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\CashOnDelivery;
 use App\Models\PaymentInfo;
+use Illuminate\Http\Request;
+use App\Models\CashOnDelivery;
 use App\Models\PaymentTransition;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\UserOrderNotification;
 use Illuminate\Support\Facades\Notification;
+use App\Http\Requests\User\CreateOrderRequest;
+use App\Http\Requests\User\ConfirmPaymentRequest;
+use App\Http\Requests\User\TrackOrderRequest;
 
 class OrderController extends Controller
 {
     //track order by invoice
-    public function trackOrder(Request $request){
-
-        $validation = Validator::make($request->all(),[
-            'invoiceNumber'=> 'required',
-        ]);
-        if($validation->fails()){
-            return back()->with(['error'=>'Invoice code must be requird']);
-        }
-
-        $order = Order::select('*')->where('invoice_number',$request->invoiceNumber)->withCount('orderItem')->first();
-        if($order){
-            return view('frontEnd.orderTracking')->with(['order'=>$order]);
-        }else{
+    public function trackOrder(TrackOrderRequest $request){
+        $order = Order::where('invoice_number',$request->invoiceNumber)->exists();
+        if(!$order){
             return back()->with(['error'=>'Your invoice code is Invalid']);
         }
+        return view('frontEnd.orderTracking')->with(['order'=>$order]);
     }
 
     //create
-    public function createOrder(Request $request){
+    public function createOrder(CreateOrderRequest $request){
         //empty cart checking
-        if(Session::has('cart')){
-            if(count(Session::get('cart')) == 0){
-                return back()->with(['error'=>'Your cart is empty!']);
-            }
-        }else{
+        if(Session::has('cart') && count(Session::get('cart')) == 0){
             return back()->with(['error'=>'Your cart is empty!']);
-        }
-        //validation
-        $validation = Validator::make($request->all(),[
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'stateDivisionId' => 'required',
-            'cityId' => 'required',
-            'townshipId' => 'required',
-            'address' => 'required',
-            'paymentMethod' => 'required',
-        ]);
-        if($validation->fails()){
-            return back()->withErrors($validation)->withInput();
         }
 
         //cash on delivery
@@ -94,43 +72,33 @@ class OrderController extends Controller
 
 
     //confirm payment
-    public function confirmPayment(Request $request){
-        $validation = Validator::make($request->all(),[
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'stateDivisionId' => 'required',
-            'cityId' => 'required',
-            'townshipId' => 'required',
-            'address' => 'required',
-            'paymentMethod' => 'required',
-            'paymentScreenshot' => 'required',
-            'paymentInfoId' => 'required',
-        ]);
-        if($validation->fails()){
-            return back()->withErrors($validation)->withInput();
+    public function confirmPayment(ConfirmPaymentRequest $request){
+
+        DB::beginTransaction();
+
+        try {
+             //insert data to order table
+            $order = Order::create($this->getOrderData($request));
+
+            //insert data to order items table
+            OrderItem::insert($this->getOrderItemsData($request,$order->order_id));
+
+            //insert data to payment_transitions
+            PaymentTransition::create($this->getPaymentTransitionData($request,$order->order_id));
+
+            DB::commit();
+
+            // all good
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with(['error'=> $e->getMessage()]);
         }
-
-         //insert data to order table and order items table
-        $orderId = $this->insertOrderData($request);
-
-        //insert data to payment_transitions
-        $paymentData = [
-            'order_id' => $orderId,
-            'payment_info_id' => $request->paymentInfoId,
-            'created_at' => Carbon::now(),
-        ];
-        $ssFile = $request->file('paymentScreenshot');
-        $ssFileName = uniqid().'-'.$ssFile->getClientOriginalName();
-        $ssFile->move(public_path().'/uploads/payment/',$ssFileName);
-        $paymentData['payment_screenshot'] = $ssFileName;
-        PaymentTransition::create($paymentData);
 
         //all session destroy
         $this->destroySessionData();
 
         //new order notify to admin
-        $this->notifyToAdmin($orderId,'placed a new order');
+        $this->notifyToAdmin($order->order_id,'placed a new order');
 
         return redirect()->route('user#myOrder')->with(['orderSuccess'=>'Order successfully']);
     }
@@ -142,9 +110,9 @@ class OrderController extends Controller
         Session::forget('subTotal');
     }
 
-    //insert order data to ( order table and orderitems table )
-    private function insertOrderData($request){
-        //insert data to order table
+    //get data to order table
+    private function getOrderData($request){
+
         $data = [
             'user_id' => auth()->user()->id,
             'name' => $request->name,
@@ -174,26 +142,43 @@ class OrderController extends Controller
               $data['grand_total'] = Session::get('subTotal');
           }
 
-          $orderId = Order::insertGetId($data);
-
-          //insert data to order items
-          $carts = Session::get('cart');
-          foreach($carts as $key => $cart){
-              OrderItem::create([
-                  'order_id' => $orderId,
-                  'product_id' => $cart['product_id'],
-                  'product_variant_id' => $key,
-                  'color_id' => $cart['colorId'] ,
-                  'size_id' => $cart['sizeId'] ,
-                  'unit_price' => $cart['price'],
-                  'quantity'=> $cart['quantity'],
-                  'total_price' => $cart['price'] * $cart['quantity'],
-              ]);
-          }
-
-          return $orderId;
+          return $data;
     }
 
+    //get data to order items
+    private function getOrderItemsData($request,$orderId){
+
+          $carts = Session::get('cart');
+          foreach($carts as $key => $cart){
+                $orderItem = [
+                    'order_id' => $orderId,
+                    'product_id' => $cart['product_id'],
+                    'product_variant_id' => $key,
+                    'color_id' => $cart['colorId'] ,
+                    'size_id' => $cart['sizeId'] ,
+                    'unit_price' => $cart['price'],
+                    'quantity'=> $cart['quantity'],
+                    'total_price' => $cart['price'] * $cart['quantity'],
+                ];
+                $orderItems[] = $orderItem;
+          }
+          return $orderItems;
+    }
+
+    //get payment data
+    private function getPaymentTransitionData($request,$orderId){
+        $paymentData = [
+            'order_id' => $orderId,
+            'payment_info_id' => $request->paymentInfoId,
+            'created_at' => Carbon::now(),
+        ];
+        $ssFile = $request->file('paymentScreenshot');
+        $ssFileName = uniqid().'-'.$ssFile->getClientOriginalName();
+        $ssFile->move(public_path().'/uploads/payment/',$ssFileName);
+        $paymentData['payment_screenshot'] = $ssFileName;
+
+        return $paymentData;
+    }
 
     //order notify to admin
     private function notifyToAdmin($orderId,$message){
@@ -204,5 +189,6 @@ class OrderController extends Controller
         //notify to all admin
         $admin = User::where('role','admin')->get();
         Notification::send($admin, new UserOrderNotification($data));
-    }
+
+   }
 }
