@@ -112,9 +112,10 @@ class ProfileController extends Controller
 
     //order detail
     public function orderDetail($id){
-        $order = Order::where('order_id',$id)->with(['stateDivision','city','township'])->first();
-        $orderItems = OrderItem::where('order_id',$id)->with(['product','color','size'])->get();
-        return view('frontEnd.profile.orderDetail')->with(['order'=>$order,'orderItems'=>$orderItems]);
+        $order = Order::scopeOrderField()->where('order_id',$id)->first();
+        dd($order);
+        // $orderItems = OrderItem::where('order_id',$id)->with(['product','color','size'])->get();
+        return view('frontEnd.profile.orderDetail')->with(['order'=>$order]);
     }
 
     //download invoice

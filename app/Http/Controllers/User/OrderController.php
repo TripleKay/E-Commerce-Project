@@ -14,7 +14,6 @@ use App\Models\PaymentTransition;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 use App\Notifications\UserOrderNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\User\CreateOrderRequest;
@@ -23,6 +22,8 @@ use App\Http\Requests\User\TrackOrderRequest;
 
 class OrderController extends Controller
 {
+    private $orderId;
+
     //track order by invoice
     public function trackOrder(TrackOrderRequest $request){
         $order = Order::where('invoice_number',$request->invoiceNumber)->exists();
@@ -35,7 +36,7 @@ class OrderController extends Controller
     //create
     public function createOrder(CreateOrderRequest $request){
         //empty cart checking
-        if(Session::has('cart') && count(Session::get('cart')) == 0){
+        if((Session::has('cart') && count(Session::get('cart')) == 0) || !Session::has('cart')){
             return back()->with(['error'=>'Your cart is empty!']);
         }
 
@@ -48,13 +49,28 @@ class OrderController extends Controller
             }
 
             //insert data to order table and order items table
-            $orderId = $this->insertOrderData($request);
+            DB::beginTransaction();
+
+            try {
+                //insert data to order table
+                $order = Order::create($this->getOrderData($request));
+                $this->orderId = $order->orderId;
+                //insert data to order items table
+                OrderItem::insert($this->getOrderItemsData());
+
+                DB::commit();
+
+                // all good
+            } catch (Exception $e) {
+                DB::rollback();
+                return redirect()->back()->with(['error'=> $e->getMessage()]);
+            }
 
             //all session destroy
             $this->destroySessionData();
 
             //new order notify to admin
-            $this->notifyToAdmin($orderId,'placed a new order');
+            $this->notifyToAdmin('placed a new order');
 
             return redirect()->route('user#myOrder')->with(['orderSuccess'=>'Order successfully']);
 
@@ -79,12 +95,12 @@ class OrderController extends Controller
         try {
              //insert data to order table
             $order = Order::create($this->getOrderData($request));
-
+            $this->orderId = $order->id;
             //insert data to order items table
-            OrderItem::insert($this->getOrderItemsData($request,$order->order_id));
+            OrderItem::insert($this->getOrderItemsData());
 
             //insert data to payment_transitions
-            PaymentTransition::create($this->getPaymentTransitionData($request,$order->order_id));
+            PaymentTransition::create($this->getPaymentTransitionData($request,$order->id));
 
             DB::commit();
 
@@ -98,7 +114,7 @@ class OrderController extends Controller
         $this->destroySessionData();
 
         //new order notify to admin
-        $this->notifyToAdmin($order->order_id,'placed a new order');
+        $this->notifyToAdmin($order->id,'placed a new order');
 
         return redirect()->route('user#myOrder')->with(['orderSuccess'=>'Order successfully']);
     }
@@ -127,10 +143,10 @@ class OrderController extends Controller
             'sub_total' => Session::get('subTotal'),
             'invoice_number' => 'MYSHOP'.'-'.mt_rand(10000000,99999999),
             'order_date' => Carbon::now()->format('d F Y'),
-             'order_month' => Carbon::now()->format('F'),
-             'order_year' => Carbon::now()->format('Y'),
-             'status' => 'pending',
-             'created_at' => Carbon::now(),
+            'order_month' => Carbon::now()->format('F'),
+            'order_year' => Carbon::now()->format('Y'),
+            'status' => 'pending',
+            'created_at' => Carbon::now(),
           ];
 
           if(Session::has('coupon')){
@@ -146,12 +162,12 @@ class OrderController extends Controller
     }
 
     //get data to order items
-    private function getOrderItemsData($request,$orderId){
+    private function getOrderItemsData(){
 
           $carts = Session::get('cart');
           foreach($carts as $key => $cart){
                 $orderItem = [
-                    'order_id' => $orderId,
+                    'order_id' => $this->orderId,
                     'product_id' => $cart['product_id'],
                     'product_variant_id' => $key,
                     'color_id' => $cart['colorId'] ,
@@ -181,9 +197,9 @@ class OrderController extends Controller
     }
 
     //order notify to admin
-    private function notifyToAdmin($orderId,$message){
+    private function notifyToAdmin($message){
         //notification
-        $data = Order::where('order_id',$orderId)->with('user')->first();
+        $data = Order::where('order_id',$this->orderId)->with('user')->first();
         $data->message = $message;
 
         //notify to all admin

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\User;
 
+use App\Models\Order;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateOrderRequest extends FormRequest
@@ -23,15 +24,7 @@ class CreateOrderRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-            'stateDivisionId' => 'required',
-            'cityId' => 'required',
-            'townshipId' => 'required',
-            'address' => 'required',
-            'paymentMethod' => 'required|in:cos,wave,kpay',
-        ];
+        $rules = Order::VALIDATION_RULES;
+        return $rules;
     }
 }

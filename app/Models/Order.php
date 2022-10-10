@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Order extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'order_id',
         'user_id',
@@ -41,6 +42,18 @@ class Order extends Model
         'return_reason',
         'status'
     ];
+
+    public const VALIDATION_RULES = [
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'stateDivisionId' => 'required',
+            'cityId' => 'required',
+            'townshipId' => 'required',
+            'address' => 'required',
+            'paymentMethod' => 'required|in:cos,wave,kpay',
+    ];
+
     public function user(){
         return $this->belongsTo(User::class,'user_id','id');
     }
@@ -60,5 +73,10 @@ class Order extends Model
 
     public function paymentTransition(){
         return $this->hasOne(PaymentTransition::class,'order_id','order_id');
+    }
+
+    public function scopeOrderFields($query){
+        $query->select('state_divisions:name')
+                ->with(['stateDivision','city','township','orderItems','orderItems.product','orderItems.color','orderItems.size']);
     }
 }

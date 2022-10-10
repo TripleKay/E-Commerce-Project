@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\User;
 
+use App\Models\Order;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ConfirmPaymentRequest extends FormRequest
@@ -23,16 +24,8 @@ class ConfirmPaymentRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-            'stateDivisionId' => 'required',
-            'cityId' => 'required',
-            'townshipId' => 'required',
-            'address' => 'required',
-            'paymentScreenshot' => 'required',
-            'paymentMethod' => 'required|in:cos,wave,kpay',
-        ];
+        $rules = Order::VALIDATION_RULES;
+        $rules['paymentScreenshot'] = 'required';
+        return $rules;
     }
 }
